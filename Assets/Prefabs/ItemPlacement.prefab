@@ -95,6 +95,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01b7fa7137897be49ad2646d7a193ca4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canPlace: 1
+  rotationSnap: 15
+  rotationMinDistance: 0.1
   canPlaceColor: {r: 1, g: 1, b: 1, a: 0.3137255}
   cantPlaceColor: {r: 0.5754717, g: 0.2258455, b: 0.2258455, a: 0.3137255}
+  item: {fileID: 0}
+  canPlace: 1
+  rotate: 0

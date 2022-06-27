@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ItemPlacement : MonoBehaviour
 {
+    public float rotationSnap = 15;
+    public float rotationMinDistance = 0.1f;
     public Color canPlaceColor;
     public Color cantPlaceColor;
     [HideInInspector]
@@ -27,18 +29,27 @@ public class ItemPlacement : MonoBehaviour
 
     private void Update()
     {
-        var worldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        worldPosition.z = 0;
+        spriteRenderer.color = canPlace ? canPlaceColor : cantPlaceColor;
+
+        var mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        mousePosition.z = 0;
 
         if (rotate)
         {
-            transform.LookAt(worldPosition);
+            var deltaPosition = transform.position - mousePosition;
+
+            if (deltaPosition.magnitude < rotationMinDistance)
+            {
+                return;
+            }
+
+            var angleToMouse = Mathf.Atan2(deltaPosition.y, deltaPosition.x) * Mathf.Rad2Deg;
+            angleToMouse = Mathf.Round(angleToMouse / rotationSnap) * rotationSnap;
+            transform.rotation = Quaternion.Euler(0, 0, angleToMouse);
         }
         else
         {
-            transform.position = worldPosition;
+            transform.position = mousePosition;
         }
-
-        spriteRenderer.color = canPlace ? canPlaceColor : cantPlaceColor;
     }
 }

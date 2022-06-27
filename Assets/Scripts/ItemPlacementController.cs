@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.EventSystems;
 
 public class ItemPlacementController : MonoBehaviour
 {
@@ -13,6 +14,11 @@ public class ItemPlacementController : MonoBehaviour
 
     private void Update()
     {
+        if (EventSystem.current.IsPointerOverGameObject())
+        {
+            return;
+        }
+
         if (currentItemPlacement == null)
         {
             return;
@@ -25,10 +31,10 @@ public class ItemPlacementController : MonoBehaviour
             Cancel();
         }
 
-        //if (Input.GetMouseButtonUp(0))
-        //{
-        //    Place();
-        //}
+        if (Input.GetMouseButtonUp(0))
+        {
+            Place();
+        }
     }
 
     public void Select(InventoryItem item)
@@ -42,11 +48,6 @@ public class ItemPlacementController : MonoBehaviour
         currentItemPlacement.item = item;
     }
 
-    public void Rotate()
-    {
-        
-    }
-
     public void Place()
     {
         if (currentItemPlacement == null)
@@ -55,7 +56,7 @@ public class ItemPlacementController : MonoBehaviour
         }
 
         var item = Instantiate(currentItemPlacement.item.prefab);
-        item.transform.position = currentItemPlacement.transform.position;
+        item.transform.SetPositionAndRotation(currentItemPlacement.transform.position, currentItemPlacement.transform.rotation);
 
         Destroy(currentItemPlacement.gameObject);
         
