@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class InventoryUI : MonoBehaviour
@@ -11,6 +12,8 @@ public class InventoryUI : MonoBehaviour
     private void Start()
     {
         inventory.onChanged.AddListener(OnInventoryChanged);
+
+        OnInventoryChanged();
     }
 
     private void OnInventoryChanged()
@@ -28,5 +31,7 @@ public class InventoryUI : MonoBehaviour
             inventoryItemUI.transform.SetParent(transform);
             inventoryItemUI.Setup(item.item, item.quantity);
         }
+
+        gameObject.SetActive(items.Any());
     }
 }
