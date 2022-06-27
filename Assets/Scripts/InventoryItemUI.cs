@@ -11,6 +11,8 @@ public class InventoryItemUI : MonoBehaviour
 
     [SerializeField]
     private TMP_Text quantity;
+    [SerializeField]
+    private TMP_Text title;
     private Image icon;
     private Button button;
 
@@ -28,6 +30,7 @@ public class InventoryItemUI : MonoBehaviour
     public void Setup(InventoryItem item, int quantity)
     {
         icon.sprite = item.icon;
+        title.text = item.title;
         this.quantity.text = quantity.ToString();
     }
 }

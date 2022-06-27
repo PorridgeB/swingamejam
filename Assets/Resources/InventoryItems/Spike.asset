@@ -15,4 +15,4 @@ MonoBehaviour:
   title: Spike
   description: 
   icon: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  prefab: {fileID: 0}
+  prefab: {fileID: 810488375153789642, guid: d2f1dc56ee81c7f4b8742fc059b2a45e, type: 3}
