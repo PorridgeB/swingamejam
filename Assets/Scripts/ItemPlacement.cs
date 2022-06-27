@@ -10,6 +10,8 @@ public class ItemPlacement : MonoBehaviour
     public InventoryItem item;
     [HideInInspector]
     public bool canPlace = true;
+    [HideInInspector]
+    public bool rotate = false;
 
     private SpriteRenderer spriteRenderer;
 
@@ -27,7 +29,15 @@ public class ItemPlacement : MonoBehaviour
     {
         var worldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         worldPosition.z = 0;
-        transform.position = worldPosition;
+
+        if (rotate)
+        {
+            transform.LookAt(worldPosition);
+        }
+        else
+        {
+            transform.position = worldPosition;
+        }
 
         spriteRenderer.color = canPlace ? canPlaceColor : cantPlaceColor;
     }

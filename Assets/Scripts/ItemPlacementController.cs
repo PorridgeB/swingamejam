@@ -13,15 +13,22 @@ public class ItemPlacementController : MonoBehaviour
 
     private void Update()
     {
+        if (currentItemPlacement == null)
+        {
+            return;
+        }
+
+        currentItemPlacement.rotate = Input.GetMouseButton(0);
+
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             Cancel();
         }
 
-        if (Input.GetMouseButtonDown(0))
-        {
-            Place();
-        }
+        //if (Input.GetMouseButtonUp(0))
+        //{
+        //    Place();
+        //}
     }
 
     public void Select(InventoryItem item)
@@ -33,6 +40,11 @@ public class ItemPlacementController : MonoBehaviour
 
         currentItemPlacement = Instantiate(itemPlacementPrefab).GetComponent<ItemPlacement>();
         currentItemPlacement.item = item;
+    }
+
+    public void Rotate()
+    {
+        
     }
 
     public void Place()
