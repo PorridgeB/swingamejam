@@ -25,10 +25,15 @@ public class ItemPlacement : MonoBehaviour
     private void Start()
     {
         spriteRenderer.sprite = item.icon;
+        
+        // Stop the sprite from appearing at the origin for a frame before "Update()"
+        spriteRenderer.enabled = false;
     }
 
     private void Update()
     {
+        spriteRenderer.enabled = true;
+
         spriteRenderer.color = canPlace ? canPlaceColor : cantPlaceColor;
 
         var mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
