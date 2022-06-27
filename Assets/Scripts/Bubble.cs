@@ -6,6 +6,8 @@ public class Bubble : MonoBehaviour
 {
     [SerializeField] private float steeringForce;
     [SerializeField] private Transform target;
+    [SerializeField] public int hp;
+    // need to add iframe timer
 
     // Start is called before the first frame update
     void Start()
@@ -18,6 +20,11 @@ public class Bubble : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        if(hp <= 0)
+        {
+            Destroy(gameObject);
+        }
+
         transform.position += (target.position - transform.position).normalized *steeringForce;
     }
 
