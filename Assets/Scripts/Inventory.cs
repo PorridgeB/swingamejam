@@ -31,6 +31,11 @@ public class Inventory : MonoBehaviour
 
     public void RemoveItem(InventoryItem item)
     {
+        if (!items.ContainsKey(item) || items[item] == 0)
+        {
+            return;
+        }
+
         items[item]--;
 
         onChanged.Invoke();

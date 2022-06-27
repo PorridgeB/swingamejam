@@ -2,9 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class InventoryUI : MonoBehaviour
 {
+    public UnityEvent<InventoryItem> onItemPressed;
+
     public Inventory inventory;
     [SerializeField]
     private GameObject inventoryItemUIPrefab;
@@ -30,6 +33,7 @@ public class InventoryUI : MonoBehaviour
             var inventoryItemUI = Instantiate(inventoryItemUIPrefab).GetComponent<InventoryItemUI>();
             inventoryItemUI.transform.SetParent(transform);
             inventoryItemUI.Setup(item.item, item.quantity);
+            inventoryItemUI.onPressed.AddListener(() => onItemPressed.Invoke(item.item));
         }
 
         gameObject.SetActive(items.Any());

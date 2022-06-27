@@ -2,17 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class InventoryItemUI : MonoBehaviour
 {
+    public UnityEvent onPressed;
+
     [SerializeField]
     private TMP_Text quantity;
     private Image icon;
+    private Button button;
 
     private void Awake()
     {
         icon = GetComponent<Image>();
+        button = GetComponent<Button>();
+    }
+
+    private void Start()
+    {
+        button.onClick.AddListener(() => onPressed.Invoke());
     }
 
     public void Setup(InventoryItem item, int quantity)
