@@ -12,11 +12,12 @@ public class Bubble : MonoBehaviour
     [SerializeField] private int hp;
     [SerializeField] private bool spawnBubblesOnDeath;
     [SerializeField] private GameObject babyBubblePrefab;
+    private bool damageable;
 
     private void Start()
     {
         WindController.blow += Move;
-
+        damageable = true;
         target = GameObject.Find("Base").transform;
     }
 
@@ -24,19 +25,17 @@ public class Bubble : MonoBehaviour
     {
         if (hp <= 0)
         {
-            int i = 0;
             int bubbleSpawnAmt = 3;
             Destroy(gameObject);
             if (spawnBubblesOnDeath)
             {
-                while(i < bubbleSpawnAmt)
+                for(int i = 0; i < bubbleSpawnAmt; i++)
                 {
                     // choose new random location near bubble
-
                     // create baby bubble
                     Debug.Log("baby bubble created");
-                    Instantiate(babyBubblePrefab, gameObject.transform);
-                    i++;
+                    Vector2 pos = new Vector2(gameObject.transform.position.x, gameObject.transform.position.y);
+                    Instantiate(babyBubblePrefab, pos, new Quaternion());
                 }
             }
         }
@@ -55,7 +54,10 @@ public class Bubble : MonoBehaviour
 
     public void TakeDamage(int DmgAmount)
     {
-        Debug.Log("Hp: " + hp);
-        hp -= DmgAmount;
+        if (damageable)
+        {
+            Debug.Log("Hp: " + hp);
+            hp -= DmgAmount;
+        }
     }
 }

@@ -138,7 +138,7 @@ MonoBehaviour:
   speedMultiplier: 1
   steeringForce: 0.02
   target: {fileID: 0}
-  hp: 1
+  hp: 100
   spawnBubblesOnDeath: 0
   babyBubblePrefab: {fileID: 0}
 --- !u!58 &5234283806998133699
