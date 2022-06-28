@@ -10,7 +10,8 @@ public class Bubble : MonoBehaviour
     [SerializeField] private float steeringForce;
     [SerializeField] private Transform target;
     [SerializeField] private int hp;
-    // need to add iframe timer
+    [SerializeField] private bool spawnBubblesOnDeath;
+    [SerializeField] private GameObject babyBubblePrefab;
 
     private void Start()
     {
@@ -23,7 +24,21 @@ public class Bubble : MonoBehaviour
     {
         if (hp <= 0)
         {
+            int i = 0;
+            int bubbleSpawnAmt = 3;
             Destroy(gameObject);
+            if (spawnBubblesOnDeath)
+            {
+                while(i < bubbleSpawnAmt)
+                {
+                    // choose new random location near bubble
+
+                    // create baby bubble
+                    Debug.Log("baby bubble created");
+                    Instantiate(babyBubblePrefab, gameObject.transform);
+                    i++;
+                }
+            }
         }
 
         var velocity = (target.position - transform.position).normalized * steeringForce;
