@@ -11,6 +11,8 @@ public class Health : MonoBehaviour
     [HideInInspector]
     public float health;
 
+    public float percentage => Mathf.Clamp01(health / maxHealth);
+
     private void Start()
     {
         health = maxHealth;
