@@ -137,4 +137,4 @@ MonoBehaviour:
   speedMultiplier: 1
   steeringForce: 0.01
   target: {fileID: 0}
-  hp: 100
+  hp: 3
