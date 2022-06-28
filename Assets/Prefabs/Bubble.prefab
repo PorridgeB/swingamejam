@@ -101,7 +101,7 @@ MonoBehaviour:
   stickForceInfluence: 1
   windForceInfluence: 3
   baseSeekingForceInflucence: 4
-  maxSpeed: 1.25
+  maxSpeed: 1
   target: {fileID: 0}
   hp: 3
   spawnBubblesOnDeath: 0
