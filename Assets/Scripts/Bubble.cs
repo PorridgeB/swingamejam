@@ -71,17 +71,17 @@ public class Bubble : MonoBehaviour
         rb.AddForce(WindController.instance.direction * WindController.instance.strength * windForceInfluence);
 
         // Base
-        rb.AddForce((target.position - transform.position).normalized * baseSeekingForceInflucence);
+        rb.drag = 1;
+        rb.AddForce(FindDesiredDirection());
+        SpreadOut();
 
         //var velocity = (target.position - transform.position).normalized * steeringForce;
         //transform.position += velocity * speedMultiplier;
         //speedMultiplier = 1;
 
-        rb.velocity = Vector3.ClampMagnitude(GetComponent<Rigidbody>().velocity, maxSpeed);
+        rb.velocity = Vector3.ClampMagnitude(GetComponent<Rigidbody2D>().velocity, maxSpeed);
 
-        rb.drag = 0;
-        rb.AddForce(FindDesiredDirection());
-        SpreadOut();
+        
     }
 
     private Vector2 FindDesiredDirection()
