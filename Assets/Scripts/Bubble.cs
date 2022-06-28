@@ -35,6 +35,7 @@ public class Bubble : MonoBehaviour
 
     public void TakeDamage(int DmgAmount)
     {
+        Debug.Log("Hp: " + hp);
         hp -= DmgAmount;
     }
 }
