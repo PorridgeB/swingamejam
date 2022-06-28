@@ -22,4 +22,9 @@ public class WaveManager : MonoBehaviour
             wave.Add(bubble.gameObject);
         }
     }
+
+    private void Update()
+    {
+        wave.RemoveAll(x => x == null);
+    }
 }
