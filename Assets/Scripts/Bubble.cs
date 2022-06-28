@@ -47,7 +47,9 @@ public class Bubble : MonoBehaviour
                     // create baby bubble
                     //Debug.Log("baby bubble created");
                     Vector2 pos = new Vector2(gameObject.transform.position.x, gameObject.transform.position.y);
-                    GameObject newBubble = Instantiate(babyBubblePrefab, pos, Quaternion.Euler(0, 0, Random.Range(0, 360)));
+                    GameObject newBubble = Instantiate(babyBubblePrefab, 
+                        new Vector2(pos.x + Random.Range(-0.5f, 0.5f), pos.y + Random.Range(-0.5f, 0.5f)), 
+                        Quaternion.Euler(0, 0, Random.Range(0, 360)));
                     //Rigidbody2D rb = newBubble.GetComponent<Rigidbody2D>();
                     //rb.AddForce(Vector2.right * 100000, ForceMode2D.Impulse);
                     
