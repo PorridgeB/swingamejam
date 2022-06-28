@@ -23,27 +23,30 @@ public class Bubble : MonoBehaviour
 
     private void FixedUpdate()
     {
+        //on death
         if (hp <= 0)
         {
             int bubbleSpawnAmt = 3;
-            Destroy(gameObject);
+            //spawn baby bubbles
             if (spawnBubblesOnDeath)
             {
                 for(int i = 0; i < bubbleSpawnAmt; i++)
                 {
                     // choose new random location near bubble
                     // create baby bubble
-                    Debug.Log("baby bubble created");
+                    //Debug.Log("baby bubble created");
                     Vector2 pos = new Vector2(gameObject.transform.position.x, gameObject.transform.position.y);
-                    Instantiate(babyBubblePrefab, pos, new Quaternion());
+                    GameObject newBubble = Instantiate(babyBubblePrefab, pos, Quaternion.Euler(0, 0, Random.Range(0, 360)));
+                    //Rigidbody2D rb = newBubble.GetComponent<Rigidbody2D>();
+                    //rb.AddForce(Vector2.right * 100000, ForceMode2D.Impulse);
+                    
                 }
             }
+            Destroy(gameObject);
         }
-
+        //bubble movement
         var velocity = (target.position - transform.position).normalized * steeringForce;
-
         transform.position += velocity * speedMultiplier;
-
         speedMultiplier = 1;
     }
 
@@ -56,7 +59,7 @@ public class Bubble : MonoBehaviour
     {
         if (damageable)
         {
-            Debug.Log("Hp: " + hp);
+            //Debug.Log("Hp: " + hp);
             hp -= DmgAmount;
         }
     }

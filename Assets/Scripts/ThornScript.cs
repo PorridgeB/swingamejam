@@ -31,14 +31,14 @@ public class ThornScript : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collider)
     {
-        Debug.Log("Current time: " + Time.timeSinceLevelLoad);
-        Debug.Log("cooldown: " + dmgLastTime + dmgTimeCooldown);
+        //Debug.Log("Current time: " + Time.timeSinceLevelLoad);
+        //Debug.Log("cooldown: " + dmgLastTime + dmgTimeCooldown);
         if (collider.gameObject.CompareTag("Bubble"))
         {
             
             if (Time.timeSinceLevelLoad > dmgLastTime + dmgTimeCooldown)
             {
-                Debug.Log("bubble takes damage");
+                //Debug.Log("bubble takes damage");
                 Bubble script = collider.gameObject.GetComponent<Bubble>();
                 script.TakeDamage(1);
                 dmgLastTime = Time.timeSinceLevelLoad;
