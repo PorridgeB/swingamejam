@@ -75,7 +75,7 @@ public class Bubble : MonoBehaviour
         //transform.position += velocity * speedMultiplier;
         //speedMultiplier = 1;
 
-        rb.velocity = Vector3.ClampMagnitude(rigidbody.velocity, maxSpeed);
+        rb.velocity = Vector3.ClampMagnitude(GetComponent<Rigidbody>().velocity, maxSpeed);
 
         rb.drag = 0;
         rb.AddForce(FindDesiredDirection());

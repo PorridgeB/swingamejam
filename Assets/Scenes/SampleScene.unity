@@ -251,6 +251,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnPool:
   - {fileID: 6056004441052727516, guid: cfb111dc82f67ed448ac2aea8d5f7449, type: 3}
+  - {fileID: 6056004441052727516, guid: 8315fb2eb9e6e454f9c08931a64e0bff, type: 3}
   spawnCount: 5
   spawnField: {fileID: 824085276}
 --- !u!4 &408100122
