@@ -4,31 +4,36 @@ using UnityEngine;
 
 public class Bubble : MonoBehaviour
 {
+    // Controls the speed of the bubble, and is reset to 1 at the end of every fixed-update.
+    public float speedMultiplier = 1;
+
     [SerializeField] private float steeringForce;
     [SerializeField] private Transform target;
     [SerializeField] private int hp;
     // need to add iframe timer
 
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         WindController.blow += Move;
 
         target = GameObject.Find("Base").transform;
     }
 
-    // Update is called once per frame
-    void FixedUpdate()
+    private void FixedUpdate()
     {
-        if(hp <= 0)
+        if (hp <= 0)
         {
             Destroy(gameObject);
         }
 
-        transform.position += (target.position - transform.position).normalized *steeringForce;
+        var velocity = (target.position - transform.position).normalized * steeringForce;
+
+        transform.position += velocity * speedMultiplier;
+
+        speedMultiplier = 1;
     }
 
-    void Move(Vector3 force)
+    private void Move(Vector3 force)
     {
         transform.position += force;
     }
