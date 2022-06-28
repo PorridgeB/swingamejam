@@ -140,11 +140,11 @@ MonoBehaviour:
   stickForceInfluence: 1
   windForceInfluence: 3
   baseSeekingForceInflucence: 4
-  maxSpeed: 1.25
+  maxSpeed: 1
   target: {fileID: 0}
   hp: 3
-  steeringForce: 0.2
-  target: {fileID: 0}
+  spawnBubblesOnDeath: 0
+  babyBubblePrefab: {fileID: 0}
   bubbleColor:
     serializedVersion: 2
     key0: {r: 0.78679246, g: 0.88819605, b: 1, a: 1}
