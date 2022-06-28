@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Level 1
   m_EditorClassIdentifier: 
   waves:
-  - bubbles: sss
-  - bubbles: ssbb
-  - bubbles: ssssss
-  - bubbles: ssssssbb
+  - sss
+  - ssbb
+  - ssssss
+  - sssssbb
