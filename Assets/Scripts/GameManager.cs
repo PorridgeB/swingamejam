@@ -32,10 +32,6 @@ public class GameManager : MonoBehaviour
 
         // Load level
         SceneManager.LoadScene("Level1", LoadSceneMode.Additive);
-
-        // Quick way to link the base health bar to the level's base
-        var hill = FindObjectOfType<Base>();
-        baseHealthBar.health = hill.GetComponent<Health>();
     }
 
     public void ChangeGameState()
@@ -60,6 +56,13 @@ public class GameManager : MonoBehaviour
         if (waveManager.WaveComplete && state == GameState.Fight)
         {
             ChangeGameState();
+        }
+
+        // Quick way to link the base health bar to the level's base
+        var hill = FindObjectOfType<Base>();
+        if (hill != null)
+        {
+            baseHealthBar.health = hill.GetComponent<Health>();
         }
     }
 }

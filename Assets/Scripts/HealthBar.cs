@@ -10,6 +10,11 @@ public class HealthBar : MonoBehaviour
 
     private void Update()
     {
+        if (health == null)
+        {
+            return;
+        }
+
         foregroundImage.fillAmount = health.percentage;
     }
 }
