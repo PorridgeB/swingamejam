@@ -39,7 +39,7 @@ public class ItemPlacement : MonoBehaviour
         var mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mousePosition.z = 0;
 
-        if (rotate)
+        if (rotate && item.canRotate)
         {
             var deltaPosition = transform.position - mousePosition;
 

@@ -15,4 +15,5 @@ MonoBehaviour:
   title: Honey
   description: Slow bubbles down
   icon: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  canRotate: 0
   prefab: {fileID: 810488375153789642, guid: e0665641ffcde04498f692d529e2ebd2, type: 3}

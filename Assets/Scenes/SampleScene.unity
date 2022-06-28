@@ -224,6 +224,7 @@ MonoBehaviour:
   stage: 0
   waveManager: {fileID: 408100121}
   buildUI: {fileID: 855452733}
+  baseHealthBar: {fileID: 1532502265}
 --- !u!1 &408100120
 GameObject:
   m_ObjectHideFlags: 0
@@ -257,7 +258,6 @@ MonoBehaviour:
   - {fileID: 6056004441052727516, guid: cfb111dc82f67ed448ac2aea8d5f7449, type: 3}
   - {fileID: 6056004441052727516, guid: 8315fb2eb9e6e454f9c08931a64e0bff, type: 3}
   spawnCount: 5
-  spawnField: {fileID: 0}
   wave: []
 --- !u!4 &408100122
 Transform:
@@ -316,16 +316,16 @@ MonoBehaviour:
   deceleration: 30
   maxSpeed: 40
   minSize: 5
-  maxSize: 10
+  maxSize: 15
   zoomSensitivity: 0.1
   zoomSpeed: 10
   initialZoom: 0.5
   boundary:
     serializedVersion: 2
-    x: -11
-    y: -7.5
-    width: 22
-    height: 15
+    x: -25
+    y: -12
+    width: 50
+    height: 24
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0

@@ -9,7 +9,7 @@ public class CameraController : MonoBehaviour
     public float deceleration = 30;
     public float maxSpeed = 40;
     public float minSize = 5;
-    public float maxSize = 10;
+    public float maxSize = 15;
     public float zoomSensitivity = 0.1f;
     public float zoomSpeed = 10;
     public float initialZoom = 0.5f;
