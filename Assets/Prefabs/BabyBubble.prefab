@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 3399695788131321372}
   - component: {fileID: 8219835784807844270}
   - component: {fileID: 2065136343749234249}
-  - component: {fileID: 5234283806998133699}
   m_Layer: 0
   m_Name: BabyBubble
   m_TagString: Bubble
@@ -141,19 +140,3 @@ MonoBehaviour:
   hp: 100
   spawnBubblesOnDeath: 0
   babyBubblePrefab: {fileID: 0}
---- !u!58 &5234283806998133699
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2065136343749234248}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.5
