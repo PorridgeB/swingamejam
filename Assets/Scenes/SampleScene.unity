@@ -391,6 +391,11 @@ MonoBehaviour:
   acceleration: 18
   deceleration: 30
   maxSpeed: 40
+  minSize: 5
+  maxSize: 10
+  zoomSensitivity: 0.1
+  zoomSpeed: 10
+  initialZoom: 0.5
   boundary:
     serializedVersion: 2
     x: -11
