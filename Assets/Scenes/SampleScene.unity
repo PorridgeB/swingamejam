@@ -258,6 +258,7 @@ MonoBehaviour:
   - {fileID: 6056004441052727516, guid: 8315fb2eb9e6e454f9c08931a64e0bff, type: 3}
   spawnCount: 5
   spawnField: {fileID: 824085276}
+  level: {fileID: 11400000, guid: d8c6c824e7ab4194b9a24ac7731d48a8, type: 2}
   wave: []
 --- !u!4 &408100122
 Transform:
@@ -1280,7 +1281,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -112.77606, y: -23.516388}
+  m_AnchoredPosition: {x: -112.77606, y: -23.516357}
   m_SizeDelta: {x: 225.5521, y: 47.0327}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1532502265

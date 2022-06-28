@@ -12,6 +12,7 @@ public class Bubble : MonoBehaviour
     [Space]
     public float maxSpeed = 3;
     public float damageOnImpact = 2;
+
     //[SerializeField] private float steeringForce;
     [SerializeField] private Transform target;
     [SerializeField] private int hp;

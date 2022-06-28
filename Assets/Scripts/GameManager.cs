@@ -25,6 +25,7 @@ public class GameManager : MonoBehaviour
             inventory.AddItem(startingItem);
         }
         state = GameState.Build;
+        stage = 1;
     }
 
     public void ChangeGameState()
@@ -32,11 +33,13 @@ public class GameManager : MonoBehaviour
         switch (state)
         {
             case GameState.Build:
-                waveManager.Spawn();
+                waveManager.Spawn(stage-1);
                 buildUI.SetActive(false);
                 state = GameState.Fight;
                 break;
             case GameState.Fight:
+
+                stage++;
                 buildUI.SetActive(true);
                 state = GameState.Build;
                 break;
