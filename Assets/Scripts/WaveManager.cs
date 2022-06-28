@@ -11,17 +11,22 @@ public class WaveManager : MonoBehaviour
 
     public bool WaveComplete => wave.Count == 0;
 
-    public void SpawnRandom()
+    public BoxCollider2D GetSpawnArea()
     {
         var spawnAreas = GameObject.FindGameObjectsWithTag("SpawnArea");
-        
+
         if (spawnAreas.Length == 0)
         {
             Debug.LogError("No spawn areas");
-            return;
+            return null;
         }
 
-        var spawnArea = spawnAreas[0].GetComponent<BoxCollider2D>();
+        return spawnAreas[0].GetComponent<BoxCollider2D>();
+    }
+
+    public void SpawnRandom()
+    {
+        var spawnArea = GetSpawnArea();
 
         for (int i = 0; i < spawnCount; i++)
         {
@@ -33,6 +38,8 @@ public class WaveManager : MonoBehaviour
 
     public void Spawn(int round)
     {
+        var spawnArea = GetSpawnArea();
+
         foreach (char c in level.waves[round])
         {
             GameObject go = null;
@@ -47,7 +54,7 @@ public class WaveManager : MonoBehaviour
             }
 
             Bubble bubble = Instantiate(go.GetComponent<Bubble>());
-            bubble.transform.position = spawnField.bounds.center + new Vector3(0, Random.Range(-spawnField.bounds.extents.y, spawnField.bounds.extents.y));
+            bubble.transform.position = spawnArea.bounds.center + new Vector3(0, Random.Range(-spawnArea.bounds.extents.y, spawnArea.bounds.extents.y));
             wave.Add(bubble.gameObject);
         }
     }

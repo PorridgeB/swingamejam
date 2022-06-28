@@ -12,6 +12,7 @@ public class CameraController : MonoBehaviour
     public float maxSize = 15;
     public float zoomSensitivity = 0.1f;
     public float zoomSpeed = 10;
+    [Range(0, 1)]
     public float initialZoom = 0.5f;
     public Rect boundary;
 
