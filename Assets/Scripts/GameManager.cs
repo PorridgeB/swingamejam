@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public enum GameState
 {
@@ -17,6 +18,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int stage;
     [SerializeField] private WaveManager waveManager;
     [SerializeField] private GameObject buildUI;
+    [SerializeField]
+    private HealthBar baseHealthBar;
 
     private void Start()
     {
@@ -24,7 +27,15 @@ public class GameManager : MonoBehaviour
         {
             inventory.AddItem(startingItem);
         }
+
         state = GameState.Build;
+
+        // Load level
+        SceneManager.LoadScene("Level1", LoadSceneMode.Additive);
+
+        // Quick way to link the base health bar to the level's base
+        var hill = FindObjectOfType<Base>();
+        baseHealthBar.health = hill.GetComponent<Health>();
     }
 
     public void ChangeGameState()
