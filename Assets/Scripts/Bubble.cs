@@ -18,18 +18,27 @@ public class Bubble : MonoBehaviour
     [SerializeField] private GameObject babyBubblePrefab;
     private bool damageable;
     // need to add iframe timer
-    private new Rigidbody2D rigidbody;
+    [SerializeField] private Gradient bubbleColor;
+    [SerializeField] private LayerMask steeringMask;
+    [SerializeField] private List<Vector2> raycastDirections;
+    [SerializeField] private List<bool> validDirections;
+    [SerializeField] private float seperationStrength;
 
-    private void Awake()
-    {
-        rigidbody = GetComponent<Rigidbody2D>();
-    }
+
+    [SerializeField] private Vector2 TargetDirection => (target.position - transform.position).normalized;
+
+    private Vector2 currentDir;
+    private Rigidbody2D rb;
 
     private void Start()
     {
         //WindController.blow += Move;
         damageable = true;
         target = GameObject.Find("Base").transform;
+        currentDir = TargetDirection;
+
+        rb = GetComponent<Rigidbody2D>();
+        GetComponent<SpriteRenderer>().color = bubbleColor.Evaluate(Random.Range(0f, 1f));
     }
 
     private void FixedUpdate()
@@ -59,18 +68,53 @@ public class Bubble : MonoBehaviour
         }
 
         // Global wind
-        rigidbody.AddForce(WindController.instance.direction * WindController.instance.strength * windForceInfluence);
+        rb.AddForce(WindController.instance.direction * WindController.instance.strength * windForceInfluence);
 
         // Base
-        rigidbody.AddForce((target.position - transform.position).normalized * baseSeekingForceInflucence);
+        rb.AddForce((target.position - transform.position).normalized * baseSeekingForceInflucence);
 
         //var velocity = (target.position - transform.position).normalized * steeringForce;
         //transform.position += velocity * speedMultiplier;
         //speedMultiplier = 1;
 
-        rigidbody.velocity = Vector3.ClampMagnitude(rigidbody.velocity, maxSpeed);
+        rb.velocity = Vector3.ClampMagnitude(GetComponent<Rigidbody>().velocity, maxSpeed);
 
-        rigidbody.drag = 0;
+        rb.drag = 0;
+        rb.AddForce(FindDesiredDirection());
+        SpreadOut();
+    }
+
+    private Vector2 FindDesiredDirection()
+    {
+        Vector2 desiredDirection = new Vector2();
+        foreach (Vector2 dir in raycastDirections)
+        {
+            validDirections[raycastDirections.IndexOf(dir)] = false;
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, dir, 2, steeringMask);
+            if (!hit)
+            {
+
+                validDirections[raycastDirections.IndexOf(dir)] = true;
+                if (Vector2.Dot(desiredDirection, TargetDirection) < Vector2.Dot(dir, TargetDirection))
+                {
+                    desiredDirection = dir;
+                }
+            }
+        }
+        if (desiredDirection.x == 0 || currentDir.x == 0)
+        {
+            desiredDirection = currentDir;
+        }
+        currentDir = desiredDirection;
+        return desiredDirection;
+    }
+
+    private void SpreadOut()
+    {
+        foreach (Bubble b in FindObjectsOfType<Bubble>())
+        {
+            rb.AddForce((transform.position-b.transform.position).normalized * seperationStrength * Mathf.Clamp(1 - Vector2.Distance(transform.position, b.transform.position), 0, 1));
+        }
     }
 
     //private void Move(Vector3 force)
@@ -88,18 +132,27 @@ public class Bubble : MonoBehaviour
     }
     public void Blow(Vector2 force)
     {
-        rigidbody.AddForce(force * blowForceInfluence);
+        rb.AddForce(force * blowForceInfluence);
     }
 
     public void Stick(float strength)
     {
         //Stick(-rigidbody.velocity.normalized * strength);
 
-        rigidbody.drag += strength;
+        rb.drag += strength;
     }
 
     //public void Stick(Vector2 force)
     //{
     //    rigidbody.AddForce(force * stickForceInfluence);
     //}
+
+    private void OnDrawGizmos()
+    {
+        foreach(Vector2 dir in raycastDirections)
+        {
+            Gizmos.color = validDirections[raycastDirections.IndexOf(dir)] ? Color.green : Color.red;
+            Gizmos.DrawRay(new Ray(transform.position, dir.normalized));
+        }
+    }
 }
