@@ -4,16 +4,24 @@ using UnityEngine;
 
 public class WindController : MonoBehaviour
 {
-    [SerializeField] private Vector2 direction;
-    [SerializeField] private float strength;
+    public static WindController instance;
+
+    public Vector2 direction;
+    public float strength;
 
     public delegate void windBroadcast(Vector3 force);
     public static event windBroadcast blow;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
-        
+        if (instance != null && instance != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            instance = this;
+        }
     }
 
     // Update is called once per frame
