@@ -58,7 +58,6 @@ public class CameraController : MonoBehaviour
         camera.orthographicSize = Mathf.Lerp(minSize, maxSize, zoom);
     }
 
-
     private void EnforceBoundary()
     {
         var clampedPosition = transform.position;
