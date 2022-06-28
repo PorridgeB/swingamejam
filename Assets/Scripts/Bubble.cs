@@ -6,7 +6,7 @@ public class Bubble : MonoBehaviour
 {
     [SerializeField] private float steeringForce;
     [SerializeField] private Transform target;
-    [SerializeField] public int hp;
+    [SerializeField] private int hp;
     // need to add iframe timer
 
     // Start is called before the first frame update
@@ -31,5 +31,10 @@ public class Bubble : MonoBehaviour
     void Move(Vector3 force)
     {
         transform.position += force;
+    }
+
+    public void TakeDamage(int DmgAmount)
+    {
+        hp -= DmgAmount;
     }
 }
