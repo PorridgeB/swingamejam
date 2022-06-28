@@ -4,19 +4,30 @@ using UnityEngine;
 
 public class Bubble : MonoBehaviour
 {
-    // Controls the speed of the bubble, and is reset to 1 at the end of every fixed-update.
-    public float speedMultiplier = 1;
-
-    [SerializeField] private float steeringForce;
+    [Header("Force Influences")]
+    public float blowForceInfluence = 1;
+    public float stickForceInfluence = 1;
+    public float windForceInfluence = 1;
+    public float baseSeekingForceInflucence = 1;
+    [Space]
+    public float maxSpeed = 3;
+    //[SerializeField] private float steeringForce;
     [SerializeField] private Transform target;
     [SerializeField] private int hp;
     [SerializeField] private bool spawnBubblesOnDeath;
     [SerializeField] private GameObject babyBubblePrefab;
     private bool damageable;
+    // need to add iframe timer
+    private new Rigidbody2D rigidbody;
+
+    private void Awake()
+    {
+        rigidbody = GetComponent<Rigidbody2D>();
+    }
 
     private void Start()
     {
-        WindController.blow += Move;
+        //WindController.blow += Move;
         damageable = true;
         target = GameObject.Find("Base").transform;
     }
@@ -44,16 +55,26 @@ public class Bubble : MonoBehaviour
             }
             Destroy(gameObject);
         }
-        //bubble movement
-        var velocity = (target.position - transform.position).normalized * steeringForce;
-        transform.position += velocity * speedMultiplier;
-        speedMultiplier = 1;
+
+        // Global wind
+        rigidbody.AddForce(WindController.instance.direction * WindController.instance.strength * windForceInfluence);
+
+        // Base
+        rigidbody.AddForce((target.position - transform.position).normalized * baseSeekingForceInflucence);
+
+        //var velocity = (target.position - transform.position).normalized * steeringForce;
+        //transform.position += velocity * speedMultiplier;
+        //speedMultiplier = 1;
+
+        rigidbody.velocity = Vector3.ClampMagnitude(rigidbody.velocity, maxSpeed);
+
+        rigidbody.drag = 0;
     }
 
-    private void Move(Vector3 force)
-    {
-        transform.position += force;
-    }
+    //private void Move(Vector3 force)
+    //{
+    //    transform.position += force;
+    //}
 
     public void TakeDamage(int DmgAmount)
     {
@@ -63,4 +84,20 @@ public class Bubble : MonoBehaviour
             hp -= DmgAmount;
         }
     }
+    public void Blow(Vector2 force)
+    {
+        rigidbody.AddForce(force * blowForceInfluence);
+    }
+
+    public void Stick(float strength)
+    {
+        //Stick(-rigidbody.velocity.normalized * strength);
+
+        rigidbody.drag += strength;
+    }
+
+    //public void Stick(Vector2 force)
+    //{
+    //    rigidbody.AddForce(force * stickForceInfluence);
+    //}
 }

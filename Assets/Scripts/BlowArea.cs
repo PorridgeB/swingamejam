@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Collider2D))]
-public class StickyArea : MonoBehaviour
+public class BlowArea : MonoBehaviour
 {
     public float strength = 1;
 
@@ -18,7 +18,7 @@ public class StickyArea : MonoBehaviour
     {
         var overlappingColliders = new Collider2D[10];
 
-        var count = collider.OverlapCollider(new ContactFilter2D().NoFilter(), overlappingColliders);
+        var count = collider.OverlapCollider(new ContactFilter2D(), overlappingColliders);
 
         for (int i = 0; i < count; i++)
         {
@@ -31,9 +31,9 @@ public class StickyArea : MonoBehaviour
                 return;
             }
 
-            bubble.Stick(strength);
+            var falloff = 1 / (1 + Vector2.Distance(transform.position, bubble.transform.position));
 
-            //bubble.speedMultiplier *= 1 / (1 + strength);
+            bubble.Blow(-transform.right * strength * falloff);
         }
     }
 }
