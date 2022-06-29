@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
 public enum GameState
@@ -13,6 +14,8 @@ public class GameManager : MonoBehaviour
 {
     public Inventory inventory;
     public List<InventoryItem> startingItems;
+    public UnityEvent onBuildStart;
+    public UnityEvent onFightStart;
 
     [SerializeField] private GameState state;
     [SerializeField] private int stage;
@@ -43,12 +46,13 @@ public class GameManager : MonoBehaviour
                 waveManager.Spawn(stage-1);
                 buildUI.SetActive(false);
                 state = GameState.Fight;
+                onFightStart.Invoke();
                 break;
             case GameState.Fight:
-
                 stage++;
                 buildUI.SetActive(true);
                 state = GameState.Build;
+                onBuildStart.Invoke();
                 break;
         }
             

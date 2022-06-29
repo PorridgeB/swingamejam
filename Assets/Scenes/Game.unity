@@ -220,6 +220,36 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 08fe6aa11542c334b83deaa02a15191d, type: 2}
   - {fileID: 11400000, guid: 2440ea3becad39141912350315b170a9, type: 2}
   - {fileID: 11400000, guid: 2440ea3becad39141912350315b170a9, type: 2}
+  onBuildStart:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1742805128}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onFightStart:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1742805128}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   state: 0
   stage: 0
   waveManager: {fileID: 408100121}
@@ -1083,6 +1113,22 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  onItemGrabbed:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 31099415}
+        m_TargetAssemblyTypeName: Inventory, Assembly-CSharp
+        m_MethodName: AddItem
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  canGrab: 1
   itemPlacementPrefab: {fileID: 6494304595301231995, guid: 233e78ebf3fb23c4c8955c84857a944f, type: 3}
 --- !u!1 &1911521951
 GameObject:

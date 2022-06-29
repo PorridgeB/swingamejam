@@ -7,6 +7,8 @@ using UnityEngine.EventSystems;
 public class ItemPlacementController : MonoBehaviour
 {
     public UnityEvent<InventoryItem> onItemPlaced;
+    public UnityEvent<InventoryItem> onItemGrabbed;
+    public bool canGrab = true;
 
     [SerializeField]
     private GameObject itemPlacementPrefab;
@@ -21,9 +23,33 @@ public class ItemPlacementController : MonoBehaviour
 
         if (currentItemPlacement == null)
         {
-            return;
-        }
+            if (Input.GetMouseButtonUp(0) && canGrab)
+            {
+                var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
+                var hitInfo = Physics2D.GetRayIntersection(ray, Mathf.Infinity, LayerMask.GetMask("Tower"));
+
+                if (hitInfo.collider != null)
+                {
+                    var tower = hitInfo.collider.GetComponent<Tower>();
+
+                    Select(tower.item);
+                    currentItemPlacement.transform.rotation = tower.transform.rotation;
+
+                    Destroy(tower.gameObject);
+
+                    onItemGrabbed.Invoke(tower.item);
+                }
+            }
+        }
+        else
+        {
+            UpdateItemPlacement();
+        }
+    }
+
+    private void UpdateItemPlacement()
+    {
         currentItemPlacement.rotate = Input.GetMouseButton(0);
 
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -74,5 +100,10 @@ public class ItemPlacementController : MonoBehaviour
         {
             Destroy(currentItemPlacement.gameObject);
         }
+    }
+
+    public void SetCanGrab(bool grab)
+    {
+        canGrab = grab;
     }
 }
