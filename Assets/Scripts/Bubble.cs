@@ -42,7 +42,7 @@ public class Bubble : MonoBehaviour
 
     private bool damageable;
     private float damageStartTime;
-    private SpriteRenderer spriteRenderer;
+    private SpriteRenderer sprite;
     [SerializeField] private LayerMask steeringMask;
     [SerializeField] private List<Vector2> raycastDirections;
     [SerializeField] private List<bool> validDirections;
@@ -64,7 +64,7 @@ public class Bubble : MonoBehaviour
     private void Awake()
     {
         rigidbody = GetComponent<Rigidbody2D>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        sprite = GetComponentInChildren<SpriteRenderer>();
     }
 
     private void Start()
@@ -98,12 +98,12 @@ public class Bubble : MonoBehaviour
         {
             float gbColor = (Time.timeSinceLevelLoad - damageStartTime) / 0.5f;
 
-            spriteRenderer.color = new Color(1, gbColor, gbColor, 1);
+            sprite.color = new Color(1, gbColor, gbColor, 1);
 
             if (gbColor > 1)
             {
                 damageStartTime = 0;
-                spriteRenderer.color = Color.white;
+                sprite.color = Color.white;
             }
         }
 
