@@ -327,6 +327,8 @@ public class Bubble : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        wobbleIntensity = rigidbody.velocity.magnitude * impactVelocityToWobbleIntensity;
+        var surfaceHitEnergy = Mathf.Clamp01(Vector2.Dot(collision.contacts[0].normal, rigidbody.velocity.normalized));
+
+        wobbleIntensity = rigidbody.velocity.magnitude * impactVelocityToWobbleIntensity * surfaceHitEnergy;
     }
 }
