@@ -220,6 +220,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 08fe6aa11542c334b83deaa02a15191d, type: 2}
   - {fileID: 11400000, guid: 2440ea3becad39141912350315b170a9, type: 2}
   - {fileID: 11400000, guid: 2440ea3becad39141912350315b170a9, type: 2}
+  - {fileID: 11400000, guid: a73969d6dbf529e499024e449889cd31, type: 2}
+  - {fileID: 11400000, guid: a73969d6dbf529e499024e449889cd31, type: 2}
   onBuildStart:
     m_PersistentCalls:
       m_Calls:
@@ -429,6 +431,7 @@ MonoBehaviour:
   spawnCount: 5
   level: {fileID: 11400000, guid: d8c6c824e7ab4194b9a24ac7731d48a8, type: 2}
   wave: []
+  WaveComplete: 0
 --- !u!4 &408100122
 Transform:
   m_ObjectHideFlags: 0
