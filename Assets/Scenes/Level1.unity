@@ -148,7 +148,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7902529381410948867, guid: eccdf95abf68169419605b90b3f0c002, type: 3}
       propertyPath: m_RootOrder
-      value: 22
+      value: 24
       objectReference: {fileID: 0}
     - target: {fileID: 7902529381410948867, guid: eccdf95abf68169419605b90b3f0c002, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1084,7 +1084,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 25
+  m_RootOrder: 23
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &365167987
 PrefabInstance:
@@ -1647,7 +1647,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7902529381410948867, guid: eccdf95abf68169419605b90b3f0c002, type: 3}
       propertyPath: m_RootOrder
-      value: 23
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 7902529381410948867, guid: eccdf95abf68169419605b90b3f0c002, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1842,7 +1842,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7902529381410948864, guid: eccdf95abf68169419605b90b3f0c002, type: 3}
       propertyPath: m_Size.y
-      value: 7.62
+      value: 6.78
       objectReference: {fileID: 0}
     - target: {fileID: 7902529381410948865, guid: eccdf95abf68169419605b90b3f0c002, type: 3}
       propertyPath: m_Name
@@ -1858,7 +1858,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7902529381410948867, guid: eccdf95abf68169419605b90b3f0c002, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -6.6
+      value: -6.74
       objectReference: {fileID: 0}
     - target: {fileID: 7902529381410948867, guid: eccdf95abf68169419605b90b3f0c002, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2317,7 +2317,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 24
+  m_RootOrder: 22
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &1339481727
 BoxCollider2D:
