@@ -136,9 +136,25 @@ public class Bubble : MonoBehaviour
 
     private Vector2 ObstacleAvoidance()
     {
+        var totalForce = Vector2.zero;
 
+        var obstacleAvoidanceMaxDistance = 2;
+        var obstacleAvoidanceRays = 16;
 
-        return Vector2.zero;
+        for (int i = 0; i < obstacleAvoidanceRays; i++)
+        {
+            var angle = i / (float)obstacleAvoidanceRays * 360;
+            var direction = (Vector2)(Quaternion.Euler(0, 0, angle) * Vector2.right);
+
+            var hit = Physics2D.Raycast(transform.position, direction, obstacleAvoidanceMaxDistance, LayerMask.GetMask("Obstacle"));
+
+            if (hit)
+            {
+                totalForce -= direction * (1 - hit.distance / obstacleAvoidanceMaxDistance);
+            }
+        }
+
+        return totalForce;
     }
 
     private Vector2 Separation()
@@ -236,6 +252,18 @@ public class Bubble : MonoBehaviour
         // Obstacle avoidance
         Gizmos.color = Color.red;
         Gizmos.DrawLine(position, position + ObstacleAvoidance() * obstacleAvoidanceStrength * vectorScale);
+
+        // Obstacle avoidance rays
+        //var obstacleAvoidanceMaxDistance = 2;
+        //var obstacleAvoidanceRays = 16;
+
+        //for (int i = 0; i < obstacleAvoidanceRays; i++)
+        //{
+        //    var angle = i / (float)obstacleAvoidanceRays * 360;
+        //    var direction = (Vector2)(Quaternion.Euler(0, 0, angle) * Vector2.right);
+
+        //    Gizmos.DrawLine(position, position + direction * obstacleAvoidanceMaxDistance);
+        //}
     }
 
     private void CheckStuck()
