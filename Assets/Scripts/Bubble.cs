@@ -19,12 +19,15 @@ public class Bubble : MonoBehaviour
     [SerializeField] private bool spawnBubblesOnDeath;
     [SerializeField] private GameObject babyBubblePrefab;
     private bool damageable;
+    private float damageStartTime;
+    SpriteRenderer bubbleSprite;
     // need to add iframe timer
     [SerializeField] private Gradient bubbleColor;
     [SerializeField] private LayerMask steeringMask;
     [SerializeField] private List<Vector2> raycastDirections;
     [SerializeField] private List<bool> validDirections;
     [SerializeField] private float seperationStrength;
+
 
 
     [SerializeField] private Vector2 TargetDirection => (target.position - transform.position).normalized;
@@ -41,6 +44,7 @@ public class Bubble : MonoBehaviour
 
         rb = GetComponent<Rigidbody2D>();
         GetComponent<SpriteRenderer>().color = bubbleColor.Evaluate(Random.Range(0f, 1f));
+        bubbleSprite = GetComponent<SpriteRenderer>();
     }
 
     private void FixedUpdate()
@@ -60,6 +64,20 @@ public class Bubble : MonoBehaviour
         SpreadOut();
 
         rb.velocity = Vector3.ClampMagnitude(GetComponent<Rigidbody2D>().velocity, maxSpeed);
+
+        // bubble turns red when hit 
+        if (damageStartTime != 0)
+        {
+            float gbColor = (Time.timeSinceLevelLoad - damageStartTime) / 0.5f;
+
+            bubbleSprite.color = new Color(1, gbColor, gbColor, 1);
+
+            if (gbColor > 1)
+            {
+                damageStartTime = 0;
+                bubbleSprite.color = Color.white;
+            }
+        }
     }
 
     private Vector2 FindDesiredDirection()
@@ -100,6 +118,7 @@ public class Bubble : MonoBehaviour
         if (damageable)
         {
             hp -= DmgAmount;
+            damageStartTime = Time.timeSinceLevelLoad;
         }
     }
 
