@@ -10,10 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 721ecbdaa8897ed4b9b82934f9efb3de, type: 3}
-  m_Name: Spike
+  m_Name: Thorns
   m_EditorClassIdentifier: 
-  title: Spike
-  description: 
-  icon: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  canRotate: 0
+  title: Thorns
+  description: Cause bubble physical pain
+  icon: {fileID: 21300000, guid: 02e9ae16d933c0241b4a0d6cf4f41170, type: 3}
   prefab: {fileID: 810488375153789642, guid: d2f1dc56ee81c7f4b8742fc059b2a45e, type: 3}
+  placementSprite: {fileID: 21300000, guid: 53bf26bddea5a7341a31551b55d36ddf, type: 3}
+  canRotate: 0
+  size: 1
