@@ -428,7 +428,8 @@ MonoBehaviour:
   spawnPool:
   - {fileID: 6056004441052727516, guid: cfb111dc82f67ed448ac2aea8d5f7449, type: 3}
   - {fileID: 6056004441052727516, guid: 8315fb2eb9e6e454f9c08931a64e0bff, type: 3}
-  spawnCount: 5
+  - {fileID: 8073806751121308303, guid: 19e87a708b2de8e4baa631d1ad9b0ae6, type: 3}
+  spawnCount: 20
   level: {fileID: 11400000, guid: d8c6c824e7ab4194b9a24ac7731d48a8, type: 2}
   wave: []
   WaveComplete: 0
@@ -440,7 +441,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 408100120}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.0284617, y: 0.29255953, z: -0.24421182}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

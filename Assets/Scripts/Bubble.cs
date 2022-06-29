@@ -1,19 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Bubble : MonoBehaviour
 {
-    [Header("Force Influences")]
-    public float blowForceInfluence = 1;
-    public float stickForceInfluence = 1;
-    public float windForceInfluence = 1;
-    public float baseSeekingForceInflucence = 1;
+    [Header("External Influences")]
+    [Tooltip("How much blowing forces (e.g Windmill Flower) will affect the movement of the bubble")]
+    public float blowingInfluence = 2;
+    [Tooltip("How much sticking forces (e.g Honey) will affect the movement of the bubble")]
+    public float stickingInfluence = 1;
+
+    [Header("Movement")]
+    [Tooltip("The bubble will try and move at this speed")]
+    public float targetSpeed = 3;
+    [Tooltip("The maximum amount of force that the bubble can use to try and reach its target speed")]
+    public float maxForce = 10;
+    public float flowStrength = 3;
+    public float obstacleAvoidanceStrength = 2;
+    public float separationStrength = 3;
+    public float separationRadius = 1.5f;
     [Space]
-    public float maxSpeed = 3;
+
     public float damageOnImpact = 2;
 
-    //[SerializeField] private float steeringForce;
     [SerializeField] private Transform target;
     [SerializeField] private int hp;
     [SerializeField] private bool spawnBubblesOnDeath;
@@ -23,38 +33,40 @@ public class Bubble : MonoBehaviour
 
     private bool damageable;
     private float damageStartTime;
-    SpriteRenderer bubbleSprite;
-    [SerializeField] private Gradient bubbleColor;
+    private SpriteRenderer spriteRenderer;
     [SerializeField] private LayerMask steeringMask;
     [SerializeField] private List<Vector2> raycastDirections;
     [SerializeField] private List<bool> validDirections;
-    [SerializeField] private float seperationStrength;
 
     private bool stuck;
+    private Vector2 currentDir;
+    private new Rigidbody2D rigidbody;
+
     private float lastTime;
-    public float speed;
-    public float speedPerSecond;
-    public Vector3 oldPosition;
 
     public Vector2 flowDirection = Vector3.right;
-    
+
+    private PidController speedController;
+
     private Vector2 TargetDirection => (target.position - transform.position).normalized;
 
     public bool Stuck { get => stuck; set => stuck = value; }
 
-    private Vector2 currentDir;
-    private Rigidbody2D rb;
+    private void Awake()
+    {
+        rigidbody = GetComponent<Rigidbody2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+    }
 
     private void Start()
     {
-        //WindController.blow += Move;
+        speedController = gameObject.AddComponent<PidController>();
+        speedController.target = targetSpeed;
+
         damageable = true;
         target = GameObject.Find("Base").transform;
         currentDir = TargetDirection;
-
-        rb = GetComponent<Rigidbody2D>();
-        GetComponent<SpriteRenderer>().color = bubbleColor.Evaluate(Random.Range(0f, 1f));
-        bubbleSprite = GetComponent<SpriteRenderer>();
+        
         Stuck = false;
         stuckTime = 5f;
         lastTime = 0;
@@ -62,40 +74,39 @@ public class Bubble : MonoBehaviour
 
     private void FixedUpdate()
     {
-        //on death
+        UpdateMovement();
+
+        // On death
         if (hp <= 0)
         {
             Pop();
         }
-
-        // Global wind
-        //rb.AddForce(WindController.instance.direction * WindController.instance.strength * windForceInfluence);
-
-        // Base
-        rb.drag = 1;
-        //rb.AddForce(FindDesiredDirection());
-        rb.AddForce(flowDirection * windForceInfluence);
-
-        SpreadOut();
-
-        rb.velocity = Vector3.ClampMagnitude(GetComponent<Rigidbody2D>().velocity, maxSpeed);
 
         // bubble turns red when hit 
         if (damageStartTime != 0)
         {
             float gbColor = (Time.timeSinceLevelLoad - damageStartTime) / 0.5f;
 
-            bubbleSprite.color = new Color(1, gbColor, gbColor, 1);
+            spriteRenderer.color = new Color(1, gbColor, gbColor, 1);
 
             if (gbColor > 1)
             {
                 damageStartTime = 0;
-                bubbleSprite.color = Color.white;
+                spriteRenderer.color = Color.white;
             }
         }
 
         //checks if the bubble has barely moved for roughly 5 seconds
         CheckStuck();
+    }
+
+    private void UpdateMovement()
+    {
+        var movementDirection = (flowDirection * flowStrength + Separation() * separationStrength + ObstacleAvoidance() * obstacleAvoidanceStrength).normalized;
+
+        rigidbody.AddForce(Vector2.ClampMagnitude(movementDirection * speedController.output, maxForce));
+
+        speedController.current = rigidbody.velocity.magnitude;
     }
 
     private Vector2 FindDesiredDirection()
@@ -123,12 +134,29 @@ public class Bubble : MonoBehaviour
         return desiredDirection;
     }
 
-    private void SpreadOut()
+    private Vector2 ObstacleAvoidance()
     {
-        foreach (Bubble b in FindObjectsOfType<Bubble>())
+
+
+        return Vector2.zero;
+    }
+
+    private Vector2 Separation()
+    {
+        var totalForce = Vector2.zero;
+
+        var overlappingColliders = Physics2D.OverlapCircleAll(transform.position, separationRadius);
+
+        foreach (var otherBubble in overlappingColliders.Where(x => x.CompareTag("Bubble") && x != this))
         {
-            rb.AddForce((transform.position-b.transform.position).normalized * seperationStrength * Mathf.Clamp(1 - Vector2.Distance(transform.position, b.transform.position), 0, 1));
+            var deltaPosition = transform.position - otherBubble.transform.position;
+            var distanceFalloff = 1 / (1 + deltaPosition.magnitude);
+            var force = deltaPosition.normalized * distanceFalloff;
+
+            totalForce += new Vector2(force.x, force.y);
         }
+
+        return totalForce;
     }
 
     public void TakeDamage(int DmgAmount)
@@ -142,12 +170,12 @@ public class Bubble : MonoBehaviour
 
     public void Blow(Vector2 force)
     {
-        rb.AddForce(force * blowForceInfluence);
+        rigidbody.AddForce(force * blowingInfluence);
     }
 
     public void Stick(float strength)
     {
-        rb.drag += strength;
+        rigidbody.AddForce(stickingInfluence * strength * -rigidbody.velocity);
     }
 
     public void Pop()
@@ -167,14 +195,18 @@ public class Bubble : MonoBehaviour
             {
                 // choose new random location near bubble
                 // create baby bubble
-                //Debug.Log("baby bubble created");
                 Vector2 pos = new Vector2(gameObject.transform.position.x, gameObject.transform.position.y);
-                GameObject newBubble = Instantiate(babyBubblePrefab,
-                    new Vector2(pos.x + Random.Range(-0.5f, 0.5f), pos.y + Random.Range(-0.5f, 0.5f)),
-                    Quaternion.Euler(0, 0, Random.Range(0, 360)));
-                //Rigidbody2D rb = newBubble.GetComponent<Rigidbody2D>();
-                //rb.AddForce(Vector2.right * 100000, ForceMode2D.Impulse);
 
+                var randomOffset = Random.insideUnitCircle * 0.5f;
+
+                GameObject newBubble = Instantiate(babyBubblePrefab,
+                    pos + randomOffset,
+                    Quaternion.Euler(0, 0, Random.Range(0, 360)));
+
+                var explosionForce = 1;
+
+                Rigidbody2D rb = newBubble.GetComponent<Rigidbody2D>();
+                rb.AddForce(randomOffset.normalized * explosionForce, ForceMode2D.Impulse);
             }
         }
 
@@ -183,29 +215,41 @@ public class Bubble : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        foreach(Vector2 dir in raycastDirections)
-        {
-            Gizmos.color = validDirections[raycastDirections.IndexOf(dir)] ? Color.green : Color.red;
-            Gizmos.DrawRay(new Ray(transform.position, dir.normalized));
-        }
+        //foreach (Vector2 dir in raycastDirections)
+        //{
+        //    Gizmos.color = validDirections[raycastDirections.IndexOf(dir)] ? Color.green : Color.red;
+        //    Gizmos.DrawRay(new Ray(transform.position, dir.normalized));
+        //}
+
+        var vectorScale = 0.5f;
+
+        var position = new Vector2(transform.position.x, transform.position.y);
+
+        // Flow
+        Gizmos.color = Color.blue;
+        Gizmos.DrawLine(position, position + flowDirection * flowStrength * vectorScale);
+
+        // Separation
+        Gizmos.color = Color.green;
+        Gizmos.DrawLine(position, position + Separation() * separationStrength * vectorScale);
+
+        // Obstacle avoidance
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(position, position + ObstacleAvoidance() * obstacleAvoidanceStrength * vectorScale);
     }
 
     private void CheckStuck()
     {
-
         float stuckSpeed = 0.01f;
 
-        //get current speed
-        speed = Vector3.Distance(oldPosition, transform.position); //This is the speed per frames
-        //speedPerSecond = Vector3.Distance(oldPosition, transform.position) / Time.deltaTime; //This is the speed per second
-        oldPosition = transform.position;
-        //Debug.Log("Speed: " + speed.ToString("F2"));
+        var speed = rigidbody.velocity.magnitude;
 
         // if stuck for longer than 5 seconds, stuck = true
         if(speed > stuckSpeed)
         {
             lastTime = Time.timeSinceLevelLoad;
         }
+
         if (Time.timeSinceLevelLoad > stuckTime + lastTime)
         {
             Debug.Log("bubble is stuck");

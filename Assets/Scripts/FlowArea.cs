@@ -15,7 +15,7 @@ public class FlowArea : MonoBehaviour
 
     public Vector2 direction => Quaternion.Euler(0, 0, angle) * Vector2.right;
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
         var bubble = collision.GetComponent<Bubble>();
 

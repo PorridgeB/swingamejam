@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 8073806751121308304}
   - component: {fileID: 8073806751121308305}
-  - component: {fileID: 8073806751121308302}
   - component: {fileID: 7773524054505596542}
   - component: {fileID: 8837795386258062807}
+  - component: {fileID: 8073806751121308302}
   m_Layer: 6
   m_Name: ClusterBubble
   m_TagString: Bubble
@@ -28,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8073806751121308303}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.21, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -85,74 +85,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &8073806751121308302
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8073806751121308303}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dba9279413ea62d40b269ffb67322457, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  blowForceInfluence: 2
-  stickForceInfluence: 1
-  windForceInfluence: 3
-  baseSeekingForceInflucence: 4
-  maxSpeed: 1.25
-  damageOnImpact: 2
-  target: {fileID: 0}
-  hp: 3
-  spawnBubblesOnDeath: 1
-  babyBubblePrefab: {fileID: 2065136343749234248, guid: 3b4621034fe0f6c43a46199d27fd8445, type: 3}
-  stuckTime: 0
-  popParticle: {fileID: 6988472824656846569, guid: 89315a937de75ef4983d59ef2e7176ad, type: 3}
-  bubbleColor:
-    serializedVersion: 2
-    key0: {r: 0.78679246, g: 0.88819605, b: 1, a: 1}
-    key1: {r: 0.5301204, g: 0, b: 1, a: 1}
-    key2: {r: 0, g: 0, b: 0, a: 0}
-    key3: {r: 0, g: 0, b: 0, a: 0}
-    key4: {r: 0, g: 0, b: 0, a: 0}
-    key5: {r: 0, g: 0, b: 0, a: 0}
-    key6: {r: 0, g: 0, b: 0, a: 0}
-    key7: {r: 0, g: 0, b: 0, a: 0}
-    ctime0: 0
-    ctime1: 65342
-    ctime2: 0
-    ctime3: 0
-    ctime4: 0
-    ctime5: 0
-    ctime6: 0
-    ctime7: 0
-    atime0: 0
-    atime1: 65535
-    atime2: 0
-    atime3: 0
-    atime4: 0
-    atime5: 0
-    atime6: 0
-    atime7: 0
-    m_Mode: 0
-    m_NumColorKeys: 2
-    m_NumAlphaKeys: 2
-  steeringMask:
-    serializedVersion: 2
-    m_Bits: 1
-  raycastDirections:
-  - {x: 1, y: 0}
-  - {x: 1, y: 1}
-  - {x: 1, y: -1}
-  - {x: -1, y: 0}
-  - {x: -1, y: 1}
-  - {x: -1, y: -1}
-  - {x: 0, y: -1}
-  - {x: 0, y: 1}
-  validDirections: 0000000000000000
-  seperationStrength: 2
-  flowDirection: {x: 1, y: 0}
 --- !u!50 &7773524054505596542
 Rigidbody2D:
   serializedVersion: 4
@@ -189,4 +121,45 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.94
+  m_Radius: 1
+--- !u!114 &8073806751121308302
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8073806751121308303}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dba9279413ea62d40b269ffb67322457, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blowingInfluence: 2
+  stickingInfluence: 1
+  targetSpeed: 3
+  maxForce: 10
+  flowStrength: 3
+  obstacleAvoidanceStrength: 2
+  separationStrength: 3
+  separationRadius: 1.5
+  damageOnImpact: 2
+  target: {fileID: 0}
+  hp: 3
+  spawnBubblesOnDeath: 1
+  babyBubblePrefab: {fileID: 2065136343749234248, guid: 3b4621034fe0f6c43a46199d27fd8445, type: 3}
+  stuckTime: 0
+  popParticle: {fileID: 6988472824656846569, guid: 89315a937de75ef4983d59ef2e7176ad, type: 3}
+  steeringMask:
+    serializedVersion: 2
+    m_Bits: 1
+  raycastDirections:
+  - {x: 1, y: 0}
+  - {x: 1, y: 1}
+  - {x: 1, y: -1}
+  - {x: -1, y: 0}
+  - {x: -1, y: 1}
+  - {x: -1, y: -1}
+  - {x: 0, y: -1}
+  - {x: 0, y: 1}
+  validDirections: 0000000000000000
+  flowDirection: {x: 1, y: 0}
