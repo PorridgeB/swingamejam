@@ -18,6 +18,8 @@ public class Bubble : MonoBehaviour
     [SerializeField] private int hp;
     [SerializeField] private bool spawnBubblesOnDeath;
     [SerializeField] private GameObject babyBubblePrefab;
+    [SerializeField] private float stuckTime;
+    [SerializeField] private GameObject popParticle;
     private bool stuck;
     private bool damageable;
     private float damageStartTime;
@@ -83,6 +85,9 @@ public class Bubble : MonoBehaviour
                 bubbleSprite.color = Color.white;
             }
         }
+
+        //checks if the bubble has barely moved for roughly 5 seconds
+        CheckStuck();
     }
 
     private Vector2 FindDesiredDirection()
@@ -141,6 +146,12 @@ public class Bubble : MonoBehaviour
     {
         int bubbleSpawnAmt = 3;
 
+        //play pop particle effect
+        GameObject popParticle2 = Instantiate(popParticle);
+        ParticleSystem particle = popParticle2.GetComponent<ParticleSystem>();
+        popParticle2.transform.position = gameObject.transform.position;
+        particle.Play();
+
         //spawn baby bubbles
         if (spawnBubblesOnDeath)
         {
@@ -169,5 +180,12 @@ public class Bubble : MonoBehaviour
             Gizmos.color = validDirections[raycastDirections.IndexOf(dir)] ? Color.green : Color.red;
             Gizmos.DrawRay(new Ray(transform.position, dir.normalized));
         }
+    }
+
+    private void CheckStuck()
+    {
+
+        float stuckSpeed;
+        //get current speed
     }
 }

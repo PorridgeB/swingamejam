@@ -127,7 +127,9 @@ MonoBehaviour:
   target: {fileID: 0}
   hp: 1
   spawnBubblesOnDeath: 0
-  babyBubblePrefab: {fileID: 0}
+  babyBubblePrefab: {fileID: 2065136343749234248, guid: 3b4621034fe0f6c43a46199d27fd8445, type: 3}
+  stuckTime: 0
+  popParticle: {fileID: 6988472824656846569, guid: 89315a937de75ef4983d59ef2e7176ad, type: 3}
   bubbleColor:
     serializedVersion: 2
     key0: {r: 1, g: 1, b: 1, a: 1}
@@ -163,6 +165,7 @@ MonoBehaviour:
   raycastDirections: []
   validDirections: 
   seperationStrength: 0
+  flowDirection: {x: 1, y: 0}
 --- !u!58 &4419985711805708707
 CircleCollider2D:
   m_ObjectHideFlags: 0

@@ -107,6 +107,8 @@ MonoBehaviour:
   hp: 3
   spawnBubblesOnDeath: 1
   babyBubblePrefab: {fileID: 2065136343749234248, guid: 3b4621034fe0f6c43a46199d27fd8445, type: 3}
+  stuckTime: 0
+  popParticle: {fileID: 6988472824656846569, guid: 89315a937de75ef4983d59ef2e7176ad, type: 3}
   bubbleColor:
     serializedVersion: 2
     key0: {r: 0.78679246, g: 0.88819605, b: 1, a: 1}
@@ -150,6 +152,7 @@ MonoBehaviour:
   - {x: 0, y: 1}
   validDirections: 0000000000000000
   seperationStrength: 2
+  flowDirection: {x: 1, y: 0}
 --- !u!50 &7773524054505596542
 Rigidbody2D:
   serializedVersion: 4
