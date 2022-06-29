@@ -55,7 +55,7 @@ public class Bubble : MonoBehaviour
 
     public Vector2 flowDirection = Vector3.right;
 
-    private PidController speedController;
+    private PidController movementForceController;
 
     private Vector2 TargetDirection => (target.position - transform.position).normalized;
 
@@ -69,8 +69,10 @@ public class Bubble : MonoBehaviour
 
     private void Start()
     {
-        speedController = gameObject.AddComponent<PidController>();
-        speedController.target = targetSpeed;
+        movementForceController = gameObject.AddComponent<PidController>();
+        movementForceController.proportionalCoefficient = 2;
+        movementForceController.derivativeCoefficient = 1;
+        movementForceController.integralCoefficient = 0.1f;
 
         damageable = true;
         target = GameObject.Find("Base").transform;
@@ -111,11 +113,14 @@ public class Bubble : MonoBehaviour
 
     private void UpdateMovement()
     {
-        var movementDirection = (flowDirection * flowStrength + Separation() * separationStrength + ObstacleAvoidance() * obstacleAvoidanceStrength).normalized;
+        var targetDirection = (flowDirection * flowStrength + Separation() * separationStrength + ObstacleAvoidance() * obstacleAvoidanceStrength).normalized;
 
-        rigidbody.AddForce(Vector2.ClampMagnitude(movementDirection * speedController.output, maxForce));
+        var targetVelocity = targetDirection * targetSpeed;
 
-        speedController.current = rigidbody.velocity.magnitude;
+        movementForceController.current = rigidbody.velocity;
+        movementForceController.target = targetVelocity;
+
+        rigidbody.AddForce(Vector2.ClampMagnitude(movementForceController.output, maxForce));
     }
 
     private Vector2 FindDesiredDirection()

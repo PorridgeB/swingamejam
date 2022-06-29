@@ -4,17 +4,17 @@ using UnityEngine;
 
 public class PidController : MonoBehaviour
 {
-    public float target;
-    public float current;
+    public Vector2 target;
+    public Vector2 current;
     public float proportionalCoefficient = 1;
     public float integralCoefficient = 1;
     public float derivativeCoefficient = 1;
 
-    public float output { get; private set; }
+    public Vector2 output { get; private set; }
 
-    private float errorDerivative;
-    private float errorIntegral;
-    private float previousError;
+    private Vector2 errorDerivative;
+    private Vector2 errorIntegral;
+    private Vector2 previousError;
 
     private void FixedUpdate()
     {
