@@ -40,7 +40,8 @@ public class GameManager : MonoBehaviour
         switch (state)
         {
             case GameState.Build:
-                waveManager.Spawn(stage-1);
+                //waveManager.Spawn(stage-1);
+                waveManager.SpawnRandom();
                 buildUI.SetActive(false);
                 state = GameState.Fight;
                 break;
@@ -56,8 +57,15 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+        if(state == GameState.Fight)
+        {
+            waveManager.CheckForWaveComplete();
+        }
+
         if (waveManager.WaveComplete && state == GameState.Fight)
         {
+            Debug.Log(waveManager.WaveComplete);
+            Debug.Log("Wave complete.");
             ChangeGameState();
         }
 

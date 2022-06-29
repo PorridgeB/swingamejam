@@ -18,10 +18,10 @@ public class Bubble : MonoBehaviour
     [SerializeField] private int hp;
     [SerializeField] private bool spawnBubblesOnDeath;
     [SerializeField] private GameObject babyBubblePrefab;
+    private bool stuck;
     private bool damageable;
     private float damageStartTime;
     SpriteRenderer bubbleSprite;
-    // need to add iframe timer
     [SerializeField] private Gradient bubbleColor;
     [SerializeField] private LayerMask steeringMask;
     [SerializeField] private List<Vector2> raycastDirections;
@@ -31,6 +31,8 @@ public class Bubble : MonoBehaviour
     public Vector2 flowDirection = Vector3.right;
     
     private Vector2 TargetDirection => (target.position - transform.position).normalized;
+
+    public bool Stuck { get => stuck; set => stuck = value; }
 
     private Vector2 currentDir;
     private Rigidbody2D rb;
@@ -45,6 +47,7 @@ public class Bubble : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         GetComponent<SpriteRenderer>().color = bubbleColor.Evaluate(Random.Range(0f, 1f));
         bubbleSprite = GetComponent<SpriteRenderer>();
+        Stuck = false;
     }
 
     private void FixedUpdate()
