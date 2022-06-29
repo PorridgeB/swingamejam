@@ -141,7 +141,7 @@ MonoBehaviour:
   maxSpeed: 3
   damageOnImpact: 2
   target: {fileID: 0}
-  hp: 100
+  hp: 3
   spawnBubblesOnDeath: 0
   babyBubblePrefab: {fileID: 0}
   bubbleColor:
