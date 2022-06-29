@@ -853,6 +853,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: {fileID: 0}
   foregroundImage: {fileID: 1532502266}
+  text: {fileID: 224652985}
 --- !u!114 &1532502266
 MonoBehaviour:
   m_ObjectHideFlags: 0
