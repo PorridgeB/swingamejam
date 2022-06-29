@@ -1,12 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class HealthBar : MonoBehaviour
 {
     public Health health;
-    public Image foregroundImage;
+    [SerializeField]
+    private Image foregroundImage;
+    [SerializeField]
+    private TMP_Text text;
 
     private void Update()
     {
@@ -16,5 +20,10 @@ public class HealthBar : MonoBehaviour
         }
 
         foregroundImage.fillAmount = health.percentage;
+
+        if (text != null)
+        {
+            text.text = $"{health.health}/{health.maxHealth}";
+        }
     }
 }
