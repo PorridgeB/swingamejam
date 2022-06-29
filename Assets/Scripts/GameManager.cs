@@ -47,6 +47,7 @@ public class GameManager : MonoBehaviour
                 waveManager.SpawnRandom();
                 buildUI.SetActive(false);
                 state = GameState.Fight;
+                waveManager.WaveComplete = false;
                 onFightStart.Invoke();
                 break;
             case GameState.Fight:

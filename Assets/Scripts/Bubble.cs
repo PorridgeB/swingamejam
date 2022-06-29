@@ -78,7 +78,7 @@ public class Bubble : MonoBehaviour
         
         Stuck = false;
         stuckTime = 5f;
-        lastTime = 0;
+        lastTime = Time.timeSinceLevelLoad;
     }
 
     private void FixedUpdate()
