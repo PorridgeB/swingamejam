@@ -9,5 +9,6 @@ public class InventoryItem : ScriptableObject
     [TextArea]
     public string description;
     public Sprite icon;
+    public bool canRotate = true;
     public GameObject prefab;
 }

@@ -11,6 +11,8 @@ public class Bubble : MonoBehaviour
     public float baseSeekingForceInflucence = 1;
     [Space]
     public float maxSpeed = 3;
+    public float damageOnImpact = 2;
+
     //[SerializeField] private float steeringForce;
     [SerializeField] private Transform target;
     [SerializeField] private int hp;
@@ -46,25 +48,7 @@ public class Bubble : MonoBehaviour
         //on death
         if (hp <= 0)
         {
-            int bubbleSpawnAmt = 3;
-            //spawn baby bubbles
-            if (spawnBubblesOnDeath)
-            {
-                for(int i = 0; i < bubbleSpawnAmt; i++)
-                {
-                    // choose new random location near bubble
-                    // create baby bubble
-                    //Debug.Log("baby bubble created");
-                    Vector2 pos = new Vector2(gameObject.transform.position.x, gameObject.transform.position.y);
-                    GameObject newBubble = Instantiate(babyBubblePrefab, 
-                        new Vector2(pos.x + Random.Range(-0.5f, 0.5f), pos.y + Random.Range(-0.5f, 0.5f)), 
-                        Quaternion.Euler(0, 0, Random.Range(0, 360)));
-                    //Rigidbody2D rb = newBubble.GetComponent<Rigidbody2D>();
-                    //rb.AddForce(Vector2.right * 100000, ForceMode2D.Impulse);
-                    
-                }
-            }
-            Destroy(gameObject);
+            Pop();
         }
 
         // Global wind
@@ -75,13 +59,7 @@ public class Bubble : MonoBehaviour
         rb.AddForce(FindDesiredDirection());
         SpreadOut();
 
-        //var velocity = (target.position - transform.position).normalized * steeringForce;
-        //transform.position += velocity * speedMultiplier;
-        //speedMultiplier = 1;
-
         rb.velocity = Vector3.ClampMagnitude(GetComponent<Rigidbody2D>().velocity, maxSpeed);
-
-        
     }
 
     private Vector2 FindDesiredDirection()
@@ -117,19 +95,14 @@ public class Bubble : MonoBehaviour
         }
     }
 
-    //private void Move(Vector3 force)
-    //{
-    //    transform.position += force;
-    //}
-
     public void TakeDamage(int DmgAmount)
     {
         if (damageable)
         {
-            //Debug.Log("Hp: " + hp);
             hp -= DmgAmount;
         }
     }
+
     public void Blow(Vector2 force)
     {
         rb.AddForce(force * blowForceInfluence);
@@ -137,15 +110,33 @@ public class Bubble : MonoBehaviour
 
     public void Stick(float strength)
     {
-        //Stick(-rigidbody.velocity.normalized * strength);
-
         rb.drag += strength;
     }
 
-    //public void Stick(Vector2 force)
-    //{
-    //    rigidbody.AddForce(force * stickForceInfluence);
-    //}
+    public void Pop()
+    {
+        int bubbleSpawnAmt = 3;
+
+        //spawn baby bubbles
+        if (spawnBubblesOnDeath)
+        {
+            for (int i = 0; i < bubbleSpawnAmt; i++)
+            {
+                // choose new random location near bubble
+                // create baby bubble
+                //Debug.Log("baby bubble created");
+                Vector2 pos = new Vector2(gameObject.transform.position.x, gameObject.transform.position.y);
+                GameObject newBubble = Instantiate(babyBubblePrefab,
+                    new Vector2(pos.x + Random.Range(-0.5f, 0.5f), pos.y + Random.Range(-0.5f, 0.5f)),
+                    Quaternion.Euler(0, 0, Random.Range(0, 360)));
+                //Rigidbody2D rb = newBubble.GetComponent<Rigidbody2D>();
+                //rb.AddForce(Vector2.right * 100000, ForceMode2D.Impulse);
+
+            }
+        }
+
+        Destroy(gameObject);
+    }
 
     private void OnDrawGizmos()
     {
