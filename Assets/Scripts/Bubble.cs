@@ -57,6 +57,10 @@ public class Bubble : MonoBehaviour
 
     private PidController movementForceController;
 
+    private float wobbleIntensity;
+    private float wobbleDecay = 1.25f;
+    private float wobbleFrequency = 20;
+
     private Vector2 TargetDirection => (target.position - transform.position).normalized;
 
     public bool Stuck { get => stuck; set => stuck = value; }
@@ -81,6 +85,14 @@ public class Bubble : MonoBehaviour
         Stuck = false;
         stuckTime = 5f;
         lastTime = Time.timeSinceLevelLoad;
+    }
+
+    private void Update()
+    {
+        // Decay wobble
+        wobbleIntensity = Mathf.Lerp(wobbleIntensity, 0, wobbleDecay * Time.deltaTime);
+
+        sprite.transform.localScale = Vector2.one + new Vector2(Mathf.Cos(Time.time * wobbleFrequency), Mathf.Sin(Time.time * wobbleFrequency)) * wobbleIntensity;
     }
 
     private void FixedUpdate()
@@ -309,5 +321,10 @@ public class Bubble : MonoBehaviour
             Debug.Log("bubble is stuck");
             Stuck = true;
         }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        wobbleIntensity = rigidbody.velocity.magnitude * 0.2f;
     }
 }
