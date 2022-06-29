@@ -24,7 +24,7 @@ public class ItemPlacement : MonoBehaviour
 
     private void Start()
     {
-        spriteRenderer.sprite = item.icon;
+        spriteRenderer.sprite = item.placementSprite;
         
         // Stop the sprite from appearing at the origin for a frame before "Update()"
         spriteRenderer.enabled = false;
@@ -32,6 +32,9 @@ public class ItemPlacement : MonoBehaviour
 
     private void Update()
     {
+        var overlappingCollider = Physics2D.OverlapCircle(transform.position, item.size);
+        canPlace = overlappingCollider == null;
+
         spriteRenderer.enabled = true;
 
         spriteRenderer.color = canPlace ? canPlaceColor : cantPlaceColor;

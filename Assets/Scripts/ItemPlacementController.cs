@@ -55,6 +55,11 @@ public class ItemPlacementController : MonoBehaviour
             return;
         }
 
+        if (!currentItemPlacement.canPlace)
+        {
+            return;
+        }
+
         var item = Instantiate(currentItemPlacement.item.prefab);
         item.transform.SetPositionAndRotation(currentItemPlacement.transform.position, currentItemPlacement.transform.rotation);
 

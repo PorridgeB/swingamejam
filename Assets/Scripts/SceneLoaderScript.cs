@@ -19,7 +19,7 @@ public class SceneLoaderScript : MonoBehaviour
 
     public void loadLevel()
     {
-        SceneManager.LoadScene("SampleScene");
+        SceneManager.LoadScene("Game");
     }
 
     public void quitGame()
