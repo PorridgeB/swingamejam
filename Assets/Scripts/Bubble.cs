@@ -57,6 +57,7 @@ public class Bubble : MonoBehaviour
 
     private PidController movementForceController;
 
+    private float impactVelocityToWobbleIntensity = 0.2f;
     private float wobbleIntensity;
     private float wobbleDecay = 1.25f;
     private float wobbleFrequency = 20;
@@ -92,6 +93,7 @@ public class Bubble : MonoBehaviour
         // Decay wobble
         wobbleIntensity = Mathf.Lerp(wobbleIntensity, 0, wobbleDecay * Time.deltaTime);
 
+        // Do wobble by scaling the sprite
         sprite.transform.localScale = Vector2.one + new Vector2(Mathf.Cos(Time.time * wobbleFrequency), Mathf.Sin(Time.time * wobbleFrequency)) * wobbleIntensity;
     }
 
@@ -325,6 +327,6 @@ public class Bubble : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        wobbleIntensity = rigidbody.velocity.magnitude * 0.2f;
+        wobbleIntensity = rigidbody.velocity.magnitude * impactVelocityToWobbleIntensity;
     }
 }
