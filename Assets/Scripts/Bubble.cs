@@ -252,6 +252,11 @@ public class Bubble : MonoBehaviour
         //    Gizmos.DrawRay(new Ray(transform.position, dir.normalized));
         //}
 
+        if (!Application.isPlaying)
+        {
+            return;
+        }
+
         var vectorScale = 0.5f;
 
         var position = new Vector2(transform.position.x, transform.position.y);
@@ -267,6 +272,12 @@ public class Bubble : MonoBehaviour
         // Obstacle avoidance
         Gizmos.color = Color.red;
         Gizmos.DrawLine(position, position + ObstacleAvoidance() * obstacleAvoidanceStrength * vectorScale);
+
+        // Target direction
+        var targetDirection = (flowDirection * flowStrength + Separation() * separationStrength + ObstacleAvoidance() * obstacleAvoidanceStrength).normalized;
+        var targetVelocity = targetDirection * targetSpeed;
+        Gizmos.color = Color.black;
+        Gizmos.DrawLine(position, position + targetVelocity * vectorScale);
 
         // Obstacle avoidance rays
         //var obstacleAvoidanceMaxDistance = 2;
