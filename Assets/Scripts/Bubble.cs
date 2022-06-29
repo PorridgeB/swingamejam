@@ -18,10 +18,12 @@ public class Bubble : MonoBehaviour
     [SerializeField] private int hp;
     [SerializeField] private bool spawnBubblesOnDeath;
     [SerializeField] private GameObject babyBubblePrefab;
+    [SerializeField] private float stuckTime;
+    [SerializeField] private GameObject popParticle;
+    private bool stuck;
     private bool damageable;
     private float damageStartTime;
     SpriteRenderer bubbleSprite;
-    // need to add iframe timer
     [SerializeField] private Gradient bubbleColor;
     [SerializeField] private LayerMask steeringMask;
     [SerializeField] private List<Vector2> raycastDirections;
@@ -31,6 +33,8 @@ public class Bubble : MonoBehaviour
     public Vector2 flowDirection = Vector3.right;
     
     private Vector2 TargetDirection => (target.position - transform.position).normalized;
+
+    public bool Stuck { get => stuck; set => stuck = value; }
 
     private Vector2 currentDir;
     private Rigidbody2D rb;
@@ -45,6 +49,7 @@ public class Bubble : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         GetComponent<SpriteRenderer>().color = bubbleColor.Evaluate(Random.Range(0f, 1f));
         bubbleSprite = GetComponent<SpriteRenderer>();
+        Stuck = false;
     }
 
     private void FixedUpdate()
@@ -80,6 +85,9 @@ public class Bubble : MonoBehaviour
                 bubbleSprite.color = Color.white;
             }
         }
+
+        //checks if the bubble has barely moved for roughly 5 seconds
+        CheckStuck();
     }
 
     private Vector2 FindDesiredDirection()
@@ -138,6 +146,12 @@ public class Bubble : MonoBehaviour
     {
         int bubbleSpawnAmt = 3;
 
+        //play pop particle effect
+        GameObject popParticle2 = Instantiate(popParticle);
+        ParticleSystem particle = popParticle2.GetComponent<ParticleSystem>();
+        popParticle2.transform.position = gameObject.transform.position;
+        particle.Play();
+
         //spawn baby bubbles
         if (spawnBubblesOnDeath)
         {
@@ -166,5 +180,12 @@ public class Bubble : MonoBehaviour
             Gizmos.color = validDirections[raycastDirections.IndexOf(dir)] ? Color.green : Color.red;
             Gizmos.DrawRay(new Ray(transform.position, dir.normalized));
         }
+    }
+
+    private void CheckStuck()
+    {
+
+        float stuckSpeed;
+        //get current speed
     }
 }

@@ -9,7 +9,12 @@ public class WaveManager : MonoBehaviour
     [SerializeField] private Level level;
     [SerializeField] private List<GameObject> wave;
 
-    public bool WaveComplete => wave.Count == 0;
+    public bool WaveComplete;
+
+    private void Start()
+    {
+        WaveComplete = false;
+    }
 
     public BoxCollider2D GetSpawnArea()
     {
@@ -59,8 +64,40 @@ public class WaveManager : MonoBehaviour
         }
     }
 
-    private void Update()
+    public void CheckForWaveComplete()
     {
-        wave.RemoveAll(x => x == null);
+        //should only check during action phase
+
+        // checks current amount of bubbles in scene
+        GameObject[] bubbles = GameObject.FindGameObjectsWithTag("Bubble");
+        if (bubbles.Length == 0)
+        {
+            Debug.Log(bubbles.Length);
+            WaveComplete = true;
+        }
+        // checks each bubble to see if they are stuck,
+        // and if all bubbles are stuck consider the level done
+        int stuckBubbles = 0;
+        foreach (GameObject bubble in bubbles)
+        {
+            Bubble script = bubble.GetComponent<Bubble>();
+            if (!script.Stuck)
+            {
+                break;
+            }
+            else
+            {
+                stuckBubbles++;
+            }
+        }
+        if (stuckBubbles == bubbles.Length)
+        {
+            WaveComplete = true;
+        }
     }
+        private void Update()
+        {
+
+        }
+
 }

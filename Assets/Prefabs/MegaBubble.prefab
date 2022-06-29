@@ -102,10 +102,13 @@ MonoBehaviour:
   windForceInfluence: 3
   baseSeekingForceInflucence: 4
   maxSpeed: 1.25
+  damageOnImpact: 2
   target: {fileID: 0}
   hp: 10
   spawnBubblesOnDeath: 0
   babyBubblePrefab: {fileID: 0}
+  stuckTime: 0
+  popParticle: {fileID: 6988472824656846569, guid: 89315a937de75ef4983d59ef2e7176ad, type: 3}
   bubbleColor:
     serializedVersion: 2
     key0: {r: 0.78679246, g: 0.88819605, b: 1, a: 1}
@@ -149,6 +152,7 @@ MonoBehaviour:
   - {x: 0, y: 1}
   validDirections: 0000000000000000
   seperationStrength: 2
+  flowDirection: {x: 1, y: 0}
 --- !u!50 &5756103300745008173
 Rigidbody2D:
   serializedVersion: 4
