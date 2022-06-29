@@ -28,7 +28,7 @@ public class BlowArea : MonoBehaviour
 
             if (bubble == null)
             {
-                return;
+                continue;
             }
 
             var falloff = 1 / (1 + Vector2.Distance(transform.position, bubble.transform.position));

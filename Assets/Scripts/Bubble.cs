@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class Bubble : MonoBehaviour
 {
+    private const int obstacleAvoidanceRays = 16;
+
     [Header("External Influences")]
     [Tooltip("How much blowing forces (e.g Windmill Flower) will affect the movement of the bubble")]
     public float blowingInfluence = 2;
@@ -16,16 +18,23 @@ public class Bubble : MonoBehaviour
     public float targetSpeed = 3;
     [Tooltip("The maximum amount of force that the bubble can use to try and reach its target speed")]
     public float maxForce = 10;
+    [Tooltip("How much of the level flow is factored in to the bubble's desired movement direction")]
     public float flowStrength = 3;
+    [Tooltip("How much obstacle avoidance is factored in to the bubble's desired movement direction")]
     public float obstacleAvoidanceStrength = 2;
+    [Tooltip("The distance from the center of the bubble to detect nearby obstacles")]
+    public float obstacleAvoidanceMaxDistance = 2;
+    [Tooltip("How much separation between nearby bubbles is factored in to the bubble's desired movement direction")]
     public float separationStrength = 3;
+    [Tooltip("The distance from the center of the bubble to find nearby bubbles")]
     public float separationRadius = 1.5f;
     [Space]
 
+    [Tooltip("The amount of damage dealt to the player's ant hill when impacting with it")]
     public float damageOnImpact = 2;
 
     [SerializeField] private Transform target;
-    [SerializeField] private int hp;
+    [SerializeField] private float hp;
     [SerializeField] private bool spawnBubblesOnDeath;
     [SerializeField] private GameObject babyBubblePrefab;
     [SerializeField] private float stuckTime;
@@ -138,9 +147,6 @@ public class Bubble : MonoBehaviour
     {
         var totalForce = Vector2.zero;
 
-        var obstacleAvoidanceMaxDistance = 2;
-        var obstacleAvoidanceRays = 16;
-
         for (int i = 0; i < obstacleAvoidanceRays; i++)
         {
             var angle = i / (float)obstacleAvoidanceRays * 360;
@@ -161,25 +167,29 @@ public class Bubble : MonoBehaviour
     {
         var totalForce = Vector2.zero;
 
-        var overlappingColliders = Physics2D.OverlapCircleAll(transform.position, separationRadius);
+        var overlappingColliders = Physics2D.OverlapCircleAll(transform.position, separationRadius, LayerMask.GetMask("Bubble"));
 
-        foreach (var otherBubble in overlappingColliders.Where(x => x.CompareTag("Bubble") && x != this))
+        foreach (var otherBubble in overlappingColliders)
         {
-            var deltaPosition = transform.position - otherBubble.transform.position;
-            var distanceFalloff = 1 / (1 + deltaPosition.magnitude);
-            var force = deltaPosition.normalized * distanceFalloff;
+            if (otherBubble == this)
+            {
+                continue;
+            }
 
-            totalForce += new Vector2(force.x, force.y);
+            var deltaPosition = (Vector2)(transform.position - otherBubble.transform.position);
+            var distanceFalloff = 1 / (1 + deltaPosition.magnitude);
+
+            totalForce += deltaPosition.normalized * distanceFalloff;
         }
 
         return totalForce;
     }
 
-    public void TakeDamage(int DmgAmount)
+    public void Hurt(float amount)
     {
         if (damageable)
         {
-            hp -= DmgAmount;
+            hp -= amount;
             damageStartTime = Time.timeSinceLevelLoad;
         }
     }

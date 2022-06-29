@@ -8,6 +8,7 @@ public class ThornScript : MonoBehaviour
     [SerializeField]  public float Delay { get; set; }
     private float dmgLastTime;
     private float dmgTimeCooldown;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -33,14 +34,14 @@ public class ThornScript : MonoBehaviour
     {
         //Debug.Log("Current time: " + Time.timeSinceLevelLoad);
         //Debug.Log("cooldown: " + dmgLastTime + dmgTimeCooldown);
+
         if (collider.gameObject.CompareTag("Bubble"))
         {
-            
             if (Time.timeSinceLevelLoad > dmgLastTime + dmgTimeCooldown)
             {
                 //Debug.Log("bubble takes damage");
                 Bubble script = collider.gameObject.GetComponent<Bubble>();
-                script.TakeDamage(1);
+                script.Hurt(1);
                 dmgLastTime = Time.timeSinceLevelLoad;
             }
         }
