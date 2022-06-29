@@ -28,9 +28,9 @@ public class Bubble : MonoBehaviour
     [SerializeField] private List<bool> validDirections;
     [SerializeField] private float seperationStrength;
 
-
-
-    [SerializeField] private Vector2 TargetDirection => (target.position - transform.position).normalized;
+    public Vector2 flowDirection = Vector3.right;
+    
+    private Vector2 TargetDirection => (target.position - transform.position).normalized;
 
     private Vector2 currentDir;
     private Rigidbody2D rb;
@@ -56,11 +56,13 @@ public class Bubble : MonoBehaviour
         }
 
         // Global wind
-        rb.AddForce(WindController.instance.direction * WindController.instance.strength * windForceInfluence);
+        //rb.AddForce(WindController.instance.direction * WindController.instance.strength * windForceInfluence);
 
         // Base
         rb.drag = 1;
-        rb.AddForce(FindDesiredDirection());
+        //rb.AddForce(FindDesiredDirection());
+        rb.AddForce(flowDirection * windForceInfluence);
+
         SpreadOut();
 
         rb.velocity = Vector3.ClampMagnitude(GetComponent<Rigidbody2D>().velocity, maxSpeed);
