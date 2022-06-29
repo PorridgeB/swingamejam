@@ -54,6 +54,7 @@ public class GameManager : MonoBehaviour
                 buildUI.SetActive(true);
                 state = GameState.Build;
                 onBuildStart.Invoke();
+                waveManager.ClearBubbles();
                 break;
         }
             

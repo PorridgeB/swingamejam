@@ -20,7 +20,7 @@ public class Bubble : MonoBehaviour
     [SerializeField] private GameObject babyBubblePrefab;
     [SerializeField] private float stuckTime;
     [SerializeField] private GameObject popParticle;
-    private bool stuck;
+
     private bool damageable;
     private float damageStartTime;
     SpriteRenderer bubbleSprite;
@@ -29,6 +29,12 @@ public class Bubble : MonoBehaviour
     [SerializeField] private List<Vector2> raycastDirections;
     [SerializeField] private List<bool> validDirections;
     [SerializeField] private float seperationStrength;
+
+    private bool stuck;
+    private float lastTime;
+    public float speed;
+    public float speedPerSecond;
+    public Vector3 oldPosition;
 
     public Vector2 flowDirection = Vector3.right;
     
@@ -50,6 +56,8 @@ public class Bubble : MonoBehaviour
         GetComponent<SpriteRenderer>().color = bubbleColor.Evaluate(Random.Range(0f, 1f));
         bubbleSprite = GetComponent<SpriteRenderer>();
         Stuck = false;
+        stuckTime = 5f;
+        lastTime = 0;
     }
 
     private void FixedUpdate()
@@ -185,7 +193,23 @@ public class Bubble : MonoBehaviour
     private void CheckStuck()
     {
 
-        float stuckSpeed;
+        float stuckSpeed = 0.01f;
+
         //get current speed
+        speed = Vector3.Distance(oldPosition, transform.position); //This is the speed per frames
+        //speedPerSecond = Vector3.Distance(oldPosition, transform.position) / Time.deltaTime; //This is the speed per second
+        oldPosition = transform.position;
+        //Debug.Log("Speed: " + speed.ToString("F2"));
+
+        // if stuck for longer than 5 seconds, stuck = true
+        if(speed > stuckSpeed)
+        {
+            lastTime = Time.timeSinceLevelLoad;
+        }
+        if (Time.timeSinceLevelLoad > stuckTime + lastTime)
+        {
+            Debug.Log("bubble is stuck");
+            Stuck = true;
+        }
     }
 }

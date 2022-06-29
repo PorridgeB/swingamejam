@@ -95,9 +95,14 @@ public class WaveManager : MonoBehaviour
             WaveComplete = true;
         }
     }
-        private void Update()
+    
+    public void ClearBubbles()
+    {
+        GameObject[] bubbles = GameObject.FindGameObjectsWithTag("Bubble");
+        foreach(GameObject bubble in bubbles)
         {
-
+            Destroy(bubble);
         }
+    }
 
 }
