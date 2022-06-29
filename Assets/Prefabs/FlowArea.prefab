@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7902529381410948867}
   - component: {fileID: 7902529381410948864}
   - component: {fileID: 4856212050365611132}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: FlowArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -70,4 +70,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2b04a66444b08643954e81e9638b58a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  direction: 0
+  angle: 0
