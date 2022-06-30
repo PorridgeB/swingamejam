@@ -136,6 +136,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item: {fileID: 11400000, guid: 08fe6aa11542c334b83deaa02a15191d, type: 2}
+  placedByPlayer: 0
 --- !u!1 &8995370773849013392
 GameObject:
   m_ObjectHideFlags: 0
@@ -183,7 +184,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 1.5
+  m_Radius: 1.85
 --- !u!114 &7662555035497667529
 MonoBehaviour:
   m_ObjectHideFlags: 0
