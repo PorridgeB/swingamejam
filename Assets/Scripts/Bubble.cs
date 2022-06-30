@@ -12,6 +12,8 @@ public class Bubble : MonoBehaviour
     public float blowingInfluence = 2;
     [Tooltip("How much sticking forces (e.g Honey) will affect the movement of the bubble")]
     public float stickingInfluence = 1;
+    [Tooltip("How much magnetic forces (e.g Magnet Flower) will affect the movement of the bubble")]
+    public float magneticInfluence = 0;
 
     [Header("Movement")]
     [Tooltip("The bubble will try and move at this speed")]
@@ -263,6 +265,11 @@ public class Bubble : MonoBehaviour
     public void Stick(float strength)
     {
         rigidbody.AddForce(stickingInfluence * strength * -rigidbody.velocity);
+    }
+
+    public void Attract(Vector2 force)
+    {
+        rigidbody.AddForce(force * magneticInfluence);
     }
 
     public void Pop()
