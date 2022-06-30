@@ -32,7 +32,7 @@ public class ItemPlacement : MonoBehaviour
 
     private void Update()
     {
-        var overlappingCollider = Physics2D.OverlapCircle(transform.position, item.size, ~LayerMask.GetMask("FlowArea"));
+        var overlappingCollider = Physics2D.OverlapCircle(transform.position, item.size, LayerMask.GetMask("Tower", "Obstacles"));
         canPlace = overlappingCollider == null;
 
         spriteRenderer.enabled = true;
