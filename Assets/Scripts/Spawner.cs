@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
-    private const float spawnPositionRadius = 0.1f;
 
     public List<SpawnItem> spawnItems;
     [Tooltip("The time until bubbles should start spawning")]
     public float startDelay;
     [Tooltip("The time in-between spawning the next bubble")]
     public float spawnRate = 0.5f;
+    public float spawnRadius = 0.1f;
     [HideInInspector]
     public bool completed;
 
@@ -47,12 +47,15 @@ public class Spawner : MonoBehaviour
         var spawnItem = spawnItemQueue.Dequeue();
 
         var bubble = Instantiate(spawnItem.prefab);
-        bubble.transform.position = transform.position + (Vector3)Random.insideUnitCircle * spawnPositionRadius;
+        bubble.transform.position = transform.position + (Vector3)Random.insideUnitCircle * spawnRadius;
     }
 
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, 1);
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, spawnRadius);
     }
 }

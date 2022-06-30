@@ -1338,8 +1338,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 2721dff5f690b5b418ebd6cbaa413b4c, type: 2}
   - {fileID: 11400000, guid: 2721dff5f690b5b418ebd6cbaa413b4c, type: 2}
   - {fileID: 11400000, guid: 2721dff5f690b5b418ebd6cbaa413b4c, type: 2}
+  - {fileID: 11400000, guid: 2721dff5f690b5b418ebd6cbaa413b4c, type: 2}
+  - {fileID: 11400000, guid: 2721dff5f690b5b418ebd6cbaa413b4c, type: 2}
   startDelay: 0
-  spawnRate: 0.5
+  spawnRate: 0.2
+  spawnRadius: 1.27
   completed: 0
 --- !u!4 &831047217
 Transform:
