@@ -222,6 +222,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 2440ea3becad39141912350315b170a9, type: 2}
   - {fileID: 11400000, guid: a73969d6dbf529e499024e449889cd31, type: 2}
   - {fileID: 11400000, guid: a73969d6dbf529e499024e449889cd31, type: 2}
+  - {fileID: 11400000, guid: 87c4b9340d97cbe43b99725a7855e9c9, type: 2}
+  - {fileID: 11400000, guid: 87c4b9340d97cbe43b99725a7855e9c9, type: 2}
   onBuildStart:
     m_PersistentCalls:
       m_Calls:
@@ -429,9 +431,9 @@ MonoBehaviour:
   - {fileID: 6056004441052727516, guid: cfb111dc82f67ed448ac2aea8d5f7449, type: 3}
   - {fileID: 6056004441052727516, guid: 8315fb2eb9e6e454f9c08931a64e0bff, type: 3}
   - {fileID: 8073806751121308303, guid: 19e87a708b2de8e4baa631d1ad9b0ae6, type: 3}
+  - {fileID: 1724384019398406370, guid: 1064742a7b735084daa31eaf9c92b53f, type: 3}
   spawnCount: 20
   level: {fileID: 11400000, guid: d8c6c824e7ab4194b9a24ac7731d48a8, type: 2}
-  wave: []
   WaveComplete: 0
 --- !u!4 &408100122
 Transform:

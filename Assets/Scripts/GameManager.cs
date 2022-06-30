@@ -12,8 +12,9 @@ public enum GameState
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager instance;
+
     public Inventory inventory;
-    public List<InventoryItem> startingItems;
     public UnityEvent onBuildStart;
     public UnityEvent onFightStart;
 
@@ -24,18 +25,25 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private HealthBar baseHealthBar;
 
+    private void Awake()
+    {
+        if (instance != null && instance != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            instance = this;
+        }
+    }
+
     private void Start()
     {
-        foreach (var startingItem in startingItems)
-        {
-            inventory.AddItem(startingItem);
-        }
-
         state = GameState.Build;
         stage = 1;
 
         // Load level
-        SceneManager.LoadScene("LevelTest1", LoadSceneMode.Additive);
+        SceneManager.LoadScene(SceneLoaderScript.levelSceneToLoad, LoadSceneMode.Additive);
     }
 
     public void ChangeGameState()
@@ -58,7 +66,6 @@ public class GameManager : MonoBehaviour
                 waveManager.ClearBubbles();
                 break;
         }
-            
     }
 
     private void Update()
