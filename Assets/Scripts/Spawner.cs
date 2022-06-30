@@ -9,6 +9,7 @@ public class Spawner : MonoBehaviour
     public float startDelay;
     [Tooltip("The time in-between spawning the next bubble")]
     public float spawnRate = 0.5f;
+    [HideInInspector]
     public bool completed;
 
     private Queue<SpawnItem> spawnItemQueue;
@@ -45,5 +46,11 @@ public class Spawner : MonoBehaviour
 
         var bubble = Instantiate(spawnItem.prefab);
         bubble.transform.position = transform.position;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, 1);
     }
 }
