@@ -17,9 +17,35 @@ public class SceneLoaderScript : MonoBehaviour
         
     }
 
-    public void loadLevel()
+    public void loadTestLevel()
     {
         SceneManager.LoadScene("Game");
+    }
+
+    public void loadLvlSelect()
+    {
+        SceneManager.LoadScene("LevelSelect");
+    }
+
+    public void loadLvl1()
+    {
+        SceneManager.LoadScene("Level1");
+    }
+    public void loadLvl2()
+    {
+        SceneManager.LoadScene("Level2");
+    }
+    public void loadLvl3()
+    {
+        SceneManager.LoadScene("Level3");
+    }
+    public void loadLvl4()
+    {
+        SceneManager.LoadScene("Level4");
+    }
+    public void loadLvl5()
+    {
+        SceneManager.LoadScene("Level5");
     }
 
     public void quitGame()
