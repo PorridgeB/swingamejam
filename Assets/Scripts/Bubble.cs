@@ -57,7 +57,7 @@ public class Bubble : MonoBehaviour
 
     private PidController movementForceController;
 
-    private float impactVelocityToWobbleIntensity = 0.2f;
+    private float impactVelocityToWobbleIntensity = 0.15f;
     private float wobbleIntensity;
     private float wobbleDecay = 1.25f;
     private float wobbleFrequency = 20;
@@ -327,7 +327,8 @@ public class Bubble : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        var surfaceHitEnergy = Mathf.Clamp01(Vector2.Dot(collision.contacts[0].normal, rigidbody.velocity.normalized));
+        // A measure for how directly the bubble is hitting the wall (how much the velocity is in line with the inverted surface normal)
+        var surfaceHitEnergy = Mathf.Clamp01(Vector2.Dot(rigidbody.velocity.normalized, collision.contacts[0].normal));
 
         wobbleIntensity = rigidbody.velocity.magnitude * impactVelocityToWobbleIntensity * surfaceHitEnergy;
     }
