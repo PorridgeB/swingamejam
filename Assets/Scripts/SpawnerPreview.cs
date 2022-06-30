@@ -22,6 +22,8 @@ public class SpawnerPreview : MonoBehaviour
         foreach (var spawnItem in spawner.spawnItems)
         {
             var spawnItemIcon = new GameObject("SpawnItemIcon");
+            spawnItemIcon.transform.SetParent(icons.transform, false);
+
             var iconImage = spawnItemIcon.AddComponent<Image>();
             iconImage.sprite = spawnItem.icon;
         }
