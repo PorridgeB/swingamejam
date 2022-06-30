@@ -158,13 +158,17 @@ public class GameManager : MonoBehaviour
         if (state == GameState.Fight)
         {
             waveManager.CheckForWaveComplete();
+            if(instance.baseHealthBar.health.health <= 0)
+            {
+                SceneManager.LoadScene("Lose");
+            }
         }
 
         if (waveManager.WaveComplete && state == GameState.Fight)
         {
             Debug.Log(waveManager.WaveComplete);
             Debug.Log("Wave complete.");
-            SceneManager.LoadScene("Win");
+            SceneManager.LoadScene("Win2");
             //ChangeGameState();
         }
     }
