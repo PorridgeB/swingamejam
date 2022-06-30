@@ -85,6 +85,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blowingInfluence: 2
   stickingInfluence: 1
+  magneticInfluence: 0
   targetSpeed: 5
   maxForce: 10
   flowStrength: 3
