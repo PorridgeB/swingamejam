@@ -28,6 +28,11 @@ public class SceneLoaderScript : MonoBehaviour
         SceneManager.LoadScene("Game");
     }
 
+    public void LoadScene(string s)
+    {
+        SceneManager.LoadScene(s);
+    }
+
     public void quitGame()
     {
         #if UNITY_EDITOR
