@@ -5,21 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class SceneLoaderScript : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public static string levelSceneToLoad = "LevelTest1";
 
     public void loadTestLevel()
     {
-        SceneManager.LoadScene("Game");
+        LoadLevel("LevelTest1");
     }
 
     public void loadLvlSelect()
@@ -30,6 +20,12 @@ public class SceneLoaderScript : MonoBehaviour
     public void loadMainMenu()
     {
         SceneManager.LoadScene("MainMenu");
+    }
+
+    public void LoadLevel(string sceneName)
+    {
+        levelSceneToLoad = sceneName;
+        SceneManager.LoadScene("Game");
     }
 
     public void quitGame()
