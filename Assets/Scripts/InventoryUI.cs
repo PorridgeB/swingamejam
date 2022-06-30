@@ -31,7 +31,8 @@ public class InventoryUI : MonoBehaviour
         foreach (var item in items)
         {
             var inventoryItemUI = Instantiate(inventoryItemUIPrefab).GetComponent<InventoryItemUI>();
-            inventoryItemUI.transform.SetParent(transform);
+            inventoryItemUI.transform.SetParent(transform, false);
+            inventoryItemUI.transform.localScale = Vector3.one;
             inventoryItemUI.Setup(item.item, item.quantity);
             inventoryItemUI.onPressed.AddListener(() => onItemPressed.Invoke(item.item));
         }
