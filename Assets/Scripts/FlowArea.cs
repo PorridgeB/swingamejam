@@ -29,9 +29,18 @@ public class FlowArea : MonoBehaviour
 
     private void OnDrawGizmos()
     {
+        var boxCollider2D = GetComponent<BoxCollider2D>();
+
+        if (boxCollider2D != null)
+        {
+            //Handles.DrawWireCube(transform.position + new Vector3(boxCollider2D.offset.x, boxCollider2D.offset.y), boxCollider2D.size);
+            var rect = new Rect((Vector2)transform.position + boxCollider2D.offset - boxCollider2D.size / 2, boxCollider2D.size);
+            Handles.DrawSolidRectangleWithOutline(rect, new Color(0.3f, 0.3f, 0.7f, 0.05f), new Color(0.1f, 0.1f, 0.2f, 0.8f));
+        }
+
         var endPoint = transform.position + new Vector3(direction.x, direction.y) * arrowLength;
 
-        Handles.color = Color.blue;
+        Handles.color = new Color(0.2f, 0.2f, 0.5f);
         Handles.DrawAAPolyLine(arrowThickness, transform.position, endPoint);
 
         var arrowHeadDirection1 = Quaternion.Euler(0, 0, 180 + arrowHeadAngle) * direction;
@@ -39,12 +48,5 @@ public class FlowArea : MonoBehaviour
 
         Handles.DrawAAPolyLine(arrowThickness, endPoint, endPoint + arrowHeadDirection1 * arrowHeadLength);
         Handles.DrawAAPolyLine(arrowThickness, endPoint, endPoint + arrowHeadDirection2 * arrowHeadLength);
-
-        var boxCollider2D = GetComponent<BoxCollider2D>();
-
-        if (boxCollider2D != null)
-        {
-            Handles.DrawWireCube(transform.position + new Vector3(boxCollider2D.offset.x, boxCollider2D.offset.y), boxCollider2D.size);
-        }
     }
 }
