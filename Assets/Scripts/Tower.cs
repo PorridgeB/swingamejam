@@ -5,4 +5,6 @@ using UnityEngine;
 public class Tower : MonoBehaviour
 {
     public InventoryItem item;
+    [HideInInspector]
+    public bool placedByPlayer;
 }

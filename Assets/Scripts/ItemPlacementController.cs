@@ -33,12 +33,15 @@ public class ItemPlacementController : MonoBehaviour
                 {
                     var tower = hitInfo.collider.GetComponent<Tower>();
 
-                    Select(tower.item);
-                    currentItemPlacement.transform.rotation = tower.transform.rotation;
+                    if (tower.placedByPlayer)
+                    {
+                        Select(tower.item);
+                        currentItemPlacement.transform.rotation = tower.transform.rotation;
 
-                    Destroy(tower.gameObject);
+                        Destroy(tower.gameObject);
 
-                    onItemGrabbed.Invoke(tower.item);
+                        onItemGrabbed.Invoke(tower.item);
+                    }
                 }
             }
         }
@@ -88,6 +91,9 @@ public class ItemPlacementController : MonoBehaviour
 
         var item = Instantiate(currentItemPlacement.item.prefab);
         item.transform.SetPositionAndRotation(currentItemPlacement.transform.position, currentItemPlacement.transform.rotation);
+
+        var tower = item.GetComponent<Tower>();
+        tower.placedByPlayer = true;
 
         Destroy(currentItemPlacement.gameObject);
         

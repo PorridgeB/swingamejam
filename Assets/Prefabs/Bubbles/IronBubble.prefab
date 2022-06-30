@@ -83,8 +83,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dba9279413ea62d40b269ffb67322457, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  blowingInfluence: 2
-  stickingInfluence: 1
+  blowingInfluence: 0
+  stickingInfluence: 0
+  magneticInfluence: 1
   targetSpeed: 3
   maxForce: 15
   flowStrength: 3
