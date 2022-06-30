@@ -47,7 +47,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 1
+  m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 6200000, guid: fd6e7cfab592b544482a3a7f77d16f6c, type: 2}
@@ -83,7 +83,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dba9279413ea62d40b269ffb67322457, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  blowingInfluence: 0
+  blowingInfluence: 2
   stickingInfluence: 0
   magneticInfluence: 1
   targetSpeed: 3

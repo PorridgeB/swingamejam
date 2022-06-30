@@ -93,12 +93,11 @@ MonoBehaviour:
   obstacleAvoidanceMaxDistance: 2
   separationStrength: 3
   separationRadius: 1.5
-  damageOnImpact: 2
+  damageOnImpact: 1
   target: {fileID: 0}
   hp: 3
   spawnBubblesOnDeath: 0
   babyBubblePrefab: {fileID: 2065136343749234248}
-  stuckTime: 0
   popParticle: {fileID: 6988472824656846569, guid: 89315a937de75ef4983d59ef2e7176ad, type: 3}
   steeringMask:
     serializedVersion: 2

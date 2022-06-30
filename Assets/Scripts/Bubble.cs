@@ -61,6 +61,7 @@ public class Bubble : MonoBehaviour
     private PidController torqueController;
 
     private float impactVelocityToWobbleIntensity = 0.15f;
+    private float wobbleMaxIntensity = 2;
     private float wobbleIntensity;
     private float wobbleDecay = 1.25f;
     private float wobbleFrequency = 20;
@@ -95,7 +96,7 @@ public class Bubble : MonoBehaviour
         transform.eulerAngles = new Vector3(0, 0, 90);
 
         // Start by moving right
-        rigidbody.velocity = Vector3.right * targetSpeed;
+        //rigidbody.velocity = Vector3.right * targetSpeed;
 
         damageable = true;
         target = GameObject.Find("Base").transform;
@@ -382,6 +383,6 @@ public class Bubble : MonoBehaviour
         // A measure for how directly the bubble is hitting the wall (how much the velocity is in line with the inverted surface normal)
         var surfaceHitEnergy = Mathf.Clamp01(Vector2.Dot(rigidbody.velocity.normalized, collision.contacts[0].normal));
 
-        wobbleIntensity = rigidbody.velocity.magnitude * impactVelocityToWobbleIntensity * surfaceHitEnergy;
+        wobbleIntensity = Mathf.Min(rigidbody.velocity.magnitude * impactVelocityToWobbleIntensity * surfaceHitEnergy, wobbleMaxIntensity);
     }
 }
