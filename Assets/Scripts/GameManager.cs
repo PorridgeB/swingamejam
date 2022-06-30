@@ -168,7 +168,7 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log(waveManager.WaveComplete);
             Debug.Log("Wave complete.");
-            SceneManager.LoadScene("Win2");
+            SceneManager.LoadScene("Win");
             //ChangeGameState();
         }
     }

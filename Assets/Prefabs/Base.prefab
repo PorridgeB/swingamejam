@@ -116,7 +116,7 @@ MonoBehaviour:
   onDied:
     m_PersistentCalls:
       m_Calls: []
-  maxHealth: 100
+  maxHealth: 20
   health: 0
 --- !u!114 &8241355764603038974
 MonoBehaviour:
