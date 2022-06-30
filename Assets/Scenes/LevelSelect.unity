@@ -396,6 +396,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ButtonLvl1
       objectReference: {fileID: 0}
+    - target: {fileID: 7555496063240648274, guid: 54e1cc8cd195fb54eb1af7600ca1d9db, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 881e14c8a627a1b48973a0c16fcf1792, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 54e1cc8cd195fb54eb1af7600ca1d9db, type: 3}
 --- !u!1 &311099173
@@ -640,6 +644,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ButtonLvl4
       objectReference: {fileID: 0}
+    - target: {fileID: 7555496063240648274, guid: 54e1cc8cd195fb54eb1af7600ca1d9db, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 881e14c8a627a1b48973a0c16fcf1792, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 54e1cc8cd195fb54eb1af7600ca1d9db, type: 3}
 --- !u!224 &433423426 stripped
@@ -1020,6 +1028,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ButtonLvl5
       objectReference: {fileID: 0}
+    - target: {fileID: 7555496063240648274, guid: 54e1cc8cd195fb54eb1af7600ca1d9db, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 881e14c8a627a1b48973a0c16fcf1792, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 54e1cc8cd195fb54eb1af7600ca1d9db, type: 3}
 --- !u!224 &750879571 stripped
@@ -1334,6 +1346,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ButtonLvl3
       objectReference: {fileID: 0}
+    - target: {fileID: 7555496063240648274, guid: 54e1cc8cd195fb54eb1af7600ca1d9db, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 881e14c8a627a1b48973a0c16fcf1792, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 54e1cc8cd195fb54eb1af7600ca1d9db, type: 3}
 --- !u!224 &1236497742 stripped
@@ -1573,6 +1589,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ButtonLvl2
       objectReference: {fileID: 0}
+    - target: {fileID: 7555496063240648274, guid: 54e1cc8cd195fb54eb1af7600ca1d9db, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 881e14c8a627a1b48973a0c16fcf1792, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 54e1cc8cd195fb54eb1af7600ca1d9db, type: 3}
 --- !u!224 &1553890123 stripped
