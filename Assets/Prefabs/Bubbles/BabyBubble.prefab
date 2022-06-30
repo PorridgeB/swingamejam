@@ -105,6 +105,8 @@ MonoBehaviour:
   raycastDirections: []
   validDirections: 
   flowDirection: {x: 1, y: 0}
+  frozenTime: 2
+  frozen: 0
 --- !u!1 &6178221077620800353
 GameObject:
   m_ObjectHideFlags: 0

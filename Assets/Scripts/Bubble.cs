@@ -37,7 +37,7 @@ public class Bubble : MonoBehaviour
     [SerializeField] private float hp;
     [SerializeField] private bool spawnBubblesOnDeath;
     [SerializeField] private GameObject babyBubblePrefab;
-    [SerializeField] private float stuckTime;
+    private float stuckTime;
     [SerializeField] private GameObject popParticle;
 
     private bool damageable;
@@ -64,6 +64,10 @@ public class Bubble : MonoBehaviour
     private float wobbleFrequency = 20;
 
     private Vector2 TargetDirection => (target.position - transform.position).normalized;
+    [SerializeField] float frozenTime;
+    [HideInInspector] public bool frozen;
+    private bool alreadyFrozen;
+    private float frozenLastTime;
 
     public bool Stuck { get => stuck; set => stuck = value; }
 
@@ -104,6 +108,24 @@ public class Bubble : MonoBehaviour
 
         // Do wobble by scaling the sprite
         sprite.transform.localScale = Vector2.one + new Vector2(Mathf.Cos(Time.time * wobbleFrequency), Mathf.Sin(Time.time * wobbleFrequency)) * wobbleIntensity;
+        if (frozen && !alreadyFrozen)
+        {
+            frozenLastTime = Time.timeSinceLevelLoad;
+            alreadyFrozen = true;
+        }
+
+        if (frozen)
+        {
+            Debug.Log("frozen");
+            rigidbody.simulated = false;
+            if (Time.timeSinceLevelLoad > frozenLastTime + frozenTime)
+            {
+                Debug.Log("unfrozen");
+                frozen = false;
+                alreadyFrozen = false;
+                rigidbody.simulated = true;
+            }
+        }
     }
 
     private void FixedUpdate()
@@ -129,6 +151,8 @@ public class Bubble : MonoBehaviour
                 sprite.color = Color.white;
             }
         }
+
+
 
         // Checks if the bubble has barely moved for roughly 5 seconds
         CheckStuck();
