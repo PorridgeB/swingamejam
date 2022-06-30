@@ -80,6 +80,11 @@ public class WaveManager : MonoBehaviour
         WaveComplete = !(FindObjectsOfType<Bubble>().Any(x => !x.Stuck)
             || FindObjectsOfType<Spawner>().Any(x => !x.completed));
 
+        if (WaveComplete)
+        {
+            Debug.Log("wave complete");
+        }
+
         ////should only check during action phase
 
         //// checks current amount of bubbles in scene
