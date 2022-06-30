@@ -75,8 +75,8 @@ public class Bubble : MonoBehaviour
     private void Start()
     {
         movementForceController = gameObject.AddComponent<PidController>();
-        movementForceController.proportionalCoefficient = 2;
-        movementForceController.derivativeCoefficient = 1;
+        movementForceController.proportionalCoefficient = 4;
+        movementForceController.derivativeCoefficient = 2;
         movementForceController.integralCoefficient = 0.1f;
 
         damageable = true;

@@ -86,7 +86,7 @@ MonoBehaviour:
   blowingInfluence: 2
   stickingInfluence: 1
   targetSpeed: 3
-  maxForce: 10
+  maxForce: 15
   flowStrength: 3
   obstacleAvoidanceStrength: 2
   obstacleAvoidanceMaxDistance: 2
