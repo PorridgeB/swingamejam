@@ -9,27 +9,41 @@ public class Spawner : MonoBehaviour
     public float startDelay;
     [Tooltip("The time in-between spawning the next bubble")]
     public float spawnRate = 0.5f;
+    public bool completed;
 
-    private void Start()
+    private Queue<SpawnItem> spawnItemQueue;
+
+    public void Begin()
     {
-        //InvokeRepeating(nameof(Spawn), startDelay, spawnRate);
+        completed = false;
+
+        spawnItemQueue = new Queue<SpawnItem>(spawnItems);
+
+        CancelInvoke(nameof(Spawn));
+        InvokeRepeating(nameof(Spawn), startDelay, spawnRate);
+    }
+
+    public void End()
+    {
+        CancelInvoke(nameof(Spawn));
     }
 
     private void Spawn()
     {
         // There are no more bubbles to spawn
-        if (spawnItems.Count == 0)
+        if (spawnItemQueue.Count == 0)
         {
-            Destroy(gameObject);
+            completed = true;
+
+            End();
 
             return;
         }
-        
-        // Pop the first bubble off of the queue
-        var spawnPrefab = spawnItems[0].prefab;
-        spawnItems.RemoveAt(0);
 
-        var bubble = Instantiate(spawnPrefab);
+        // Pop the first bubble off of the queue
+        var spawnItem = spawnItemQueue.Dequeue();
+
+        var bubble = Instantiate(spawnItem.prefab);
         bubble.transform.position = transform.position;
     }
 }

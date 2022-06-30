@@ -109,11 +109,17 @@ public class GameManager : MonoBehaviour
         {
             case GameState.Build:
                 //waveManager.Spawn(stage-1);
-                waveManager.SpawnRandom();
+                //waveManager.SpawnRandom();
+
+                waveManager.Begin();
+
                 buildUI.SetActive(false);
+
                 state = GameState.Fight;
-                waveManager.WaveComplete = false;
+
                 onFightStart.Invoke();
+
+                SetAllSpawnerPreviewsActive(false);
                 break;
             case GameState.Fight:
                 stage++;
@@ -121,13 +127,22 @@ public class GameManager : MonoBehaviour
                 state = GameState.Build;
                 onBuildStart.Invoke();
                 waveManager.ClearBubbles();
+                SetAllSpawnerPreviewsActive(true);
                 break;
+        }
+    }
+    
+    private void SetAllSpawnerPreviewsActive(bool active)
+    {
+        foreach (var spawnerPreview in FindObjectsOfType<SpawnerPreview>())
+        {
+            spawnerPreview.gameObject.SetActive(active);
         }
     }
 
     private void Update()
     {
-        if(state == GameState.Fight)
+        if (state == GameState.Fight)
         {
             waveManager.CheckForWaveComplete();
         }

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class WaveManager : MonoBehaviour
@@ -63,36 +64,50 @@ public class WaveManager : MonoBehaviour
         }
     }
 
+    public void Begin()
+    {
+        WaveComplete = false;
+
+        // Start all spawners
+        foreach (var spawner in FindObjectsOfType<Spawner>())
+        {
+            spawner.Begin();
+        }
+    }
+
     public void CheckForWaveComplete()
     {
-        //should only check during action phase
+        WaveComplete = !(FindObjectsOfType<Bubble>().Any(x => !x.Stuck)
+            || FindObjectsOfType<Spawner>().Any(x => !x.completed));
 
-        // checks current amount of bubbles in scene
-        GameObject[] bubbles = GameObject.FindGameObjectsWithTag("Bubble");
-        if (bubbles.Length == 0)
-        {
-            Debug.Log(bubbles.Length);
-            WaveComplete = true;
-        }
-        // checks each bubble to see if they are stuck,
-        // and if all bubbles are stuck consider the level done
-        int stuckBubbles = 0;
-        foreach (GameObject bubble in bubbles)
-        {
-            Bubble script = bubble.GetComponent<Bubble>();
-            if (!script.Stuck)
-            {
-                break;
-            }
-            else
-            {
-                stuckBubbles++;
-            }
-        }
-        if (stuckBubbles == bubbles.Length)
-        {
-            WaveComplete = true;
-        }
+        ////should only check during action phase
+
+        //// checks current amount of bubbles in scene
+        //GameObject[] bubbles = GameObject.FindGameObjectsWithTag("Bubble");
+        //if (bubbles.Length == 0)
+        //{
+        //    Debug.Log(bubbles.Length);
+        //    WaveComplete = true;
+        //}
+        //// checks each bubble to see if they are stuck,
+        //// and if all bubbles are stuck consider the level done
+        //int stuckBubbles = 0;
+        //foreach (GameObject bubble in bubbles)
+        //{
+        //    Bubble script = bubble.GetComponent<Bubble>();
+        //    if (!script.Stuck)
+        //    {
+        //        break;
+        //    }
+        //    else
+        //    {
+        //        stuckBubbles++;
+        //    }
+        //}
+        //if (stuckBubbles == bubbles.Length)
+        //{
+        //    WaveComplete = true;
+        //}
     }
     
     public void ClearBubbles()
