@@ -15,7 +15,7 @@ public class FlowArea : MonoBehaviour
 
     public Vector2 direction => Quaternion.Euler(0, 0, angle) * Vector2.right;
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
         var bubble = collision.GetComponent<Bubble>();
 
@@ -32,13 +32,13 @@ public class FlowArea : MonoBehaviour
         var endPoint = transform.position + new Vector3(direction.x, direction.y) * arrowLength;
 
         Handles.color = Color.blue;
-        Handles.DrawLine(transform.position, endPoint, arrowThickness);
+        Handles.DrawAAPolyLine(arrowThickness, transform.position, endPoint);
 
         var arrowHeadDirection1 = Quaternion.Euler(0, 0, 180 + arrowHeadAngle) * direction;
         var arrowHeadDirection2 = Quaternion.Euler(0, 0, 180 - arrowHeadAngle) * direction;
 
-        Handles.DrawLine(endPoint, endPoint + arrowHeadDirection1 * arrowHeadLength, arrowThickness);
-        Handles.DrawLine(endPoint, endPoint + arrowHeadDirection2 * arrowHeadLength, arrowThickness);
+        Handles.DrawAAPolyLine(arrowThickness, endPoint, endPoint + arrowHeadDirection1 * arrowHeadLength);
+        Handles.DrawAAPolyLine(arrowThickness, endPoint, endPoint + arrowHeadDirection2 * arrowHeadLength);
 
         var boxCollider2D = GetComponent<BoxCollider2D>();
 

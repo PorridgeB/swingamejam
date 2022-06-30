@@ -28,12 +28,10 @@ public class StickyArea : MonoBehaviour
 
             if (bubble == null)
             {
-                return;
+                continue;
             }
 
             bubble.Stick(strength);
-
-            //bubble.speedMultiplier *= 1 / (1 + strength);
         }
     }
 }

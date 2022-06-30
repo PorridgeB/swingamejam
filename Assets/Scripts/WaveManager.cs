@@ -7,7 +7,6 @@ public class WaveManager : MonoBehaviour
     [SerializeField] private List<GameObject> spawnPool;
     [SerializeField] private int spawnCount;
     [SerializeField] private Level level;
-    [SerializeField] private List<GameObject> wave;
 
     public bool WaveComplete;
 
@@ -16,7 +15,7 @@ public class WaveManager : MonoBehaviour
         WaveComplete = false;
     }
 
-    public BoxCollider2D GetSpawnArea()
+    public SpawnArea GetSpawnArea()
     {
         var spawnAreas = GameObject.FindGameObjectsWithTag("SpawnArea");
 
@@ -26,7 +25,7 @@ public class WaveManager : MonoBehaviour
             return null;
         }
 
-        return spawnAreas[0].GetComponent<BoxCollider2D>();
+        return spawnAreas[0].GetComponent<SpawnArea>();
     }
 
     public void SpawnRandom()
@@ -35,9 +34,9 @@ public class WaveManager : MonoBehaviour
 
         for (int i = 0; i < spawnCount; i++)
         {
-            Bubble bubble = Instantiate(spawnPool[Random.Range(0, spawnPool.Count)]).GetComponent<Bubble>();
-            bubble.transform.position = spawnArea.bounds.center + new Vector3(0, Random.Range(-spawnArea.bounds.extents.y, spawnArea.bounds.extents.y));
-            wave.Add(bubble.gameObject);
+            var bubble = Instantiate(spawnPool[Random.Range(0, spawnPool.Count)]).GetComponent<Bubble>();
+
+            bubble.transform.position = spawnArea.RandomPoint();
         }
     }
 
@@ -58,9 +57,9 @@ public class WaveManager : MonoBehaviour
                     break;
             }
 
-            Bubble bubble = Instantiate(go.GetComponent<Bubble>());
-            bubble.transform.position = spawnArea.bounds.center + new Vector3(0, Random.Range(-spawnArea.bounds.extents.y, spawnArea.bounds.extents.y));
-            wave.Add(bubble.gameObject);
+            var bubble = Instantiate(go.GetComponent<Bubble>());
+
+            bubble.transform.position = spawnArea.RandomPoint();
         }
     }
 
@@ -99,10 +98,10 @@ public class WaveManager : MonoBehaviour
     public void ClearBubbles()
     {
         GameObject[] bubbles = GameObject.FindGameObjectsWithTag("Bubble");
+
         foreach(GameObject bubble in bubbles)
         {
             Destroy(bubble);
         }
     }
-
 }
