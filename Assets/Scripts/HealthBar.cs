@@ -8,7 +8,7 @@ public class HealthBar : MonoBehaviour
 {
     public Health health;
     [SerializeField]
-    private Image foregroundImage;
+    private Image healthImage;
     [SerializeField]
     private TMP_Text text;
 
@@ -19,7 +19,7 @@ public class HealthBar : MonoBehaviour
             return;
         }
 
-        foregroundImage.fillAmount = health.percentage;
+        healthImage.fillAmount = health.percentage;
 
         if (text != null)
         {

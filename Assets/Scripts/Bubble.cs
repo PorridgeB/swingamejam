@@ -94,6 +94,9 @@ public class Bubble : MonoBehaviour
         // Face right
         transform.eulerAngles = new Vector3(0, 0, 90);
 
+        // Start by moving right
+        rigidbody.velocity = Vector3.right * targetSpeed;
+
         damageable = true;
         target = GameObject.Find("Base").transform;
         currentDir = TargetDirection;
