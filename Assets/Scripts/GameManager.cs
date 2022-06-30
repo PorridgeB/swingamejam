@@ -80,6 +80,17 @@ public class GameManager : MonoBehaviour
         }
 
         camera.boundary = levelRect;
+
+        // Add starting items to inventory
+        var startingInventory = FindObjectOfType<StartingInventory>();
+
+        if (startingInventory != null)
+        {
+            foreach (var item in startingInventory.startingItems)
+            {
+                inventory.AddItem(item);
+            }
+        }
     }
 
     public void ChangeGameState()
