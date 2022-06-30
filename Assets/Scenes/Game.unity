@@ -249,6 +249,7 @@ MonoBehaviour:
   waveManager: {fileID: 408100121}
   buildUI: {fileID: 855452733}
   baseHealthBar: {fileID: 1532502265}
+  spawnerPreviewPrefab: {fileID: 3721380721657609000, guid: c10fc73e65b5b814d98572d3ea1de1c5, type: 3}
 --- !u!224 &121529870 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7555496063240648268, guid: 54e1cc8cd195fb54eb1af7600ca1d9db, type: 3}

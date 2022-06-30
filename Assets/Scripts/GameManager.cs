@@ -25,6 +25,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject buildUI;
     [SerializeField]
     private HealthBar baseHealthBar;
+    [SerializeField]
+    private GameObject spawnerPreviewPrefab;
 
     private void Awake()
     {
@@ -90,6 +92,14 @@ public class GameManager : MonoBehaviour
             {
                 inventory.AddItem(item);
             }
+        }
+
+        // Create spawner previews
+        foreach (var spawner in FindObjectsOfType<Spawner>())
+        {
+            var spawnerPreview = Instantiate(spawnerPreviewPrefab).GetComponent<SpawnerPreview>();
+            spawnerPreview.spawner = spawner;
+            spawnerPreview.transform.position = spawner.transform.position;
         }
     }
 

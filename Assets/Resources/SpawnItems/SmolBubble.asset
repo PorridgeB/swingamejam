@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01854970881cbec45a622d63589fe6c7, type: 3}
   m_Name: SmolBubble
   m_EditorClassIdentifier: 
-  icon: {fileID: 21300000, guid: ce395a2db988c5d4d885f58517d674d0, type: 3}
-  prefab: {fileID: 6056004441052727516, guid: cfb111dc82f67ed448ac2aea8d5f7449, type: 3}
+  icon: {fileID: 21300000, guid: 508472431b0b32a49be585b9136baf02, type: 3}
+  prefab: {fileID: 7592451483294288936, guid: 3dff045a8bfed654d8d0121815766bab, type: 3}
