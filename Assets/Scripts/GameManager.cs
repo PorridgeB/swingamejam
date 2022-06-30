@@ -35,7 +35,7 @@ public class GameManager : MonoBehaviour
         stage = 1;
 
         // Load level
-        SceneManager.LoadScene("Level1", LoadSceneMode.Additive);
+        SceneManager.LoadScene("LevelTest1", LoadSceneMode.Additive);
     }
 
     public void ChangeGameState()
