@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
+    private const float spawnPositionRadius = 0.1f;
+
     public List<SpawnItem> spawnItems;
     [Tooltip("The time until bubbles should start spawning")]
     public float startDelay;
@@ -45,7 +47,7 @@ public class Spawner : MonoBehaviour
         var spawnItem = spawnItemQueue.Dequeue();
 
         var bubble = Instantiate(spawnItem.prefab);
-        bubble.transform.position = transform.position;
+        bubble.transform.position = transform.position + (Vector3)Random.insideUnitCircle * spawnPositionRadius;
     }
 
     private void OnDrawGizmos()

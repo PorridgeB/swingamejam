@@ -16,7 +16,7 @@ public class BlowArea : MonoBehaviour
 
     private void FixedUpdate()
     {
-        var overlappingColliders = new Collider2D[10];
+        var overlappingColliders = new Collider2D[20];
 
         var count = collider.OverlapCollider(new ContactFilter2D(), overlappingColliders);
 
@@ -31,9 +31,10 @@ public class BlowArea : MonoBehaviour
                 continue;
             }
 
-            var falloff = 1 / (1 + Vector2.Distance(transform.position, bubble.transform.position));
+            //var falloff = 1 / (1 + Vector2.Distance(transform.position, bubble.transform.position));
 
-            bubble.Blow(-transform.right * strength * falloff);
+            //bubble.Blow(-transform.right * strength * falloff);
+            bubble.Blow(-transform.right * strength);
         }
     }
 }

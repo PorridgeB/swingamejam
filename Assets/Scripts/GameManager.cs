@@ -103,6 +103,16 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void Cancel()
+    {
+        foreach (var spawner in FindObjectsOfType<Spawner>())
+        {
+            spawner.End();
+        }
+
+        ChangeGameState();
+    }
+
     public void ChangeGameState()
     {
         switch (state)

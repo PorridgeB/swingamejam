@@ -37,6 +37,9 @@ public class StopArea : MonoBehaviour
             var rigidbody = bubble.GetComponent<Rigidbody2D>();
 
             rigidbody.simulated = false;
+            rigidbody.velocity = Vector2.zero;
+
+            bubble.Stuck = true;
         }
     }
 }

@@ -129,7 +129,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 1
+  m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 6200000, guid: fd6e7cfab592b544482a3a7f77d16f6c, type: 2}
@@ -168,14 +168,14 @@ MonoBehaviour:
   blowingInfluence: 2
   stickingInfluence: 1
   magneticInfluence: 0
-  targetSpeed: 3
+  targetSpeed: 2.5
   maxForce: 15
   flowStrength: 3
   obstacleAvoidanceStrength: 2
   obstacleAvoidanceMaxDistance: 2
   separationStrength: 3
   separationRadius: 1.5
-  damageOnImpact: 2
+  damageOnImpact: 4
   target: {fileID: 0}
   hp: 10
   spawnBubblesOnDeath: 0
