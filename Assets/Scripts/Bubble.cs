@@ -56,6 +56,7 @@ public class Bubble : MonoBehaviour
     public Vector2 flowDirection = Vector3.right;
 
     private PidController movementForceController;
+    private PidController torqueController;
 
     private float impactVelocityToWobbleIntensity = 0.15f;
     private float wobbleIntensity;
@@ -76,8 +77,16 @@ public class Bubble : MonoBehaviour
     {
         movementForceController = gameObject.AddComponent<PidController>();
         movementForceController.proportionalCoefficient = 4;
-        movementForceController.derivativeCoefficient = 2;
-        movementForceController.integralCoefficient = 0.1f;
+        movementForceController.derivativeCoefficient = 1;
+        movementForceController.integralCoefficient = 0;
+
+        torqueController = gameObject.AddComponent<PidController>();
+        torqueController.proportionalCoefficient = 0.005f;
+        torqueController.derivativeCoefficient = 0.001f;
+        torqueController.integralCoefficient = 0.0001f;
+
+        // Face right
+        transform.eulerAngles = new Vector3(0, 0, 90);
 
         damageable = true;
         target = GameObject.Find("Base").transform;
@@ -121,7 +130,7 @@ public class Bubble : MonoBehaviour
             }
         }
 
-        //checks if the bubble has barely moved for roughly 5 seconds
+        // Checks if the bubble has barely moved for roughly 5 seconds
         CheckStuck();
     }
 
@@ -135,6 +144,15 @@ public class Bubble : MonoBehaviour
         movementForceController.target = targetVelocity;
 
         rigidbody.AddForce(Vector2.ClampMagnitude(movementForceController.output, maxForce));
+
+        // Rotate
+        var angleDifference = Vector2.SignedAngle(transform.up, targetDirection);
+
+        // Since the PidController uses a Vector2 as its input, we only use the X component to input the error
+        torqueController.target = new Vector2(0, 0);
+        torqueController.current = new Vector2(angleDifference, 0);
+        
+        rigidbody.AddTorque(torqueController.output.x);
     }
 
     private Vector2 FindDesiredDirection()

@@ -6,9 +6,9 @@ public class PidController : MonoBehaviour
 {
     public Vector2 target;
     public Vector2 current;
-    public float proportionalCoefficient = 1;
+    public float proportionalCoefficient = 2;
     public float integralCoefficient = 1;
-    public float derivativeCoefficient = 1;
+    public float derivativeCoefficient = 0.1f;
 
     public Vector2 output { get; private set; }
 
