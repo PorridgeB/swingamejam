@@ -48,6 +48,11 @@ public class SceneLoaderScript : MonoBehaviour
         SceneManager.LoadScene("Level5");
     }
 
+    public void loadMainMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
+    }
+
     public void quitGame()
     {
         #if UNITY_EDITOR
