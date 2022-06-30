@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 using UnityEngine;
 
 public class SpawnArea : MonoBehaviour
 {
     public Rect area;
 
+#if UNITY_EDITOR
     private void OnDrawGizmos()
     {
         Handles.color = Color.green;
@@ -14,6 +17,7 @@ public class SpawnArea : MonoBehaviour
 
         Handles.Label(transform.position, "Spawn Area");
     }
+#endif
 
     public Vector2 RandomPoint()
     {

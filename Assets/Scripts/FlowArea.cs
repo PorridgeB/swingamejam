@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 using UnityEngine;
 
 public class FlowArea : MonoBehaviour
@@ -27,6 +29,7 @@ public class FlowArea : MonoBehaviour
         bubble.flowDirection = direction;
     }
 
+#if UNITY_EDITOR
     private void OnDrawGizmos()
     {
         var boxCollider2D = GetComponent<BoxCollider2D>();
@@ -49,4 +52,5 @@ public class FlowArea : MonoBehaviour
         Handles.DrawAAPolyLine(arrowThickness, endPoint, endPoint + arrowHeadDirection1 * arrowHeadLength);
         Handles.DrawAAPolyLine(arrowThickness, endPoint, endPoint + arrowHeadDirection2 * arrowHeadLength);
     }
+#endif
 }
