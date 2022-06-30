@@ -686,7 +686,7 @@ GameObject:
   - component: {fileID: 463333178}
   - component: {fileID: 463333177}
   m_Layer: 0
-  m_Name: titlr background
+  m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -733,7 +733,7 @@ MonoBehaviour:
       m_Calls: []
   m_Sprite: {fileID: 21300000, guid: 0941e6d88b35e284787eb930f6ab9fc9, type: 3}
   m_Type: 0
-  m_PreserveAspect: 1
+  m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 3
   m_FillAmount: 1
@@ -843,7 +843,7 @@ GameObject:
   - component: {fileID: 573614892}
   - component: {fileID: 573614893}
   m_Layer: 5
-  m_Name: buttons
+  m_Name: Buttons
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1099,7 +1099,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7555496063240648268, guid: 54e1cc8cd195fb54eb1af7600ca1d9db, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7555496063240648268, guid: 54e1cc8cd195fb54eb1af7600ca1d9db, type: 3}
       propertyPath: m_AnchorMin.x
@@ -1107,7 +1107,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7555496063240648268, guid: 54e1cc8cd195fb54eb1af7600ca1d9db, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7555496063240648268, guid: 54e1cc8cd195fb54eb1af7600ca1d9db, type: 3}
       propertyPath: m_SizeDelta.x
@@ -1151,7 +1151,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7555496063240648268, guid: 54e1cc8cd195fb54eb1af7600ca1d9db, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -445.85
+      value: 94.14705
       objectReference: {fileID: 0}
     - target: {fileID: 7555496063240648268, guid: 54e1cc8cd195fb54eb1af7600ca1d9db, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

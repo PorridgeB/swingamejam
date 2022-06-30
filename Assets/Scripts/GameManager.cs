@@ -130,6 +130,9 @@ public class GameManager : MonoBehaviour
                 onFightStart.Invoke();
 
                 SetAllSpawnerPreviewsActive(false);
+
+                // Reset health bar
+                baseHealthBar.health.health = baseHealthBar.health.maxHealth;
                 break;
             case GameState.Fight:
                 stage++;
