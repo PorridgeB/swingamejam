@@ -116,11 +116,12 @@ public class Bubble : MonoBehaviour
 
         if (frozen)
         {
-            Debug.Log("frozen");
+            sprite.color = new Color(0.2f, 1, 1);
             rigidbody.simulated = false;
+            //if current time exceeds frozenTime 
             if (Time.timeSinceLevelLoad > frozenLastTime + frozenTime)
             {
-                Debug.Log("unfrozen");
+                sprite.color = Color.white;
                 frozen = false;
                 alreadyFrozen = false;
                 rigidbody.simulated = true;
@@ -151,7 +152,6 @@ public class Bubble : MonoBehaviour
                 sprite.color = Color.white;
             }
         }
-
 
 
         // Checks if the bubble has barely moved for roughly 5 seconds
