@@ -25,6 +25,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject buildUI;
     [SerializeField]
     private HealthBar baseHealthBar;
+    [SerializeField]
+    private GameObject spawnerPreviewPrefab;
 
     private void Awake()
     {
@@ -80,6 +82,25 @@ public class GameManager : MonoBehaviour
         }
 
         camera.boundary = levelRect;
+
+        // Add starting items to inventory
+        var startingInventory = FindObjectOfType<StartingInventory>();
+
+        if (startingInventory != null)
+        {
+            foreach (var item in startingInventory.startingItems)
+            {
+                inventory.AddItem(item);
+            }
+        }
+
+        // Create spawner previews
+        foreach (var spawner in FindObjectsOfType<Spawner>())
+        {
+            var spawnerPreview = Instantiate(spawnerPreviewPrefab).GetComponent<SpawnerPreview>();
+            spawnerPreview.spawner = spawner;
+            spawnerPreview.transform.position = spawner.transform.position;
+        }
     }
 
     public void ChangeGameState()
@@ -88,11 +109,17 @@ public class GameManager : MonoBehaviour
         {
             case GameState.Build:
                 //waveManager.Spawn(stage-1);
-                waveManager.SpawnRandom();
+                //waveManager.SpawnRandom();
+
+                waveManager.Begin();
+
                 buildUI.SetActive(false);
+
                 state = GameState.Fight;
-                waveManager.WaveComplete = false;
+
                 onFightStart.Invoke();
+
+                SetAllSpawnerPreviewsActive(false);
                 break;
             case GameState.Fight:
                 stage++;
@@ -100,13 +127,22 @@ public class GameManager : MonoBehaviour
                 state = GameState.Build;
                 onBuildStart.Invoke();
                 waveManager.ClearBubbles();
+                SetAllSpawnerPreviewsActive(true);
                 break;
+        }
+    }
+    
+    private void SetAllSpawnerPreviewsActive(bool active)
+    {
+        foreach (var spawnerPreview in FindObjectsOfType<SpawnerPreview>())
+        {
+            spawnerPreview.gameObject.SetActive(active);
         }
     }
 
     private void Update()
     {
-        if(state == GameState.Fight)
+        if (state == GameState.Fight)
         {
             waveManager.CheckForWaveComplete();
         }
