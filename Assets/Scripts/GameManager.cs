@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
 
     public Inventory inventory;
+    public new CameraController camera;
     public UnityEvent onBuildStart;
     public UnityEvent onFightStart;
 
@@ -43,7 +44,42 @@ public class GameManager : MonoBehaviour
         stage = 1;
 
         // Load level
-        SceneManager.LoadScene(SceneLoaderScript.levelSceneToLoad, LoadSceneMode.Additive);
+        var async = SceneManager.LoadSceneAsync(SceneLoaderScript.levelSceneToLoad, LoadSceneMode.Additive);
+
+        async.completed += OnLevelLoaded;
+    }
+
+    private void OnLevelLoaded(AsyncOperation asyncOperation)
+    {
+        // Configure hill health bar
+        var hill = FindObjectOfType<Base>();
+        if (hill != null)
+        {
+            baseHealthBar.health = hill.GetComponent<Health>();
+        }
+
+        // Configure camera bounds
+        var levelRect = new Rect();
+        levelRect.min = new Vector2(Mathf.Infinity, Mathf.Infinity);
+        levelRect.max = new Vector2(Mathf.NegativeInfinity, Mathf.NegativeInfinity);
+        
+        var gameObjects = FindObjectsOfType<GameObject>();
+
+        foreach (var gameObject in gameObjects)
+        {
+            if (gameObject.layer == LayerMask.NameToLayer("Obstacle"))
+            {
+                var collider = gameObject.GetComponent<Collider2D>();
+
+                if (collider != null)
+                {
+                    levelRect.min = Vector2.Min(levelRect.min, collider.bounds.min);
+                    levelRect.max = Vector2.Max(levelRect.max, collider.bounds.max);
+                }
+            }
+        }
+
+        camera.boundary = levelRect;
     }
 
     public void ChangeGameState()
@@ -80,13 +116,6 @@ public class GameManager : MonoBehaviour
             Debug.Log(waveManager.WaveComplete);
             Debug.Log("Wave complete.");
             ChangeGameState();
-        }
-
-        // Quick way to link the base health bar to the level's base
-        var hill = FindObjectOfType<Base>();
-        if (hill != null)
-        {
-            baseHealthBar.health = hill.GetComponent<Health>();
         }
     }
 }
