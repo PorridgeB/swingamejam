@@ -2,10 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Bubble : MonoBehaviour
 {
     private const int obstacleAvoidanceRays = 16;
+
+    public UnityEvent<float> onBounced;
+    public UnityEvent onDamaged;
 
     [Header("External Influences")]
     [Tooltip("How much blowing forces (e.g Windmill Flower) will affect the movement of the bubble")]
@@ -71,6 +75,9 @@ public class Bubble : MonoBehaviour
     [HideInInspector] public bool frozen;
     private bool alreadyFrozen;
     private float frozenLastTime;
+
+    [SerializeField]
+    private AudioSource bounceAudioSource;
 
     public bool Stuck { get => stuck; set => stuck = value; }
 
@@ -382,9 +389,28 @@ public class Bubble : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        // A measure for how directly the bubble is hitting the wall (how much the velocity is in line with the inverted surface normal)
+        // A measure for how directly the bubble is hitting the wall (how much the velocity is in line with the hit normal)
         var surfaceHitEnergy = Mathf.Clamp01(Vector2.Dot(rigidbody.velocity.normalized, collision.contacts[0].normal));
 
         wobbleIntensity = Mathf.Min(rigidbody.velocity.magnitude * impactVelocityToWobbleIntensity * surfaceHitEnergy, wobbleMaxIntensity);
+
+        var normalizedImpactEnergy = Mathf.Clamp01(rigidbody.velocity.magnitude / targetSpeed) * surfaceHitEnergy;
+
+        onBounced?.Invoke(normalizedImpactEnergy);
+
+        // Play bounce sound
+        if (bounceAudioSource == null)
+        {
+            return;
+        }
+
+        if (normalizedImpactEnergy < 0.3f)
+        {
+            return;
+        }
+
+        bounceAudioSource.volume = Mathf.Lerp(0.2f, 0.4f, normalizedImpactEnergy);
+        bounceAudioSource.pitch = 1 + Random.Range(-0.1f, 0.1f);
+        bounceAudioSource.Play();
     }
 }
