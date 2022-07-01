@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class ItemPlacement : MonoBehaviour
 {
-    public float rotationSnap = 15;
+    public UnityEvent onRotated;
+
+    public float rotationSnap = 20;
     public float rotationMinDistance = 0.1f;
     public Color canPlaceColor;
     public Color cantPlaceColor;
@@ -53,7 +56,16 @@ public class ItemPlacement : MonoBehaviour
 
             var angleToMouse = Mathf.Atan2(deltaPosition.y, deltaPosition.x) * Mathf.Rad2Deg;
             angleToMouse = Mathf.Round(angleToMouse / rotationSnap) * rotationSnap;
+
+            var previousRotation = transform.rotation;
+
             transform.rotation = Quaternion.Euler(0, 0, angleToMouse);
+
+            // The item was rotated
+            if (previousRotation != transform.rotation)
+            {
+                onRotated.Invoke();
+            }
         }
         else
         {

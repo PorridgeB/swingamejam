@@ -8,6 +8,7 @@ public class ItemPlacementController : MonoBehaviour
 {
     public UnityEvent<InventoryItem> onItemPlaced;
     public UnityEvent<InventoryItem> onItemGrabbed;
+    public UnityEvent onItemRotated;
     public bool canGrab = true;
 
     [SerializeField]
@@ -75,6 +76,7 @@ public class ItemPlacementController : MonoBehaviour
 
         currentItemPlacement = Instantiate(itemPlacementPrefab).GetComponent<ItemPlacement>();
         currentItemPlacement.item = item;
+        currentItemPlacement.onRotated.AddListener(() => onItemRotated.Invoke());
     }
 
     public void Place()
