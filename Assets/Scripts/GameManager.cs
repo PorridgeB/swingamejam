@@ -113,6 +113,11 @@ public class GameManager : MonoBehaviour
         ChangeGameState();
     }
 
+    public void Quit()
+    {
+        SceneManager.LoadScene("MainMenu");
+    }
+
     public void ChangeGameState()
     {
         switch (state)
