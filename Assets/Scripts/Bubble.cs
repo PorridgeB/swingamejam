@@ -61,7 +61,7 @@ public class Bubble : MonoBehaviour
     private PidController torqueController;
 
     private float impactVelocityToWobbleIntensity = 0.15f;
-    private float wobbleMaxIntensity = 2;
+    private float wobbleMaxIntensity = 0.5f;
     private float wobbleIntensity;
     private float wobbleDecay = 1.25f;
     private float wobbleFrequency = 20;
@@ -114,6 +114,8 @@ public class Bubble : MonoBehaviour
 
         // Do wobble by scaling the sprite
         sprite.transform.localScale = Vector2.one + new Vector2(Mathf.Cos(Time.time * wobbleFrequency), Mathf.Sin(Time.time * wobbleFrequency)) * wobbleIntensity;
+
+
         if (frozen && !alreadyFrozen)
         {
             frozenLastTime = Time.timeSinceLevelLoad;
