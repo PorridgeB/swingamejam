@@ -363,6 +363,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3721380721657609001}
   - component: {fileID: 3721380721657609004}
+  - component: {fileID: 4831545504794649165}
   - component: {fileID: 1489825874265207015}
   m_Layer: 0
   m_Name: SpawnerPreview
@@ -412,6 +413,18 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 2
   m_TargetDisplay: 0
+--- !u!225 &4831545504794649165
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3721380721657609000}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!114 &1489825874265207015
 MonoBehaviour:
   m_ObjectHideFlags: 0

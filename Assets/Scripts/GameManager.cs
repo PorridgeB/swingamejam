@@ -134,7 +134,7 @@ public class GameManager : MonoBehaviour
 
                 onFightStart.Invoke();
 
-                SetAllSpawnerPreviewsActive(false);
+                HideAllSpawnerPreviews();
 
                 // Reset health bar
                 baseHealthBar.health.health = baseHealthBar.health.maxHealth;
@@ -145,16 +145,24 @@ public class GameManager : MonoBehaviour
                 state = GameState.Build;
                 onBuildStart.Invoke();
                 waveManager.ClearBubbles();
-                SetAllSpawnerPreviewsActive(true);
+                ShowAllSpawnerPreviews();
                 break;
         }
     }
     
-    private void SetAllSpawnerPreviewsActive(bool active)
+    private void HideAllSpawnerPreviews()
     {
         foreach (var spawnerPreview in FindObjectsOfType<SpawnerPreview>())
         {
-            spawnerPreview.gameObject.SetActive(active);
+            spawnerPreview.Hide();
+        }
+    }
+
+    private void ShowAllSpawnerPreviews()
+    {
+        foreach (var spawnerPreview in FindObjectsOfType<SpawnerPreview>())
+        {
+            spawnerPreview.Show();
         }
     }
 

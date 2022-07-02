@@ -10,6 +10,12 @@ public class SpawnerPreview : MonoBehaviour
 
     [SerializeField]
     private GameObject icons;
+    private CanvasGroup canvasGroup;
+
+    private void Awake()
+    {
+        canvasGroup = GetComponent<CanvasGroup>();
+    }
 
     private void Start()
     {
@@ -27,5 +33,19 @@ public class SpawnerPreview : MonoBehaviour
             var iconImage = spawnItemIcon.AddComponent<Image>();
             iconImage.sprite = spawnItem.icon;
         }
+    }
+
+    public void Show()
+    {
+        LeanTween.cancel(gameObject);
+
+        LeanTween.alphaCanvas(canvasGroup, 1, 0.5f).setEaseOutExpo();
+    }
+
+    public void Hide()
+    {
+        LeanTween.cancel(gameObject);
+
+        LeanTween.alphaCanvas(canvasGroup, 0, 0.5f).setEaseOutExpo();
     }
 }
