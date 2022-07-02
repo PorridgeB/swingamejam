@@ -115,7 +115,7 @@ public class GameManager : MonoBehaviour
 
     public void Quit()
     {
-        SceneManager.LoadScene("MainMenu");
+        SceneManager.LoadScene("LevelSelect");
     }
 
     public void ChangeGameState()
