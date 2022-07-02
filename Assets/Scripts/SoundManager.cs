@@ -27,7 +27,7 @@ public class SoundManager : MonoBehaviour
         soundEffects = gameObject.AddComponent<AudioSource>();
     }
 
-    public void PlaySound(AudioClip clip)
+    public void PlaySound(AudioClip clip, float volume=1)
     {
         //var sound = new GameObject("Sound");
         //sound.transform.position = position;
@@ -36,7 +36,7 @@ public class SoundManager : MonoBehaviour
         //audioSource.Play();
         //StartCoroutine(DestroyAfterTime(sound, clip.length));
 
-        soundEffects.PlayOneShot(clip);
+        soundEffects.PlayOneShot(clip, volume);
     }
 
     //private IEnumerator DestroyAfterTime(GameObject gameObject, float time)
