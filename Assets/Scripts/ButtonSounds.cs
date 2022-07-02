@@ -12,6 +12,15 @@ public class ButtonSounds : MonoBehaviour
     private void Awake()
     {
         button = GetComponent<Button>();
+    }
+
+    private void Start()
+    {
+        if (SoundManager.instance == null)
+        {
+            return;
+        }
+
         button.onClick.AddListener(() => SoundManager.instance.PlaySound(click, 0.8f));
     }
 }
