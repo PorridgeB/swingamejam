@@ -6,7 +6,7 @@ public class SoundManager : MonoBehaviour
 {
     public static SoundManager instance;
 
-    public AudioSource soundEffects;
+    private AudioSource soundEffects;
 
     private void Awake()
     {
@@ -18,17 +18,17 @@ public class SoundManager : MonoBehaviour
         {
             instance = this;
         }
+
+        DontDestroyOnLoad(gameObject);
+    }
+
+    private void Start()
+    {
+        soundEffects = gameObject.AddComponent<AudioSource>();
     }
 
     public void PlaySound(AudioClip clip)
     {
-        PlaySound(clip, Vector2.zero);
-    }
-
-    public void PlaySound(AudioClip clip, Vector2 position)
-    {
-        //AudioSource.PlayClipAtPoint(clip, position);
-
         //var sound = new GameObject("Sound");
         //sound.transform.position = position;
         //var audioSource = sound.AddComponent<AudioSource>();
@@ -39,10 +39,10 @@ public class SoundManager : MonoBehaviour
         soundEffects.PlayOneShot(clip);
     }
 
-    private IEnumerator DestroyAfterTime(GameObject gameObject, float time)
-    {
-        yield return new WaitForSeconds(time);
+    //private IEnumerator DestroyAfterTime(GameObject gameObject, float time)
+    //{
+    //    yield return new WaitForSeconds(time);
 
-        Destroy(gameObject);
-    }
+    //    Destroy(gameObject);
+    //}
 }
