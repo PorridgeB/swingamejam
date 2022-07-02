@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(Collider2D))]
 public class StickyArea : MonoBehaviour
 {
+    public UnityEvent onStick;
+
     public float strength = 1;
 
     private new Collider2D collider;
@@ -32,6 +35,16 @@ public class StickyArea : MonoBehaviour
             }
 
             bubble.Stick(strength);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        var bubble = collision.GetComponent<Bubble>();
+
+        if (bubble != null)
+        {
+            onStick.Invoke();
         }
     }
 }

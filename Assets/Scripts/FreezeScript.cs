@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class FreezeScript : MonoBehaviour
 {
     private const int maxColliders = 10;
+
+    public UnityEvent onFreeze;
 
     public float tickRate = 4f;
 
@@ -22,13 +25,14 @@ public class FreezeScript : MonoBehaviour
 
     private void Tick()
     {
-
         var overlappingColliders = new Collider2D[maxColliders];
 
         var contactFilter = new ContactFilter2D();
         contactFilter.layerMask = LayerMask.GetMask("Bubble");
 
         var count = collider.OverlapCollider(contactFilter, overlappingColliders);
+
+        var hasFrozen = false;
 
         for (int i = 0; i < count; i++)
         {
@@ -42,6 +46,13 @@ public class FreezeScript : MonoBehaviour
             }
 
             bubble.frozen = true;
+
+            hasFrozen = true;
+        }
+
+        if (hasFrozen)
+        {
+            onFreeze.Invoke();
         }
     }
 }

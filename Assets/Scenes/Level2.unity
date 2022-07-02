@@ -242,6 +242,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 2721dff5f690b5b418ebd6cbaa413b4c, type: 2}
   startDelay: 0
   spawnRate: 0.5
+  spawnRadius: 0.1
   completed: 0
 --- !u!4 &31639505
 Transform:
@@ -251,7 +252,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 31639503}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -13.9, y: 0.15, z: -3.4591753}
+  m_LocalPosition: {x: -13.9, y: 0.15, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -572,6 +573,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 2721dff5f690b5b418ebd6cbaa413b4c, type: 2}
   startDelay: 1
   spawnRate: 0.5
+  spawnRadius: 0.1
   completed: 0
 --- !u!4 &247878711
 Transform:
@@ -581,7 +583,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 247878709}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 14.79, y: 0.08, z: -1.259964}
+  m_LocalPosition: {x: 14.79, y: 0.08, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1445,6 +1447,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 2721dff5f690b5b418ebd6cbaa413b4c, type: 2}
   startDelay: 1
   spawnRate: 0.5
+  spawnRadius: 0.1
   completed: 0
 --- !u!4 &847519634
 Transform:
@@ -1454,7 +1457,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 847519632}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.46, y: -11.7, z: -1.259964}
+  m_LocalPosition: {x: -0.46, y: -11.7, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1504,7 +1507,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 864618799}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.4276595, y: -0.9610228, z: -2.0741084}
+  m_LocalPosition: {x: -0.4276595, y: -0.9610228, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -2499,6 +2502,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 8d810ed696598ad41b7f39f97cccdb90, type: 2}
   startDelay: 5
   spawnRate: 0.5
+  spawnRadius: 0.1
   completed: 0
 --- !u!4 &1700506929
 Transform:
@@ -2508,7 +2512,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1700506927}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.05, y: 10.6, z: -1.259964}
+  m_LocalPosition: {x: -0.05, y: 10.6, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
