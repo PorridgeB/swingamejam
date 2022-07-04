@@ -6,11 +6,13 @@ using UnityEngine.Events;
 public class Health : MonoBehaviour
 {
     public UnityEvent onDied;
+    public UnityEvent onHurt;
 
-    public float maxHealth = 100;
-    [HideInInspector]
-    public float health;
+    [Min(0)]
+    public float maxHealth = 10;
+    public bool invulnerable = false;
 
+    public float health { get; private set; }
     public float percentage => Mathf.Clamp01(health / maxHealth);
 
     private void Start()
@@ -18,9 +20,21 @@ public class Health : MonoBehaviour
         health = maxHealth;
     }
 
-    public void Hit(float damage)
+    public void Reset()
     {
+        health = maxHealth;
+    }
+
+    public void Hurt(float damage)
+    {
+        if (invulnerable)
+        {
+            return;
+        }
+
         health -= damage;
+
+        onHurt.Invoke();
 
         if (health <= 0)
         {

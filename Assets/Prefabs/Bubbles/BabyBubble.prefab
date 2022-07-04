@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3399695788131321372}
   - component: {fileID: 8219835784807844270}
   - component: {fileID: 2065136343749234249}
+  - component: {fileID: 1683345607423922249}
   m_Layer: 6
   m_Name: BabyBubble
   m_TagString: Bubble
@@ -86,20 +87,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onBounced:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
-        m_MethodName: Play
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  onDamaged:
+      m_Calls: []
+  onPopped:
     m_PersistentCalls:
       m_Calls: []
   blowingInfluence: 2
@@ -112,21 +101,35 @@ MonoBehaviour:
   obstacleAvoidanceMaxDistance: 2
   separationStrength: 3
   separationRadius: 1.5
+  flowDirection: {x: 1, y: 0}
   damageOnImpact: 1
-  target: {fileID: 0}
-  hp: 3
+  stuck: 0
+  frozen: 0
   spawnBubblesOnDeath: 0
   babyBubblePrefab: {fileID: 2065136343749234248}
   popParticle: {fileID: 6988472824656846569, guid: 89315a937de75ef4983d59ef2e7176ad, type: 3}
-  steeringMask:
-    serializedVersion: 2
-    m_Bits: 0
-  raycastDirections: []
-  validDirections: 
-  flowDirection: {x: 1, y: 0}
   frozenTime: 2
-  frozen: 0
   bounceAudioSource: {fileID: 8255005448016462340}
+--- !u!114 &1683345607423922249
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2065136343749234248}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63aeeb7fc07198248b7f0e2b88e5816f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onDied:
+    m_PersistentCalls:
+      m_Calls: []
+  onHurt:
+    m_PersistentCalls:
+      m_Calls: []
+  maxHealth: 3
+  invulnerable: 0
 --- !u!1 &6178221077620800353
 GameObject:
   m_ObjectHideFlags: 0

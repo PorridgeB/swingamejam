@@ -137,7 +137,7 @@ public class GameManager : MonoBehaviour
                 HideAllSpawnerPreviews();
 
                 // Reset health bar
-                baseHealthBar.health.health = baseHealthBar.health.maxHealth;
+                baseHealthBar.health.Reset();
                 break;
             case GameState.Fight:
                 stage++;

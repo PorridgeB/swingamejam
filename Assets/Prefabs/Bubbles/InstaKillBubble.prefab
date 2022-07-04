@@ -10,9 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1701918624401155368}
   - component: {fileID: 5309935550147824940}
-  - component: {fileID: 203451027466865910}
   - component: {fileID: 6128353584259029642}
   - component: {fileID: 6096741838408281743}
+  - component: {fileID: 203451027466865910}
+  - component: {fileID: 2730790655064307634}
   m_Layer: 0
   m_Name: InstaKillBubble
   m_TagString: Bubble
@@ -85,42 +86,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &203451027466865910
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8354120089029204551}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dba9279413ea62d40b269ffb67322457, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  blowingInfluence: 0
-  stickingInfluence: 1
-  magneticInfluence: 0
-  targetSpeed: 5
-  maxForce: 10
-  flowStrength: 3
-  obstacleAvoidanceStrength: 2
-  obstacleAvoidanceMaxDistance: 2
-  separationStrength: 3
-  separationRadius: 1.5
-  damageOnImpact: 1000
-  target: {fileID: 0}
-  hp: 100
-  spawnBubblesOnDeath: 0
-  babyBubblePrefab: {fileID: 2065136343749234248, guid: 3b4621034fe0f6c43a46199d27fd8445, type: 3}
-  popParticle: {fileID: 6988472824656846569, guid: 89315a937de75ef4983d59ef2e7176ad, type: 3}
-  steeringMask:
-    serializedVersion: 2
-    m_Bits: 0
-  raycastDirections: []
-  validDirections: 
-  flowDirection: {x: 1, y: 0}
-  frozenTime: 0
-  frozen: 0
 --- !u!50 &6128353584259029642
 Rigidbody2D:
   serializedVersion: 4
@@ -158,3 +123,60 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 1
+--- !u!114 &203451027466865910
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8354120089029204551}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dba9279413ea62d40b269ffb67322457, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onBounced:
+    m_PersistentCalls:
+      m_Calls: []
+  onPopped:
+    m_PersistentCalls:
+      m_Calls: []
+  blowingInfluence: 0
+  stickingInfluence: 1
+  magneticInfluence: 0
+  targetSpeed: 5
+  maxForce: 10
+  flowStrength: 3
+  obstacleAvoidanceStrength: 2
+  obstacleAvoidanceMaxDistance: 2
+  separationStrength: 3
+  separationRadius: 1.5
+  flowDirection: {x: 1, y: 0}
+  damageOnImpact: 1000
+  stuck: 0
+  frozen: 0
+  spawnBubblesOnDeath: 0
+  babyBubblePrefab: {fileID: 2065136343749234248, guid: 3b4621034fe0f6c43a46199d27fd8445, type: 3}
+  popParticle: {fileID: 6988472824656846569, guid: 89315a937de75ef4983d59ef2e7176ad, type: 3}
+  frozenTime: 0
+  bounceAudioSource: {fileID: 0}
+--- !u!114 &2730790655064307634
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8354120089029204551}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63aeeb7fc07198248b7f0e2b88e5816f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onDied:
+    m_PersistentCalls:
+      m_Calls: []
+  onHurt:
+    m_PersistentCalls:
+      m_Calls: []
+  maxHealth: 10
+  invulnerable: 0

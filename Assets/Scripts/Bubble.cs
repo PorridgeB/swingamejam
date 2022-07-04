@@ -4,12 +4,17 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
+[RequireComponent(typeof(Health))]
 public class Bubble : MonoBehaviour
 {
     private const int obstacleAvoidanceRays = 16;
+    // If the bubble's speed is less than `stuckSpeed` for more than
+    // `stuckDuration` seconds, then the bubble is considered stuck
+    private const float stuckSpeed = 0.25f;
+    private const float stuckDuration = 3;
 
     public UnityEvent<float> onBounced;
-    public UnityEvent onDamaged;
+    public UnityEvent onPopped;
 
     [Header("External Influences")]
     [Tooltip("How much blowing forces (e.g Windmill Flower) will affect the movement of the bubble")]
@@ -34,32 +39,35 @@ public class Bubble : MonoBehaviour
     public float separationStrength = 3;
     [Tooltip("The distance from the center of the bubble to find nearby bubbles")]
     public float separationRadius = 1.5f;
+
+    [HideInInspector]
+    public Vector2 flowDirection = Vector3.right;
+
     [Space]
 
     [Tooltip("The amount of damage dealt to the player's ant hill when impacting with it")]
     public float damageOnImpact = 2;
 
-    [SerializeField] private Transform target;
-    [SerializeField] private float hp;
-    [SerializeField] private bool spawnBubblesOnDeath;
-    [SerializeField] private GameObject babyBubblePrefab;
-    private float stuckTime;
-    [SerializeField] private GameObject popParticle;
+    [HideInInspector]
+    public bool frozen;
 
-    private bool damageable;
+    public Vector2 targetDirection => (flowDirection * flowStrength + Separation() * separationStrength + ObstacleAvoidance() * obstacleAvoidanceStrength).normalized;
+    public Vector2 targetVelocity => targetDirection * targetSpeed;
+    public bool isStuck => stuckTimer > stuckDuration;
+
+    [SerializeField]
+    private bool spawnBubblesOnDeath;
+    [SerializeField]
+    private GameObject babyBubblePrefab;
+    [SerializeField]
+    private GameObject popParticle;
+
     private float damageStartTime;
     private SpriteRenderer sprite;
-    [SerializeField] private LayerMask steeringMask;
-    [SerializeField] private List<Vector2> raycastDirections;
-    [SerializeField] private List<bool> validDirections;
 
-    private bool stuck;
-    private Vector2 currentDir;
     private new Rigidbody2D rigidbody;
 
-    private float lastTime;
-
-    public Vector2 flowDirection = Vector3.right;
+    private float stuckTimer;
 
     private PidController movementForceController;
     private PidController torqueController;
@@ -70,21 +78,21 @@ public class Bubble : MonoBehaviour
     private float wobbleDecay = 1.25f;
     private float wobbleFrequency = 20;
 
-    private Vector2 TargetDirection => (target.position - transform.position).normalized;
-    [SerializeField] float frozenTime;
-    [HideInInspector] public bool frozen;
+    [SerializeField]
+    private float frozenTime;
     private bool alreadyFrozen;
     private float frozenLastTime;
 
     [SerializeField]
     private AudioSource bounceAudioSource;
 
-    public bool Stuck { get => stuck; set => stuck = value; }
+    private Health health;
 
     private void Awake()
     {
         rigidbody = GetComponent<Rigidbody2D>();
         sprite = GetComponentInChildren<SpriteRenderer>();
+        health = GetComponent<Health>();
     }
 
     private void Start()
@@ -102,16 +110,9 @@ public class Bubble : MonoBehaviour
         // Face right
         transform.eulerAngles = new Vector3(0, 0, 90);
 
-        // Start by moving right
-        //rigidbody.velocity = Vector3.right * targetSpeed;
-
-        damageable = true;
-        target = GameObject.Find("Base").transform;
-        currentDir = TargetDirection;
-        
-        Stuck = false;
-        stuckTime = 5f;
-        lastTime = Time.timeSinceLevelLoad;
+        // Health events
+        health.onDied.AddListener(Pop);
+        health.onHurt.AddListener(() => damageStartTime = Time.timeSinceLevelLoad);
     }
 
     private void Update()
@@ -148,12 +149,6 @@ public class Bubble : MonoBehaviour
     {
         UpdateMovement();
 
-        // On death
-        if (hp <= 0)
-        {
-            Pop();
-        }
-
         // bubble turns red when hit 
         if (damageStartTime != 0)
         {
@@ -168,17 +163,12 @@ public class Bubble : MonoBehaviour
             }
         }
 
-
         // Checks if the bubble has barely moved for roughly 5 seconds
         CheckStuck();
     }
 
     private void UpdateMovement()
     {
-        var targetDirection = (flowDirection * flowStrength + Separation() * separationStrength + ObstacleAvoidance() * obstacleAvoidanceStrength).normalized;
-
-        var targetVelocity = targetDirection * targetSpeed;
-
         movementForceController.current = rigidbody.velocity;
         movementForceController.target = targetVelocity;
 
@@ -192,31 +182,6 @@ public class Bubble : MonoBehaviour
         torqueController.current = new Vector2(angleDifference, 0);
         
         rigidbody.AddTorque(torqueController.output.x);
-    }
-
-    private Vector2 FindDesiredDirection()
-    {
-        Vector2 desiredDirection = new Vector2();
-        foreach (Vector2 dir in raycastDirections)
-        {
-            validDirections[raycastDirections.IndexOf(dir)] = false;
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, dir, 2, steeringMask);
-            if (!hit)
-            {
-
-                validDirections[raycastDirections.IndexOf(dir)] = true;
-                if (Vector2.Dot(desiredDirection, TargetDirection) < Vector2.Dot(dir, TargetDirection))
-                {
-                    desiredDirection = dir;
-                }
-            }
-        }
-        if (desiredDirection.x == 0 || currentDir.x == 0)
-        {
-            desiredDirection = currentDir;
-        }
-        currentDir = desiredDirection;
-        return desiredDirection;
     }
 
     private Vector2 ObstacleAvoidance()
@@ -261,13 +226,9 @@ public class Bubble : MonoBehaviour
         return totalForce;
     }
 
-    public void Hurt(float amount)
+    public void Hurt(float damage)
     {
-        if (damageable)
-        {
-            hp -= amount;
-            damageStartTime = Time.timeSinceLevelLoad;
-        }
+        health.Hurt(damage);
     }
 
     public void Blow(Vector2 force)
@@ -317,17 +278,13 @@ public class Bubble : MonoBehaviour
             }
         }
 
+        onPopped.Invoke();
+
         Destroy(gameObject);
     }
 
     private void OnDrawGizmos()
     {
-        //foreach (Vector2 dir in raycastDirections)
-        //{
-        //    Gizmos.color = validDirections[raycastDirections.IndexOf(dir)] ? Color.green : Color.red;
-        //    Gizmos.DrawRay(new Ray(transform.position, dir.normalized));
-        //}
-
         if (!Application.isPlaying)
         {
             return;
@@ -349,9 +306,7 @@ public class Bubble : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawLine(position, position + ObstacleAvoidance() * obstacleAvoidanceStrength * vectorScale);
 
-        // Target direction
-        var targetDirection = (flowDirection * flowStrength + Separation() * separationStrength + ObstacleAvoidance() * obstacleAvoidanceStrength).normalized;
-        var targetVelocity = targetDirection * targetSpeed;
+        // Target velocity
         Gizmos.color = Color.black;
         Gizmos.DrawLine(position, position + targetVelocity * vectorScale);
 
@@ -370,20 +325,15 @@ public class Bubble : MonoBehaviour
 
     private void CheckStuck()
     {
-        float stuckSpeed = 0.01f;
-
         var speed = rigidbody.velocity.magnitude;
 
-        // if stuck for longer than 5 seconds, stuck = true
-        if(speed > stuckSpeed)
+        if (speed > stuckSpeed)
         {
-            lastTime = Time.timeSinceLevelLoad;
+            stuckTimer = 0;
         }
-
-        if (Time.timeSinceLevelLoad > stuckTime + lastTime)
+        else
         {
-            Debug.Log("bubble is stuck");
-            Stuck = true;
+            stuckTimer += Time.fixedDeltaTime;
         }
     }
 

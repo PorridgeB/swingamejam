@@ -77,7 +77,7 @@ public class WaveManager : MonoBehaviour
 
     public void CheckForWaveComplete()
     {
-        WaveComplete = !(FindObjectsOfType<Bubble>().Any(x => !x.Stuck)
+        WaveComplete = !(FindObjectsOfType<Bubble>().Any(x => !x.isStuck)
             || FindObjectsOfType<Spawner>().Any(x => !x.completed));
 
         if (WaveComplete)

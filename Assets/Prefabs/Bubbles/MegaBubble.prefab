@@ -94,6 +94,7 @@ GameObject:
   - component: {fileID: 5756103300745008173}
   - component: {fileID: 6820415286456471428}
   - component: {fileID: 6056004441052727517}
+  - component: {fileID: 6851363050463108060}
   m_Layer: 6
   m_Name: MegaBubble
   m_TagString: Bubble
@@ -172,6 +173,9 @@ MonoBehaviour:
   onDamaged:
     m_PersistentCalls:
       m_Calls: []
+  onPopped:
+    m_PersistentCalls:
+      m_Calls: []
   blowingInfluence: 2
   stickingInfluence: 1
   magneticInfluence: 0
@@ -182,29 +186,35 @@ MonoBehaviour:
   obstacleAvoidanceMaxDistance: 2
   separationStrength: 3
   separationRadius: 1.5
+  flowDirection: {x: 1, y: 0}
   damageOnImpact: 4
-  target: {fileID: 0}
   hp: 10
+  stuck: 0
+  frozen: 0
   spawnBubblesOnDeath: 0
   babyBubblePrefab: {fileID: 0}
   popParticle: {fileID: 6988472824656846569, guid: 89315a937de75ef4983d59ef2e7176ad, type: 3}
-  steeringMask:
-    serializedVersion: 2
-    m_Bits: 1
-  raycastDirections:
-  - {x: 1, y: 0}
-  - {x: 1, y: 1}
-  - {x: 1, y: -1}
-  - {x: -1, y: 0}
-  - {x: -1, y: 1}
-  - {x: -1, y: -1}
-  - {x: 0, y: -1}
-  - {x: 0, y: 1}
-  validDirections: 0000000000000000
-  flowDirection: {x: 1, y: 0}
   frozenTime: 2
-  frozen: 0
   bounceAudioSource: {fileID: 5587494888912140069}
+--- !u!114 &6851363050463108060
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6056004441052727516}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63aeeb7fc07198248b7f0e2b88e5816f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onDied:
+    m_PersistentCalls:
+      m_Calls: []
+  onHurt:
+    m_PersistentCalls:
+      m_Calls: []
+  maxHealth: 10
 --- !u!1001 &7795669888535781330
 PrefabInstance:
   m_ObjectHideFlags: 0

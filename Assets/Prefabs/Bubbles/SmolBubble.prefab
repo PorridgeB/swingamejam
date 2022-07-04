@@ -94,6 +94,7 @@ GameObject:
   - component: {fileID: 6546894358597944444}
   - component: {fileID: 4419985711805708707}
   - component: {fileID: 7592451483294288937}
+  - component: {fileID: 912094039396703019}
   m_Layer: 6
   m_Name: SmolBubble
   m_TagString: Bubble
@@ -172,6 +173,9 @@ MonoBehaviour:
   onDamaged:
     m_PersistentCalls:
       m_Calls: []
+  onPopped:
+    m_PersistentCalls:
+      m_Calls: []
   blowingInfluence: 2
   stickingInfluence: 1
   magneticInfluence: 0
@@ -182,21 +186,35 @@ MonoBehaviour:
   obstacleAvoidanceMaxDistance: 2
   separationStrength: 3
   separationRadius: 1.5
+  flowDirection: {x: 1, y: 0}
   damageOnImpact: 2
-  target: {fileID: 0}
   hp: 1
+  stuck: 0
+  frozen: 0
   spawnBubblesOnDeath: 0
   babyBubblePrefab: {fileID: 2065136343749234248, guid: 3b4621034fe0f6c43a46199d27fd8445, type: 3}
   popParticle: {fileID: 6988472824656846569, guid: 89315a937de75ef4983d59ef2e7176ad, type: 3}
-  steeringMask:
-    serializedVersion: 2
-    m_Bits: 64
-  raycastDirections: []
-  validDirections: 
-  flowDirection: {x: 1, y: 0}
   frozenTime: 2
-  frozen: 0
   bounceAudioSource: {fileID: 6304244190805400538}
+--- !u!114 &912094039396703019
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7592451483294288936}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63aeeb7fc07198248b7f0e2b88e5816f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onDied:
+    m_PersistentCalls:
+      m_Calls: []
+  onHurt:
+    m_PersistentCalls:
+      m_Calls: []
+  maxHealth: 1
 --- !u!1001 &8563630125123367725
 PrefabInstance:
   m_ObjectHideFlags: 0

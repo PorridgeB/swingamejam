@@ -28,6 +28,6 @@ public class Base : MonoBehaviour
 
         bubble.Pop();
 
-        health.Hit(bubble.damageOnImpact);
+        health.Hurt(bubble.damageOnImpact);
     }
 }
