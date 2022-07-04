@@ -8,6 +8,7 @@ public class ItemPlacementController : MonoBehaviour
 {
     public UnityEvent<InventoryItem> onItemPlaced;
     public UnityEvent<InventoryItem> onItemGrabbed;
+    public UnityEvent onItemPlacementFailed;
     public UnityEvent onItemRotated;
     public bool canGrab = true;
 
@@ -37,7 +38,7 @@ public class ItemPlacementController : MonoBehaviour
                     if (tower.placedByPlayer)
                     {
                         Select(tower.item);
-                        currentItemPlacement.transform.rotation = tower.transform.rotation;
+                        currentItemPlacement.itemSprite.transform.rotation = tower.transform.rotation;
 
                         Destroy(tower.gameObject);
 
@@ -88,11 +89,13 @@ public class ItemPlacementController : MonoBehaviour
 
         if (!currentItemPlacement.canPlace)
         {
+            onItemPlacementFailed.Invoke();
+
             return;
         }
 
         var item = Instantiate(currentItemPlacement.item.prefab);
-        item.transform.SetPositionAndRotation(currentItemPlacement.transform.position, currentItemPlacement.transform.rotation);
+        item.transform.SetPositionAndRotation(currentItemPlacement.transform.position, currentItemPlacement.itemRotation);
 
         var tower = item.GetComponent<Tower>();
         tower.placedByPlayer = true;

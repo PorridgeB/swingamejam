@@ -17,30 +17,30 @@ public class ItemPlacement : MonoBehaviour
     public bool canPlace = true;
     [HideInInspector]
     public bool rotate = false;
+    public SpriteRenderer itemSprite;
 
-    private SpriteRenderer spriteRenderer;
+    public Quaternion itemRotation => itemSprite.transform.rotation;
 
-    private void Awake()
-    {
-        spriteRenderer = GetComponent<SpriteRenderer>();
-    }
+    [SerializeField]
+    private GameObject cantPlace;
 
     private void Start()
     {
-        spriteRenderer.sprite = item.placementSprite;
-        
+        itemSprite.sprite = item.placementSprite;
+
         // Stop the sprite from appearing at the origin for a frame before "Update()"
-        spriteRenderer.enabled = false;
+        itemSprite.enabled = false;
     }
 
     private void Update()
     {
-        var overlappingCollider = Physics2D.OverlapCircle(transform.position, item.size, LayerMask.GetMask("Tower", "Obstacle"));
+        var overlappingCollider = Physics2D.OverlapCircle(transform.position, item.size, LayerMask.GetMask("Tower", "Obstacle", "Base"));
         canPlace = overlappingCollider == null;
+        cantPlace.SetActive(!canPlace);
 
-        spriteRenderer.enabled = true;
+        itemSprite.enabled = true;
 
-        spriteRenderer.color = canPlace ? canPlaceColor : cantPlaceColor;
+        itemSprite.color = canPlace ? canPlaceColor : cantPlaceColor;
 
         var mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mousePosition.z = 0;
@@ -57,12 +57,12 @@ public class ItemPlacement : MonoBehaviour
             var angleToMouse = Mathf.Atan2(deltaPosition.y, deltaPosition.x) * Mathf.Rad2Deg;
             angleToMouse = Mathf.Round(angleToMouse / rotationSnap) * rotationSnap;
 
-            var previousRotation = transform.rotation;
+            var previousRotation = itemSprite.transform.rotation;
 
-            transform.rotation = Quaternion.Euler(0, 0, angleToMouse);
+            itemSprite.transform.rotation = Quaternion.Euler(0, 0, angleToMouse);
 
             // The item was rotated
-            if (previousRotation != transform.rotation)
+            if (previousRotation != itemSprite.transform.rotation)
             {
                 onRotated.Invoke();
             }
