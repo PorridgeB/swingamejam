@@ -42,8 +42,8 @@ TagManager:
   - 
   - 
   m_SortingLayers:
-  - name: Default
-    uniqueID: 0
+  - name: Backgrounds
+    uniqueID: 1146937615
     locked: 0
   - name: Obstacles
     uniqueID: 4054916487
@@ -53,4 +53,7 @@ TagManager:
     locked: 0
   - name: Bubbles
     uniqueID: 4131863841
+    locked: 0
+  - name: Default
+    uniqueID: 0
     locked: 0
