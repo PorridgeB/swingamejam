@@ -41,6 +41,8 @@ public class Bubble : MonoBehaviour
     public float separationRadius = 1.5f;
 
     [HideInInspector]
+    public bool overrideSteering = false;
+    [HideInInspector]
     public Vector2 flowDirection = Vector3.right;
 
     [Space]
@@ -55,10 +57,6 @@ public class Bubble : MonoBehaviour
     public Vector2 targetVelocity => targetDirection * targetSpeed;
     public bool isStuck => stuckTimer > stuckDuration;
 
-    [SerializeField]
-    private bool spawnBubblesOnDeath;
-    [SerializeField]
-    private GameObject babyBubblePrefab;
     [SerializeField]
     private GameObject popParticle;
 
@@ -169,6 +167,11 @@ public class Bubble : MonoBehaviour
 
     private void UpdateMovement()
     {
+        if (overrideSteering)
+        {
+            return;
+        }
+
         movementForceController.current = rigidbody.velocity;
         movementForceController.target = targetVelocity;
 
@@ -182,6 +185,20 @@ public class Bubble : MonoBehaviour
         torqueController.current = new Vector2(angleDifference, 0);
         
         rigidbody.AddTorque(torqueController.output.x);
+    }
+
+    private void CheckStuck()
+    {
+        var speed = rigidbody.velocity.magnitude;
+
+        if (speed > stuckSpeed)
+        {
+            stuckTimer = 0;
+        }
+        else
+        {
+            stuckTimer += Time.fixedDeltaTime;
+        }
     }
 
     private Vector2 ObstacleAvoidance()
@@ -226,63 +243,6 @@ public class Bubble : MonoBehaviour
         return totalForce;
     }
 
-    public void Hurt(float damage)
-    {
-        health.Hurt(damage);
-    }
-
-    public void Blow(Vector2 force)
-    {
-        rigidbody.AddForce(force * blowingInfluence);
-    }
-
-    public void Stick(float strength)
-    {
-        rigidbody.AddForce(stickingInfluence * strength * -rigidbody.velocity);
-    }
-
-    public void Attract(Vector2 force)
-    {
-        rigidbody.AddForce(force * magneticInfluence);
-    }
-
-    public void Pop()
-    {
-        int bubbleSpawnAmt = 3;
-
-        //play pop particle effect
-        GameObject popParticle2 = Instantiate(popParticle);
-        ParticleSystem particle = popParticle2.GetComponent<ParticleSystem>();
-        popParticle2.transform.position = gameObject.transform.position;
-        particle.Play();
-
-        //spawn baby bubbles
-        if (spawnBubblesOnDeath)
-        {
-            for (int i = 0; i < bubbleSpawnAmt; i++)
-            {
-                // choose new random location near bubble
-                // create baby bubble
-                Vector2 pos = new Vector2(gameObject.transform.position.x, gameObject.transform.position.y);
-
-                var randomOffset = Random.insideUnitCircle * 0.5f;
-
-                GameObject newBubble = Instantiate(babyBubblePrefab,
-                    pos + randomOffset,
-                    Quaternion.Euler(0, 0, Random.Range(0, 360)));
-
-                var explosionForce = 1;
-
-                Rigidbody2D rb = newBubble.GetComponent<Rigidbody2D>();
-                rb.AddForce(randomOffset.normalized * explosionForce, ForceMode2D.Impulse);
-            }
-        }
-
-        onPopped.Invoke();
-
-        Destroy(gameObject);
-    }
-
     private void OnDrawGizmos()
     {
         if (!Application.isPlaying)
@@ -323,19 +283,7 @@ public class Bubble : MonoBehaviour
         //}
     }
 
-    private void CheckStuck()
-    {
-        var speed = rigidbody.velocity.magnitude;
-
-        if (speed > stuckSpeed)
-        {
-            stuckTimer = 0;
-        }
-        else
-        {
-            stuckTimer += Time.fixedDeltaTime;
-        }
-    }
+    
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -362,5 +310,38 @@ public class Bubble : MonoBehaviour
         bounceAudioSource.volume = Mathf.Lerp(0.2f, 0.4f, normalizedImpactEnergy);
         bounceAudioSource.pitch = 1 + Random.Range(-0.1f, 0.1f);
         bounceAudioSource.Play();
+    }
+
+    public void Hurt(float damage)
+    {
+        health.Hurt(damage);
+    }
+
+    public void Blow(Vector2 force)
+    {
+        rigidbody.AddForce(force * blowingInfluence);
+    }
+
+    public void Stick(float strength)
+    {
+        rigidbody.AddForce(stickingInfluence * strength * -rigidbody.velocity);
+    }
+
+    public void Attract(Vector2 force)
+    {
+        rigidbody.AddForce(force * magneticInfluence);
+    }
+
+    public void Pop()
+    {
+        //play pop particle effect
+        GameObject popParticle2 = Instantiate(popParticle);
+        ParticleSystem particle = popParticle2.GetComponent<ParticleSystem>();
+        popParticle2.transform.position = gameObject.transform.position;
+        particle.Play();
+
+        onPopped.Invoke();
+
+        Destroy(gameObject);
     }
 }

@@ -95,6 +95,7 @@ GameObject:
   - component: {fileID: 8837795386258062807}
   - component: {fileID: 8073806751121308302}
   - component: {fileID: 8122461324182813748}
+  - component: {fileID: 1354024793155224519}
   m_Layer: 6
   m_Name: ClusterBubble
   m_TagString: Bubble
@@ -170,12 +171,21 @@ MonoBehaviour:
   onBounced:
     m_PersistentCalls:
       m_Calls: []
-  onDamaged:
-    m_PersistentCalls:
-      m_Calls: []
   onPopped:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1354024793155224519}
+        m_TargetAssemblyTypeName: Exploder, Assembly-CSharp
+        m_MethodName: Explode
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   blowingInfluence: 2
   stickingInfluence: 1
   magneticInfluence: 0
@@ -186,13 +196,10 @@ MonoBehaviour:
   obstacleAvoidanceMaxDistance: 2
   separationStrength: 3
   separationRadius: 1.5
+  overrideSteering: 0
   flowDirection: {x: 1, y: 0}
   damageOnImpact: 2
-  hp: 3
-  stuck: 0
   frozen: 0
-  spawnBubblesOnDeath: 1
-  babyBubblePrefab: {fileID: 2065136343749234248, guid: 3b4621034fe0f6c43a46199d27fd8445, type: 3}
   popParticle: {fileID: 6988472824656846569, guid: 89315a937de75ef4983d59ef2e7176ad, type: 3}
   frozenTime: 2
   bounceAudioSource: {fileID: 26025469890402206}
@@ -215,6 +222,23 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   maxHealth: 3
+  invulnerable: 0
+--- !u!114 &1354024793155224519
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8073806751121308303}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67fd768139c8dff44b8d95d4956d4763, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bubblePrefab: {fileID: 2065136343749234248, guid: 3b4621034fe0f6c43a46199d27fd8445, type: 3}
+  count: 3
+  radius: 0.5
+  impulse: 1
 --- !u!1001 &2448122615750426473
 PrefabInstance:
   m_ObjectHideFlags: 0
