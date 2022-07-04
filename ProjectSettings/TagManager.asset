@@ -45,3 +45,12 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Obstacles
+    uniqueID: 4054916487
+    locked: 0
+  - name: Towers
+    uniqueID: 1850131055
+    locked: 0
+  - name: Bubbles
+    uniqueID: 4131863841
+    locked: 0

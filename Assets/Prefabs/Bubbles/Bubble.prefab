@@ -68,8 +68,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -163103455
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: ce395a2db988c5d4d885f58517d674d0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -183,12 +183,10 @@ MonoBehaviour:
   obstacleAvoidanceMaxDistance: 2
   separationStrength: 3
   separationRadius: 1.5
+  overrideSteering: 0
   flowDirection: {x: 1, y: 0}
   damageOnImpact: 2
-  stuck: 0
   frozen: 0
-  spawnBubblesOnDeath: 0
-  babyBubblePrefab: {fileID: 2065136343749234248, guid: 3b4621034fe0f6c43a46199d27fd8445, type: 3}
   popParticle: {fileID: 6988472824656846569, guid: 89315a937de75ef4983d59ef2e7176ad, type: 3}
   frozenTime: 2
   bounceAudioSource: {fileID: 7738461077296918445}

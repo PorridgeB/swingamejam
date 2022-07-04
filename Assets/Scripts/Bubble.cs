@@ -283,8 +283,6 @@ public class Bubble : MonoBehaviour
         //}
     }
 
-    
-
     private void OnCollisionEnter2D(Collision2D collision)
     {
         // A measure for how directly the bubble is hitting the wall (how much the velocity is in line with the hit normal)
