@@ -45,7 +45,7 @@ public class FreezeScript : MonoBehaviour
                 continue;
             }
 
-            bubble.frozen = true;
+            //bubble.frozen = true;
 
             hasFrozen = true;
         }

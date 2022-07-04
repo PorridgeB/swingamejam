@@ -50,12 +50,10 @@ public class Bubble : MonoBehaviour
     [Tooltip("The amount of damage dealt to the player's ant hill when impacting with it")]
     public float damageOnImpact = 2;
 
-    [HideInInspector]
-    public bool frozen;
-
     public Vector2 targetDirection => (flowDirection * flowStrength + Separation() * separationStrength + ObstacleAvoidance() * obstacleAvoidanceStrength).normalized;
     public Vector2 targetVelocity => targetDirection * targetSpeed;
     public bool isStuck => stuckTimer > stuckDuration;
+    public float radius => circleCollider.radius;
 
     [SerializeField]
     private GameObject popParticle;
@@ -63,6 +61,7 @@ public class Bubble : MonoBehaviour
     private float damageStartTime;
     private SpriteRenderer sprite;
 
+    private CircleCollider2D circleCollider;
     private new Rigidbody2D rigidbody;
 
     private float stuckTimer;
@@ -77,17 +76,13 @@ public class Bubble : MonoBehaviour
     private float wobbleFrequency = 20;
 
     [SerializeField]
-    private float frozenTime;
-    private bool alreadyFrozen;
-    private float frozenLastTime;
-
-    [SerializeField]
     private AudioSource bounceAudioSource;
 
     private Health health;
 
     private void Awake()
     {
+        circleCollider = GetComponent<CircleCollider2D>();
         rigidbody = GetComponent<Rigidbody2D>();
         sprite = GetComponentInChildren<SpriteRenderer>();
         health = GetComponent<Health>();
@@ -120,27 +115,6 @@ public class Bubble : MonoBehaviour
 
         // Do wobble by scaling the sprite
         sprite.transform.localScale = Vector2.one + new Vector2(Mathf.Cos(Time.time * wobbleFrequency), Mathf.Sin(Time.time * wobbleFrequency)) * wobbleIntensity;
-
-
-        if (frozen && !alreadyFrozen)
-        {
-            frozenLastTime = Time.timeSinceLevelLoad;
-            alreadyFrozen = true;
-        }
-
-        if (frozen)
-        {
-            sprite.color = new Color(0.2f, 1, 1);
-            rigidbody.simulated = false;
-            //if current time exceeds frozenTime 
-            if (Time.timeSinceLevelLoad > frozenLastTime + frozenTime)
-            {
-                sprite.color = Color.white;
-                frozen = false;
-                alreadyFrozen = false;
-                rigidbody.simulated = true;
-            }
-        }
     }
 
     private void FixedUpdate()
@@ -328,6 +302,11 @@ public class Bubble : MonoBehaviour
     public void Attract(Vector2 force)
     {
         rigidbody.AddForce(force * magneticInfluence);
+    }
+
+    public void Freeze()
+    {
+        rigidbody.velocity = Vector2.zero;
     }
 
     public void Pop()

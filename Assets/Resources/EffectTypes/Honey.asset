@@ -1,0 +1,15 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0f4327faec3a044797d63b8e1686e91, type: 3}
+  m_Name: Honey
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 3110682571967652081, guid: 7b0e86af90655574aa6c64f60010d210, type: 3}
