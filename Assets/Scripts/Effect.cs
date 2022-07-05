@@ -19,14 +19,10 @@ public class Effect : MonoBehaviour
         bubble = GetComponentInParent<Bubble>();
         sprite = GetComponent<SpriteRenderer>();
 
+        // Adjust the size of effect overlay to fit the size of the bubble
         var scale = sizePadding * 2 * bubble.radius / sprite.sprite.bounds.size.x;
         transform.localScale = new Vector3(scale, scale, 1);
     }
-
-    //private void Start()
-    //{
-    //    Invoke(nameof(Expire), duration);
-    //}
 
     protected virtual void Update()
     {
@@ -34,19 +30,17 @@ public class Effect : MonoBehaviour
 
         if (timer > duration)
         {
-            Destroy(gameObject);
+            OnExpire();
         }
     }
 
-    //private void Expire()
-    //{
-    //    Destroy(gameObject);
-    //}
+    protected virtual void OnExpire()
+    {
+        Destroy(gameObject);
+    }
 
     public void Reset()
     {
         timer = 0;
-        //CancelInvoke(nameof(Expire));
-        //Invoke(nameof(Expire), duration);
     }
 }

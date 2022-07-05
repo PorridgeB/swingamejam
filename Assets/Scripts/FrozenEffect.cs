@@ -4,19 +4,29 @@ using UnityEngine;
 
 public class FrozenEffect : Effect
 {
+    [SerializeField]
+    private GameObject shatterPrefab;
+
     private void Start()
     {
+        // Stop the bubble
+        var rigidbody = bubble.GetComponent<Rigidbody2D>();
+        rigidbody.angularVelocity = 0;
+        rigidbody.velocity = Vector2.zero;
+
         bubble.overrideSteering = true;
-        bubble.Freeze();
     }
 
-    private void OnDestroy()
+    protected override void OnExpire()
     {
-        bubble.overrideSteering = false;
-    }
+        base.OnExpire();
 
-    //private void FixedUpdate()
-    //{
-    //    bubble.Freeze();
-    //}
+        bubble.overrideSteering = false;
+
+        var shatter = Instantiate(shatterPrefab);
+        shatter.transform.position = transform.position;
+
+        var particleSystem = shatter.GetComponent<ParticleSystem>();
+        particleSystem.Play();
+    }
 }
