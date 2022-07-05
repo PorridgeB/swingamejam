@@ -7,6 +7,6 @@ public class GameSettings : ScriptableObject
 {
     [Tooltip("The level that the GameManager will load when entering the \"Game\" scene")]
     public Level currentLevel;
-    [Range(0, 3)]
+    [Range(0, 2)]
     public int difficulty;
 }
