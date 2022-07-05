@@ -14,15 +14,19 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
-    public Inventory inventory;
-    public new CameraController camera;
     public UnityEvent onBuildStart;
     public UnityEvent onFightStart;
 
-    [SerializeField] private GameState state;
-    [SerializeField] private int stage;
-    [SerializeField] private WaveManager waveManager;
-    [SerializeField] private GameObject buildUI;
+    public GameSettings gameSettings;
+    public Inventory inventory;
+    public new CameraController camera;
+
+    [SerializeField]
+    private GameState state;
+    [SerializeField]
+    private WaveManager waveManager;
+    [SerializeField]
+    private GameObject buildUI;
     [SerializeField]
     private HealthBar baseHealthBar;
     [SerializeField]
@@ -43,10 +47,9 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         state = GameState.Build;
-        stage = 1;
 
         // Load level
-        var async = SceneManager.LoadSceneAsync(SceneLoaderScript.levelSceneToLoad, LoadSceneMode.Additive);
+        var async = SceneManager.LoadSceneAsync(gameSettings.currentLevel.sceneName, LoadSceneMode.Additive);
 
         async.completed += OnLevelLoaded;
     }
@@ -84,14 +87,9 @@ public class GameManager : MonoBehaviour
         camera.boundary = levelRect;
 
         // Add starting items to inventory
-        var startingInventory = FindObjectOfType<StartingInventory>();
-
-        if (startingInventory != null)
+        foreach (var item in gameSettings.currentLevel.startingInventory)
         {
-            foreach (var item in startingInventory.startingItems)
-            {
-                inventory.AddItem(item);
-            }
+            inventory.AddItem(item);
         }
 
         // Create spawner previews
@@ -140,7 +138,6 @@ public class GameManager : MonoBehaviour
                 baseHealthBar.health.Reset();
                 break;
             case GameState.Fight:
-                stage++;
                 buildUI.SetActive(true);
                 state = GameState.Build;
                 onBuildStart.Invoke();

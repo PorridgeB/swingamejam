@@ -212,8 +212,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4a8c86e968745f44b35289003b24e75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventory: {fileID: 31099415}
-  camera: {fileID: 519420030}
   onBuildStart:
     m_PersistentCalls:
       m_Calls:
@@ -280,8 +278,10 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+  gameSettings: {fileID: 11400000, guid: 56df5ccfc1f6dfc41aa316f56c5e0c3f, type: 2}
+  inventory: {fileID: 31099415}
+  camera: {fileID: 519420030}
   state: 0
-  stage: 0
   waveManager: {fileID: 408100121}
   buildUI: {fileID: 855452733}
   baseHealthBar: {fileID: 2142001787}

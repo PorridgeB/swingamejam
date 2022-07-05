@@ -9,11 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2a67d54a893affd4da10caa0a1e7efb9, type: 3}
-  m_Name: Level 1
+  m_Script: {fileID: 11500000, guid: c00aab878ca0b564ca5dc99c18e39c82, type: 3}
+  m_Name: GameSettings
   m_EditorClassIdentifier: 
-  waves:
-  - sss
-  - ssbb
-  - ssssss
-  - sssssbb
+  currentLevel: {fileID: 11400000, guid: 3134722b910a494498c28c0e87cfc771, type: 2}
+  difficulty: 0

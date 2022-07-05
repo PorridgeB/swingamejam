@@ -41,28 +41,28 @@ public class WaveManager : MonoBehaviour
         }
     }
 
-    public void Spawn(int round)
-    {
-        var spawnArea = GetSpawnArea();
+    //public void Spawn(int round)
+    //{
+    //    var spawnArea = GetSpawnArea();
 
-        foreach (char c in level.waves[round])
-        {
-            GameObject go = null;
-            switch (c)
-            {
-                case 's':
-                    go = spawnPool[0];
-                    break;
-                case 'b':
-                    go = spawnPool[1];
-                    break;
-            }
+    //    foreach (char c in level.waves[round])
+    //    {
+    //        GameObject go = null;
+    //        switch (c)
+    //        {
+    //            case 's':
+    //                go = spawnPool[0];
+    //                break;
+    //            case 'b':
+    //                go = spawnPool[1];
+    //                break;
+    //        }
 
-            var bubble = Instantiate(go.GetComponent<Bubble>());
+    //        var bubble = Instantiate(go.GetComponent<Bubble>());
 
-            bubble.transform.position = spawnArea.RandomPoint();
-        }
-    }
+    //        bubble.transform.position = spawnArea.RandomPoint();
+    //    }
+    //}
 
     public void Begin()
     {

@@ -5,5 +5,6 @@ using UnityEngine;
 [CreateAssetMenu]
 public class Level : ScriptableObject
 {
-    public List<string> waves;
+    public string sceneName;
+    public List<InventoryItem> startingInventory;
 }

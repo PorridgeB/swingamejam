@@ -5,13 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class SceneLoaderScript : MonoBehaviour
 {
-    public static string levelSceneToLoad = "Level1";
-
-    public void loadTestLevel()
-    {
-        LoadLevel("LevelTest1");
-    }
-
     public void loadLvlSelect()
     {
         SceneManager.LoadScene("LevelSelect");
@@ -20,12 +13,6 @@ public class SceneLoaderScript : MonoBehaviour
     public void loadMainMenu()
     {
         SceneManager.LoadScene("MainMenu");
-    }
-
-    public void LoadLevel(string sceneName)
-    {
-        levelSceneToLoad = sceneName;
-        SceneManager.LoadScene("Game");
     }
 
     public void LoadScene(string s)
