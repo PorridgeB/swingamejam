@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2a67d54a893affd4da10caa0a1e7efb9, type: 3}
-  m_Name: Level3
+  m_Name: Level5
   m_EditorClassIdentifier: 
-  sceneName: Level3
+  sceneName: Level5
   startingInventory:
   - {fileID: 11400000, guid: 67d9c082b7da58b42be118974df7eb58, type: 2}
   - {fileID: 11400000, guid: 67d9c082b7da58b42be118974df7eb58, type: 2}
+  - {fileID: 11400000, guid: 67d9c082b7da58b42be118974df7eb58, type: 2}
+  - {fileID: 11400000, guid: 87c4b9340d97cbe43b99725a7855e9c9, type: 2}
   - {fileID: 11400000, guid: 2440ea3becad39141912350315b170a9, type: 2}
-  - {fileID: 11400000, guid: 08fe6aa11542c334b83deaa02a15191d, type: 2}
-  - {fileID: 11400000, guid: 08fe6aa11542c334b83deaa02a15191d, type: 2}
