@@ -64,6 +64,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   effectType: {fileID: 11400000, guid: 21467eb0a3432c14ba5e88366e516c17, type: 2}
+  applyContinuously: 1
 --- !u!1 &810488375153789642
 GameObject:
   m_ObjectHideFlags: 0
