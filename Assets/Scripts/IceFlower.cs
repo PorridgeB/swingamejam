@@ -4,28 +4,29 @@ using UnityEngine;
 
 public class IceFlower : MonoBehaviour
 {
-    public float freezeRate = 5;
+    public float rate = 5;
+    public float radius = 5;
+    public float speed = 10;
 
     [SerializeField]
-    private GameObject effectArea;
+    private EffectType effectType;
+    [SerializeField]
+    private ParticleSystem freezeParticles;
 
     private void Start()
     {
-        effectArea.SetActive(false);
-
-        InvokeRepeating(nameof(Freeze), 0, freezeRate);
+        GameManager.instance.onFightStart.AddListener(() => InvokeRepeating(nameof(Freeze), 0, rate));
+        GameManager.instance.onBuildStart.AddListener(() => CancelInvoke(nameof(Freeze)));
     }
 
     private void Freeze()
     {
-        StartCoroutine(FlickerEffectArea());
+        freezeParticles.Play();
     }
 
-    private IEnumerator FlickerEffectArea()
+    private void OnDrawGizmosSelected()
     {
-        effectArea.SetActive(true);
-        //yield return null;
-        yield return new WaitForSeconds(0.1f);
-        effectArea.SetActive(false);
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(transform.position, radius);
     }
 }
