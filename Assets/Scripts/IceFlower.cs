@@ -7,6 +7,7 @@ public class IceFlower : MonoBehaviour
 {
     public UnityEvent onFreeze;
 
+    public float maxStartDelay = 0.5f;
     public float rate = 5;
     public float duration = 0.5f;
 
@@ -18,7 +19,7 @@ public class IceFlower : MonoBehaviour
     {
         maxRadius = effectAreaCollider.radius;
 
-        GameManager.instance.onFightStart.AddListener(() => { InvokeRepeating(nameof(Freeze), 0, rate); effectAreaCollider.enabled = false; });
+        GameManager.instance.onFightStart.AddListener(() => { InvokeRepeating(nameof(Freeze), Random.Range(0, maxStartDelay), rate); effectAreaCollider.enabled = false; });
         GameManager.instance.onBuildStart.AddListener(() => CancelInvoke(nameof(Freeze)));
     }
 

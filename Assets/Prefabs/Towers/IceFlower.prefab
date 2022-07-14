@@ -179,6 +179,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  maxStartDelay: 0.5
   rate: 2.5
   duration: 0.5
   effectAreaCollider: {fileID: 7631994460560591300}
