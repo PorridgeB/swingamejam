@@ -66,6 +66,7 @@ public class MagneticArea : MonoBehaviour
             var rigidbody = bubble.GetComponent<Rigidbody2D>();
             rigidbody.isKinematic = true;
             rigidbody.angularVelocity = 0;
+            rigidbody.velocity = Vector2.zero;
         }
     }
 

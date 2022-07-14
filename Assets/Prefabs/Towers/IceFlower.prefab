@@ -179,7 +179,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  rate: 5
+  rate: 2.5
   duration: 0.5
   effectAreaCollider: {fileID: 7631994460560591300}
 --- !u!1 &6348659026713597287

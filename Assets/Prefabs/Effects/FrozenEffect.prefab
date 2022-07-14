@@ -97,5 +97,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   effectType: {fileID: 11400000, guid: c91589fe43404ac4a8dda7b17b710d7d, type: 2}
   strength: 1
-  duration: 2
+  duration: 1
+  popRadius: 0.45
   shatterPrefab: {fileID: 2247075244891167411, guid: 8dcc3d42f2d35744698e88572a66b1bc, type: 3}

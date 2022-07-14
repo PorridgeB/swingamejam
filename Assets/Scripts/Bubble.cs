@@ -24,6 +24,10 @@ public class Bubble : MonoBehaviour
     [Tooltip("How much magnetic forces (e.g Magnet Flower) will affect the movement of the bubble")]
     public float magneticInfluence = 0;
 
+    [Header("Effects")]
+    [Tooltip("A list of effect types that the bubble will ignore")]
+    public List<EffectType> ignoreEffectTypes;
+
     [Header("Movement")]
     [Tooltip("The bubble will try and move at this speed")]
     public float targetSpeed = 3;

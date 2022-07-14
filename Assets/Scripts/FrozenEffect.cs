@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class FrozenEffect : Effect
 {
+    [Tooltip("Bubbles with a radius lower than this value, will pop when shattering")]
+    public float popRadius = 0.45f;
+
     [SerializeField]
     private GameObject shatterPrefab;
 
@@ -28,5 +31,10 @@ public class FrozenEffect : Effect
 
         var particleSystem = shatter.GetComponent<ParticleSystem>();
         particleSystem.Play();
+
+        if (bubble.radius < popRadius)
+        {
+            bubble.Pop();
+        }
     }
 }

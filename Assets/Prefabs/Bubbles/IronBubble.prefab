@@ -94,6 +94,9 @@ MonoBehaviour:
   blowingInfluence: 2
   stickingInfluence: 0
   magneticInfluence: 1
+  ignoreEffectTypes:
+  - {fileID: 11400000, guid: c91589fe43404ac4a8dda7b17b710d7d, type: 2}
+  - {fileID: 11400000, guid: 21467eb0a3432c14ba5e88366e516c17, type: 2}
   targetSpeed: 3
   maxForce: 15
   flowStrength: 3
@@ -104,9 +107,7 @@ MonoBehaviour:
   overrideSteering: 0
   flowDirection: {x: 1, y: 0}
   damageOnImpact: 4
-  frozen: 0
   popParticle: {fileID: 6988472824656846569, guid: 89315a937de75ef4983d59ef2e7176ad, type: 3}
-  frozenTime: 2
   bounceAudioSource: {fileID: 7023215227286910649}
 --- !u!114 &5903379124384126688
 MonoBehaviour:

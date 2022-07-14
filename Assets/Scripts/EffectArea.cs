@@ -44,6 +44,11 @@ public class EffectArea : MonoBehaviour
 
     private void ApplyEffect(Bubble bubble)
     {
+        if (bubble.ignoreEffectTypes.Contains(effectType))
+        {
+            return;
+        }
+
         var effects = bubble.GetComponentsInChildren<Effect>();
         var existingEffect = effects.FirstOrDefault(x => x.effectType == effectType);
 
